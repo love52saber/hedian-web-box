@@ -259,25 +259,25 @@ export default [
       }
     ]
   },
-  {
-    path: '/i18n',
-    name: 'i18n',
-    meta: {
-      hideInBread: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'i18n_page',
-        name: 'i18n_page',
-        meta: {
-          icon: 'md-planet',
-          title: 'i18n - {{ i18n_page }}'
-        },
-        component: () => import('@/view/i18n/i18n-page.vue')
-      }
-    ]
-  },
+  // {
+  //   path: '/i18n',
+  //   name: 'i18n',
+  //   meta: {
+  //     hideInBread: true
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'i18n_page',
+  //       name: 'i18n_page',
+  //       meta: {
+  //         icon: 'md-planet',
+  //         title: 'i18n - {{ i18n_page }}'
+  //       },
+  //       component: () => import('@/view/i18n/i18n-page.vue')
+  //     }
+  //   ]
+  // },
   {
     path: '/error_store',
     name: 'error_store',
@@ -314,25 +314,6 @@ export default [
           title: '错误收集'
         },
         component: () => import('@/view/single-page/error-logger.vue')
-      }
-    ]
-  },
-  {
-    path: '/directive',
-    name: 'directive',
-    meta: {
-      hideInBread: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'directive_page',
-        name: 'directive_page',
-        meta: {
-          icon: 'ios-navigate',
-          title: '指令'
-        },
-        component: () => import('@/view/directive/directive.vue')
       }
     ]
   },

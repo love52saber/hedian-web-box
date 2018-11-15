@@ -7,17 +7,14 @@ import store from './store'
 import iView from 'iview'
 import i18n from '@/locale'
 import config from '@/config'
-import importDirective from '@/directive'
 import installPlugin from '@/plugin'
 import './index.less'
 import '@/assets/icons/iconfont.css'
 // 实际打包时应该不引入mock
 /* eslint-disable */
-if (process.env.NODE_ENV !== 'production') require('@/mock')
+// if (process.env.NODE_ENV !== 'production') require('@/mock')
 
-Vue.use(iView, {
-  i18n: (key, value) => i18n.t(key, value)
-})
+Vue.use(iView)
 /**
  * @description 注册admin内置插件
  */
@@ -30,10 +27,6 @@ Vue.config.productionTip = false
  * @description 全局注册应用配置
  */
 Vue.prototype.$config = config
-/**
- * 注册指令
- */
-importDirective(Vue)
 
 /* eslint-disable no-new */
 new Vue({
