@@ -1,16 +1,18 @@
 <template>
   <div class="user-avator-dropdown">
     <Dropdown @on-click="handleClick">
-      <Badge :dot="!!messageUnreadCount">
-        <Avatar :src="userAvator"/>
-      </Badge>
-      <Icon :size="18" type="md-arrow-dropdown"></Icon>
       <DropdownMenu slot="list">
-        <DropdownItem name="message">
-          消息中心<Badge style="margin-left: 10px" :count="messageUnreadCount"></Badge>
-        </DropdownItem>
+        <DropdownItem name="message">基本资料</DropdownItem>
+        <DropdownItem name="message">修改密码</DropdownItem>
         <DropdownItem name="logout">退出登录</DropdownItem>
       </DropdownMenu>
+      <Badge :dot="!!messageUnreadCount">
+        <Avatar icon='ios-person'
+          :src="userAvator" />
+        {{userName}}
+      </Badge>
+      <Icon :size="18"
+        type="md-arrow-dropdown"></Icon>
     </Dropdown>
   </div>
 </template>
@@ -28,6 +30,10 @@ export default {
     messageUnreadCount: {
       type: Number,
       default: 0
+    },
+    userName: {
+      type: String,
+      default: ''
     }
   },
   methods: {

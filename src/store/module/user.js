@@ -1,6 +1,5 @@
 import {
   login
-  // logout,
   // getUserInfo,
   // getMessage,
   // getContentByMsgId,
@@ -8,7 +7,8 @@ import {
   // removeReaded,
   // restoreTrash
 } from '@/api/user'
-import { setToken, getToken } from '@/libs/util'
+import { setToken, getToken, getUserInfo, setUserInfo } from '@/libs/util'
+import _ from 'lodash'
 
 export default {
   state: {
@@ -16,6 +16,7 @@ export default {
     userId: '',
     avatorImgPath: '',
     token: getToken(),
+    userInfo: '',
     access: '',
     hasGetInfo: false,
     messageUnreadList: [],
@@ -39,6 +40,10 @@ export default {
     setToken (state, token) {
       state.token = token
       setToken(token)
+    },
+    setUserInfo (state, user) {
+      state.userInfo = user
+      setUserInfo(user)
     },
     setHasGetInfo (state, status) {
       state.hasGetInfo = status
@@ -79,7 +84,9 @@ export default {
           .then(res => {
             if (res.msg === 'success') {
               const data = res.data
+              console.log(data.token)
               commit('setToken', data.token)
+              commit('setUserInfo', data.user)
             }
             resolve(res)
           })
@@ -92,6 +99,7 @@ export default {
     handleLogOut ({ state, commit }) {
       return new Promise((resolve, reject) => {
         commit('setToken', '')
+        commit('setUserInfo', '')
         commit('setAccess', [])
         resolve()
       })
@@ -100,19 +108,15 @@ export default {
     getUserInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
         try {
-          getUserInfo(state.token)
-            .then(res => {
-              const data = res.data
-              commit('setAvator', data.avator)
-              commit('setUserName', data.name)
-              commit('setUserId', data.user_id)
-              commit('setAccess', data.access)
-              commit('setHasGetInfo', true)
-              resolve(data)
-            })
-            .catch(err => {
-              reject(err)
-            })
+          if (getUserInfo()) {
+            const user = JSON.parse(getUserInfo())
+            commit('setAvator', _.get(user, 'sysFile.url', ''))
+            commit('setUserName', user.name)
+            commit('setUserId', user.userId)
+            commit('setAccess', [])
+            commit('setHasGetInfo', true)
+          }
+          resolve()
         } catch (error) {
           reject(error)
         }

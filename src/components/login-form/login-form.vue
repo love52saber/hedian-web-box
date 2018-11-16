@@ -1,3 +1,14 @@
+<style>
+.mb10 {
+  margin-bottom: 10px;
+}
+.login_form_forget {
+  float: right;
+  cursor: pointer;
+  color: #999;
+}
+</style>
+
 <template>
   <Form ref="loginForm"
     :model="form"
@@ -22,7 +33,10 @@
       </span>
       </Input>
     </FormItem>
+
     <FormItem>
+      <Checkbox v-model="remember">记住用户名</Checkbox>
+      <span class="login_form_forget">忘记密码？</span>
       <Button @click="handleSubmit"
         type="primary"
         long>登录</Button>
@@ -55,8 +69,18 @@ export default {
       form: {
         username: '',
         password: ''
-      }
+      },
+      remember: false
     }
+  },
+  mounted () {
+    this.remember = !!localStorage.getItem('username')
+    if (this.remember) {
+      this.form.username = localStorage.getItem('username')
+    }
+    this.$watch('remember', (val) => {
+      if (!val) window.localStorage.removeItem('username')
+    })
   },
   computed: {
     rules () {

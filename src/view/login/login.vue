@@ -4,13 +4,19 @@
 
 <template>
   <div class="login">
+    <h1 class="app-title"
+      v-text="appName">智能运维管理系统</h1>
     <div class="login-con">
       <Card icon="log-in"
         title="欢迎登录"
         :bordered="false">
         <div class="form-con">
-          <login-form @on-success-valid="handleSubmit"></login-form>
-          <p class="login-tip">输入任意用户名和密码即可</p>
+          <login-form ref="loginForm"
+            @on-success-valid="handleSubmit"></login-form>
+          <p class="login-tip">点击按钮或按下回车键即可</p>
+        </div>
+        <div class="copyright">
+          <p class="lg-copyright">版权所有：南京和电科技有限公司 2018~present <br />技术支持：南京和电科技有限公司</p>
         </div>
       </Card>
     </div>
@@ -19,19 +25,30 @@
 
 <script>
 import LoginForm from '_c/login-form'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   components: {
     LoginForm
   },
+  created () {
+    this.getAppName()
+  },
+  computed: {
+    ...mapState({
+      appName: state => state.app.appName
+    })
+  },
   methods: {
     ...mapActions([
-      'handleLogin'
+      'handleLogin',
+      'getAppName'
     ]),
     handleSubmit ({ username, password }) {
       this.handleLogin({ username, password }).then(res => {
-        console.log('===登录===', res)
         if (res.msg !== 'success') return this.$Message.error(res.msg)
+        if (this.$refs.loginForm.remember) { // 如果勾选记住用户名，则把用户名存在本地
+          localStorage.setItem('username', username)
+        }
         this.$router.push({
           name: this.$config.homeName
         })

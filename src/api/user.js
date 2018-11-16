@@ -1,5 +1,10 @@
 import axios from '@/libs/api.request'
 
+/**
+ * 登录
+ * @param {*} username 用户名
+ * @param {*} password 密码
+ */
 export const login = ({ username, password }) => {
   const data = {
     username,
@@ -12,17 +17,10 @@ export const login = ({ username, password }) => {
   })
 }
 
-// export const getUserInfo = token => {
-//   return axios.request({
-//     url: 'get_info',
-//     params: {
-//       token
-//     },
-//     method: 'get'
-//   })
-// }
-
-export const logout = token => {
+/**
+ * 退出系统
+ */
+export const logout = () => {
   return axios.request({
     url: 'logout',
     method: 'post'

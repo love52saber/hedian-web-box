@@ -4,9 +4,22 @@ import config from '@/config'
 import { forEach, hasOneOf, objEqual } from '@/libs/tools'
 
 export const TOKEN_KEY = 'token'
+export const USER_INFO = 'userInfo'
+export const APP_NAME = 'appName'
 
-export const setToken = (token) => {
-  Cookies.set(TOKEN_KEY, token, {expires: config.cookieExpires || 1})
+/**
+ * 设置token
+ * @param {*} token token值
+ */
+export const setToken = token => {
+  Cookies.set(TOKEN_KEY, token, { expires: config.cookieExpires || 1 })
+}
+
+export const setUserInfo = user => {
+  Cookies.set(USER_INFO, user, { expires: config.cookieExpires || 1 })
+}
+export const setAppName = name => {
+  Cookies.set(APP_NAME, name, { expires: config.cookieExpires || 1 })
 }
 
 export const getToken = () => {
@@ -15,7 +28,19 @@ export const getToken = () => {
   else return false
 }
 
-export const hasChild = (item) => {
+export const getUserInfo = () => {
+  const userInfo = Cookies.get(USER_INFO)
+  if (userInfo) return userInfo
+  else return false
+}
+
+export const getAppName = () => {
+  const appName = Cookies.get(APP_NAME)
+  if (appName) return appName
+  else return false
+}
+
+export const hasChild = item => {
   return item.children && item.children.length !== 0
 }
 
@@ -56,30 +81,32 @@ export const getBreadCrumbList = (route, homeRoute) => {
   let homeItem = { ...homeRoute, icon: homeRoute.meta.icon }
   let routeMetched = route.matched
   if (routeMetched.some(item => item.name === homeRoute.name)) return [homeItem]
-  let res = routeMetched.filter(item => {
-    return item.meta === undefined || !item.meta.hideInBread
-  }).map(item => {
-    let meta = {...item.meta}
-    if (meta.title && typeof meta.title === 'function') {
-      meta.__titleIsFunction__ = true
-      meta.title = meta.title(route)
-    }
-    let obj = {
-      icon: (item.meta && item.meta.icon) || '',
-      name: item.name,
-      meta: meta
-    }
-    return obj
-  })
+  let res = routeMetched
+    .filter(item => {
+      return item.meta === undefined || !item.meta.hideInBread
+    })
+    .map(item => {
+      let meta = { ...item.meta }
+      if (meta.title && typeof meta.title === 'function') {
+        meta.__titleIsFunction__ = true
+        meta.title = meta.title(route)
+      }
+      let obj = {
+        icon: (item.meta && item.meta.icon) || '',
+        name: item.name,
+        meta: meta
+      }
+      return obj
+    })
   res = res.filter(item => {
     return !item.meta.hideInMenu
   })
-  return [{...homeItem, to: homeRoute.path}, ...res]
+  return [{ ...homeItem, to: homeRoute.path }, ...res]
 }
 
-export const getRouteTitleHandled = (route) => {
-  let router = {...route}
-  let meta = {...route.meta}
+export const getRouteTitleHandled = route => {
+  let router = { ...route }
+  let meta = { ...route.meta }
   let title = ''
   if (meta.title) {
     if (typeof meta.title === 'function') {
@@ -96,8 +123,9 @@ export const showTitle = (item, vm) => {
   let { title, __titleIsFunction__ } = item.meta
   if (!title) return
   if (vm.$config.useI18n) {
-    if (title.includes('{{') && title.includes('}}') && vm.$config.useI18n) title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())))
-    else if (__titleIsFunction__) title = item.meta.title
+    if (title.includes('{{') && title.includes('}}') && vm.$config.useI18n) {
+      title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())))
+    } else if (__titleIsFunction__) title = item.meta.title
     else title = vm.$t(item.name)
   } else title = (item.meta && item.meta.title) || item.name
   return title
@@ -167,7 +195,7 @@ const hasAccess = (access, route) => {
  * @description 用户是否可跳转到该页
  */
 export const canTurnTo = (name, access, routes) => {
-  const routePermissionJudge = (list) => {
+  const routePermissionJudge = list => {
     return list.some(item => {
       if (item.children && item.children.length) {
         return routePermissionJudge(item.children)
@@ -226,7 +254,7 @@ export const doCustomTimes = (times, callback) => {
  * @returns {Promise} resolve参数是解析后的二维数组
  * @description 从Csv文件中解析出表格，解析成二维数组
  */
-export const getArrayFromFile = (file) => {
+export const getArrayFromFile = file => {
   let nameSplit = file.name.split('.')
   let format = nameSplit[nameSplit.length - 1]
   return new Promise((resolve, reject) => {
@@ -236,11 +264,14 @@ export const getArrayFromFile = (file) => {
     reader.onload = function (evt) {
       let data = evt.target.result // 读到的数据
       let pasteData = data.trim()
-      arr = pasteData.split((/[\n\u0085\u2028\u2029]|\r\n?/g)).map(row => {
-        return row.split('\t')
-      }).map(item => {
-        return item[0].split(',')
-      })
+      arr = pasteData
+        .split(/[\n\u0085\u2028\u2029]|\r\n?/g)
+        .map(row => {
+          return row.split('\t')
+        })
+        .map(item => {
+          return item[0].split(',')
+        })
       if (format === 'csv') resolve(arr)
       else reject(new Error('[Format Error]:你上传的不是Csv文件'))
     }
@@ -252,7 +283,7 @@ export const getArrayFromFile = (file) => {
  * @returns {Object} { columns, tableData }
  * @description 从二维数组中获取表头和表格数据，将第一行作为表头，用于在iView的表格中展示数据
  */
-export const getTableDataFromArray = (array) => {
+export const getTableDataFromArray = array => {
   let columns = []
   let tableData = []
   if (array.length > 1) {
@@ -326,7 +357,7 @@ export const routeEqual = (route1, route2) => {
   const params2 = route2.params || {}
   const query1 = route1.query || {}
   const query2 = route2.query || {}
-  return (route1.name === route2.name) && objEqual(params1, params2) && objEqual(query1, query2)
+  return route1.name === route2.name && objEqual(params1, params2) && objEqual(query1, query2)
 }
 
 /**
@@ -335,7 +366,7 @@ export const routeEqual = (route1, route2) => {
 export const routeHasExist = (tagNavList, routeItem) => {
   let len = tagNavList.length
   let res = false
-  doCustomTimes(len, (index) => {
+  doCustomTimes(len, index => {
     if (routeEqual(tagNavList[index], routeItem)) res = true
   })
   return res
@@ -345,6 +376,6 @@ export const localSave = (key, value) => {
   localStorage.setItem(key, value)
 }
 
-export const localRead = (key) => {
+export const localRead = key => {
   return localStorage.getItem(key) || ''
 }

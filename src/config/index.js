@@ -17,6 +17,10 @@ export default {
     pro: 'http://192.168.1.23:8099'
   },
   /**
+   * @description 文件服务器地址
+   */
+  fileHost: process.env.NODE_ENV === 'development' ? 'http://192.168.1.23:9005/znyw' : 'http://192.168.1.23:9005/znyw',
+  /**
    * @description 默认打开的首页的路由name值，默认为home
    */
   homeName: 'home',

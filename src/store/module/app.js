@@ -8,14 +8,15 @@ import {
   routeHasExist,
   routeEqual,
   getRouteTitleHandled,
-  localSave,
+  setAppName,
+  getAppName,
   localRead
 } from '@/libs/util'
 import beforeClose from '@/router/before-close'
-import { saveErrorLogger } from '@/api/data'
 import router from '@/router'
 import routers from '@/router/routers'
 import config from '@/config'
+import * as appApi from '@/api/app'
 const { homeName } = config
 
 const closePage = (state, route) => {
@@ -31,13 +32,13 @@ export default {
     breadCrumbList: [],
     tagNavList: [],
     homeRoute: {},
+    appName: getAppName() || '智能运维管理系统',
     local: localRead('local'),
     errorList: [],
-    hasReadErrorPage: false
+    errorCount: state => state.errorList.length
   },
   getters: {
-    menuList: (state, getters, rootState) => getMenuByRouter(routers, rootState.user.access),
-    errorCount: state => state.errorList.length
+    menuList: (state, getters, rootState) => getMenuByRouter(routers, rootState.user.access)
   },
   mutations: {
     setBreadCrumb (state, route) {
@@ -85,30 +86,26 @@ export default {
         setTagNavListInLocalstorage([...state.tagNavList])
       }
     },
-    setLocal (state, lang) {
-      localSave('local', lang)
-      state.local = lang
-    },
-    addError (state, error) {
-      state.errorList.push(error)
-    },
-    setHasReadErrorLoggerStatus (state, status = true) {
-      state.hasReadErrorPage = status
+    setAppName (state, name) {
+      state.appName = name
     }
   },
   actions: {
-    addErrorLog ({ commit, rootState }, info) {
-      if (!window.location.href.includes('error_logger_page')) commit('setHasReadErrorLoggerStatus', false)
-      const { user: { token, userId, userName } } = rootState
-      let data = {
-        ...info,
-        time: Date.parse(new Date()),
-        token,
-        userId,
-        userName
-      }
-      saveErrorLogger(info).then(() => {
-        commit('addError', data)
+    getAppName ({ commit }) {
+      return new Promise((resolve, reject) => {
+        appApi
+          .getAppName()
+          .then(res => {
+            if (res.msg === 'success') {
+              const { data } = res
+              commit('setAppName', data.paravalue)
+              setAppName(data.paravalue)
+            }
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     }
   }

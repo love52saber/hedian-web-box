@@ -33,7 +33,6 @@ export default [
     redirect: '/home',
     component: Main,
     meta: {
-      hideInMenu: true,
       notCache: true
     },
     children: [
@@ -41,7 +40,6 @@ export default [
         path: '/home',
         name: 'home',
         meta: {
-          hideInMenu: true,
           title: '首页',
           notCache: true,
           icon: 'md-home'
@@ -50,15 +48,15 @@ export default [
       }
     ]
   },
-  {
-    path: '',
-    name: 'doc',
-    meta: {
-      title: '文档',
-      href: 'https://lison16.github.io/iview-admin-doc/#/',
-      icon: 'ios-book'
-    }
-  },
+  // {
+  //   path: '',
+  //   name: 'doc',
+  //   meta: {
+  //     title: '文档',
+  //     href: 'https://lison16.github.io/iview-admin-doc/#/',
+  //     icon: 'ios-book'
+  //   }
+  // },
   {
     path: '/join',
     name: 'join',
@@ -239,26 +237,26 @@ export default [
       }
     ]
   },
-  {
-    path: '/tools_methods',
-    name: 'tools_methods',
-    meta: {
-      hideInBread: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'tools_methods_page',
-        name: 'tools_methods_page',
-        meta: {
-          icon: 'ios-hammer',
-          title: '工具方法',
-          beforeCloseName: 'before_close_normal'
-        },
-        component: () => import('@/view/tools-methods/tools-methods.vue')
-      }
-    ]
-  },
+  // {
+  //   path: '/tools_methods',
+  //   name: 'tools_methods',
+  //   meta: {
+  //     hideInBread: true
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'tools_methods_page',
+  //       name: 'tools_methods_page',
+  //       meta: {
+  //         icon: 'ios-hammer',
+  //         title: '工具方法',
+  //         beforeCloseName: 'before_close_normal'
+  //       },
+  //       component: () => import('@/view/tools-methods/tools-methods.vue')
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/i18n',
   //   name: 'i18n',
@@ -339,7 +337,6 @@ export default [
         path: 'level_2_2',
         name: 'level_2_2',
         meta: {
-          access: ['super_admin'],
           icon: 'md-funnel',
           showAlways: true,
           title: '二级-2'
