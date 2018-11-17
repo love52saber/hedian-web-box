@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { getToken } from '@/libs/util'
+import $config from '@/config'
 import _ from 'lodash'
 // import { Spin } from 'iview'
 // const addErrorLog = errorInfo => {
@@ -21,7 +22,7 @@ class HttpRequest {
   getInsideConfig () {
     const config = {
       baseURL: this.baseUrl,
-      timeout: 30000,
+      timeout: $config.TIME_OUT,
       withCredentials: true,
       headers: {
         common: {}

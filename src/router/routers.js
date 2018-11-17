@@ -81,8 +81,8 @@ export default [
     name: 'message',
     component: Main,
     meta: {
-      hideInBread: true,
-      hideInMenu: true
+      hideInBread: true
+      // hideInMenu: true
     },
     children: [
       {

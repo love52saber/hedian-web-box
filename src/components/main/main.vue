@@ -1,55 +1,27 @@
 <template>
-  <Layout style="height: 100%"
-    class="main">
-    <Sider hide-trigger
-      collapsible
-      :width="256"
-      :collapsed-width="64"
-      v-model="collapsed"
-      class="left-sider"
-      :style="{overflow: 'hidden'}">
-      <side-menu accordion
-        ref="sideMenu"
-        :active-name="$route.name"
-        :collapsed="collapsed"
-        @on-select="turnToPage"
-        :menu-list="menuList">
+  <Layout style="height: 100%" class="main">
+    <Sider hide-trigger collapsible :width="256" :collapsed-width="64" v-model="collapsed" class="left-sider" :style="{overflow: 'hidden'}">
+      <side-menu accordion ref="sideMenu" :active-name="$route.name" :collapsed="collapsed" @on-select="turnToPage" :menu-list="menuList">
         <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
         <div class="logo-con">
-          <img v-show="!collapsed"
-            :src="maxLogo"
-            key="max-logo" />
-          <img v-show="collapsed"
-            :src="minLogo"
-            key="min-logo" />
+          <img v-show="!collapsed" :src="maxLogo" class="big" key="max-logo" />
+          <p v-show="!collapsed" v-text="appName" class="u_app_name"></p>
+          <img v-show="collapsed" :src="minLogo" class="small" title="版权©南京和电科技有限公司" key="min-logo" />
         </div>
       </side-menu>
     </Sider>
     <Layout>
       <Header class="header-con">
-        <header-bar :collapsed="collapsed"
-          @on-coll-change="handleCollapsedChange">
-          <user :message-unread-count="messageUnreadCount"
-            :user-name="username"
-            :user-avator="userAvator" />
-          <language v-if="$config.useI18n"
-            @on-lang-change="setLocal"
-            style="margin-right: 10px;"
-            :lang="local" />
-          <error-store v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader"
-            :has-read="hasReadErrorPage"
-            :count="errorCount"></error-store>
-          <fullscreen v-model="isFullscreen"
-            style="margin-right: 10px;" />
+        <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
+          <user :user-name="username" :user-avator="userAvator" />
+          <notice :todo-number="1" :warning-number="warningNumber" :msg-number="3" />
+          <fullscreen v-model="isFullscreen" style="margin-right: 10px;" />
         </header-bar>
       </Header>
       <Content class="main-content-con">
         <Layout class="main-layout-con">
           <div class="tag-nav-wrapper">
-            <tags-nav :value="$route"
-              @input="handleClick"
-              :list="tagNavList"
-              @on-close="handleCloseTag" />
+            <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag" />
           </div>
           <Content class="content-wrapper">
             <keep-alive :include="cacheList">
@@ -67,39 +39,45 @@ import HeaderBar from './components/header-bar'
 import TagsNav from './components/tags-nav'
 import User from './components/user'
 import Fullscreen from './components/fullscreen'
-import Language from './components/language'
-import ErrorStore from './components/error-store'
-import { mapMutations, mapActions, mapGetters } from 'vuex'
+import Notice from './components/notice'
+import { mapMutations, mapActions, mapState } from 'vuex'
 import { getNewTagList, getNextRoute, routeEqual } from '@/libs/util'
 import routers from '@/router/routers'
-import minLogo from '@/assets/images/logo-min.jpg'
-import maxLogo from '@/assets/images/logo.jpg'
+import minLogo from '@/assets/images/hedian.png'
+import maxLogo from '@/assets/images/logo.png'
 import './main.less'
 export default {
   name: 'Main',
   components: {
     SideMenu,
     HeaderBar,
-    Language,
     TagsNav,
     Fullscreen,
-    ErrorStore,
-    User
+    User,
+    Notice
   },
   data () {
     return {
       collapsed: false,
       minLogo,
       maxLogo,
-      isFullscreen: false
+      isFullscreen: false,
+      webSocket: null
     }
   },
+  created () {
+    this.initWebSocket()
+    this.getRealTimeAlarmList()
+  },
+  beforeDestroy () {
+    this.closeWebSocket()
+  },
   computed: {
-    ...mapGetters([
-      'errorCount',
-      'messageUnreadCount'
-    ]),
-
+    ...mapState({
+      userId: state => state.user.userId,
+      warningNumber: state => state.abnormal.warningNumber,
+      appName: state => state.app.appName
+    }),
     tagNavList () {
       return this.$store.state.app.tagNavList
     },
@@ -135,8 +113,49 @@ export default {
       'setHomeRoute'
     ]),
     ...mapActions([
-      'handleLogin'
+      'getRealTimeAlarmList'
     ]),
+    initWebSocket () {
+      if (!this.userId) return
+      const wsUrl = this.$config.wsUrl + this.userId
+      this.webSocket = new WebSocket(wsUrl)
+      this.webSocket.onmessage = this.onMessage
+      this.webSocket.onopen = this.onOpen
+      this.webSocket.onclose = this.onClose
+    },
+    onMessage (e) {
+      console.log('收到ws消息 = ', e)
+      const type = JSON.parse(e.data).type
+      switch (type) {
+        case 1: // 告警类通知， 刷新告警状态
+          console.log('告警类通知')
+          break
+        case 2:
+
+          break
+        case 3:
+
+          break
+        default:
+          break
+      }
+    },
+    onClose (e) {
+      console.log('关闭ws链接 (' + e.code + ')')
+      this.reconnect()
+    },
+    onOpen (e) {
+      console.log('创建ws链接 :', JSON.stringify(e))
+    },
+    closeWebSocket () {
+      if (!this.webSocket) return
+      this.webSocket.close()
+    },
+    reconnect () { // 30s断线重连
+      setTimeout(() => {
+        this.initWebSocket()
+      }, 30000)
+    },
     turnToPage (route) {
       let { name, params, query } = {}
       if (typeof route === 'string') name = route

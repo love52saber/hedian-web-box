@@ -21,6 +21,21 @@ export default {
    */
   fileHost: process.env.NODE_ENV === 'development' ? 'http://192.168.1.23:9005/znyw' : 'http://192.168.1.23:9005/znyw',
   /**
+   * @description websocket地址
+   */
+  wsUrl:
+    process.env.NODE_ENV === 'development'
+      ? 'ws://192.168.1.23:8099/api/websocket/'
+      : 'ws://192.168.1.23:8099/api/websocket/',
+  /**
+   * @description 高德地图的key
+   */
+  AMAP_KEY: '0dfdcddd576a40eb8db6b4588f6f3c81',
+  /**
+   * @description 请求超时时间
+   */
+  TIME_OUT: 10000,
+  /**
    * @description 默认打开的首页的路由name值，默认为home
    */
   homeName: 'home',
