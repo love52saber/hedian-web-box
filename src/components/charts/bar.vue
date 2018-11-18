@@ -22,33 +22,87 @@ export default {
   methods: {
     resize () {
       this.dom.resize()
-    }
-  },
-  mounted () {
-    this.$nextTick(() => {
+    },
+    render () {
       let xAxisData = Object.keys(this.value)
       let seriesData = Object.values(this.value)
       let option = {
-        title: {
-          text: this.text,
-          subtext: this.subtext,
-          x: 'center'
+        color: ['#63afd2'],
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
         },
-        xAxis: {
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: [{
           type: 'category',
-          data: xAxisData
-        },
-        yAxis: {
-          type: 'value'
-        },
+          data: xAxisData,
+          axisTick: {
+            alignWithLabel: true,
+            lineStyle: {
+              color: '#63afd2'
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#63afd2'
+            }
+          },
+          axisLabel: {
+            color: '#fff',
+            show: true,
+            interval: 0,
+            rotate: 15
+          }
+        }],
+        yAxis: [
+          {
+            type: 'value',
+            axisLine: {
+              lineStyle: {
+                color: '#fff'
+              }
+            },
+            axisTick: {
+              lineStyle: {
+                color: '#fff'
+              }
+            },
+            axisLabel: {
+              color: '#fff'
+            }
+          }
+        ],
         series: [{
           data: seriesData,
-          type: 'bar'
+          name: '数量',
+          type: 'bar',
+          barWidth: '35%',
+          label: {
+            normal: {
+              position: 'top',
+              show: true
+            }
+          }
         }]
       }
       this.dom = echarts.init(this.$refs.dom, 'tdTheme')
       this.dom.setOption(option)
+    }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.render()
       on(window, 'resize', this.resize)
+    })
+    this.$watch('value', () => {
+      this.render()
     })
   },
   beforeDestroy () {

@@ -1,0 +1,42 @@
+.g_falut_statistics {
+  .ivu-card-body {
+    padding: 0;
+  }
+  .top-summary-title {
+    height: 30px;
+    border-bottom: 1px solid #fff;
+    .tlt-item {
+      position: relative;
+      display: inline-block;
+      width: 50%;
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      line-height: 22px;
+      cursor: pointer;
+      &.active::before {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        margin-left: -6px;
+        width: 0;
+        height: 0;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent transparent #fff transparent;
+      }
+      &:first-child::after {
+        content: '';
+        display: block;
+        width: 1px;
+        height: 20px;
+        background: #63afd2;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+}

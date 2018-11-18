@@ -7,6 +7,7 @@
       <i-col :push="14" :span="5" style="padding-bottom: 20px;z-index:499">
         <alarm-statistics :levels="levels" :status="statusList" class="mb20" />
         <latest-top-fault :data="latestTopFault" class="mb20" />
+        <fault-statistics :device="topDevice" :fault="topFault" />
         <!-- <Card title="最新TOP故障统计" shadow>
           <chart-bar style="height: 180px;" :value="barData" />
         </Card> -->
@@ -54,21 +55,27 @@ export default {
     ...mapState({
       latestTopFault: state => state.abnormal.latestTopFault,
       levels: state => state.statistics.levels,
-      statusList: state => state.statistics.statusList
+      statusList: state => state.statistics.statusList,
+      topDevice: state => state.statistics.topFaultDeviceStatistics,
+      topFault: state => state.statistics.topFaultStatistics
     })
   },
   created () {
     this.getDeviceTree() // 获取设备树
     this.getLatestTopFault() // 最新TOP故障
     this.getDeviceLevels() // 获取告警等级统计
-    this.getDeviceStatusList()
+    this.getDeviceStatusList() // 获取报警统计中状态统计
+    this.getTopFaultDeviceStatistics() // top故障设备统计
+    this.getTopFaultStatistics() // top故障统计
   },
   methods: {
     ...mapActions([
       'getDeviceTree',
       'getLatestTopFault',
       'getDeviceLevels',
-      'getDeviceStatusList'
+      'getDeviceStatusList',
+      'getTopFaultDeviceStatistics',
+      'getTopFaultStatistics'
     ])
   },
   mounted () {
