@@ -1,54 +1,75 @@
 <template>
   <div class="g_home_container">
-    <!-- <Row :gutter="20">
-      <i-col :xs="12" :md="8" :lg="4" v-for="(infor, i) in inforCardData" :key="`infor-${i}`" style="height: 120px;padding-bottom: 10px;">
-        <infor-card shadow :color="infor.color" :icon="infor.icon" :icon-size="36">
-          <count-to :end="infor.count" count-class="count-style" />
-          <p>{{ infor.title }}</p>
-        </infor-card>
+    <Row class="m_home_statistics">
+      <i-col :span="5" style="padding-bottom: 20px;z-index:499">
+        <device-tree />
+      </i-col>
+      <i-col :push="14" :span="5" style="padding-bottom: 20px;z-index:499">
+        <alarm-statistics :levels="levels" :status="statusList" class="mb20" />
+        <latest-top-fault :data="latestTopFault" class="mb20" />
+        <!-- <Card title="最新TOP故障统计" shadow>
+          <chart-bar style="height: 180px;" :value="barData" />
+        </Card> -->
+
       </i-col>
     </Row>
-    <Row :gutter="20" style="margin-top: 10px;">
-      <i-col :md="24" :lg="8" style="margin-bottom: 20px;">
-        <Card>
-          <chart-pie style="height: 300px;" :value="pieData" text="用户访问来源"></chart-pie>
-        </Card>
-      </i-col>
-      <i-col :md="24" :lg="16" style="margin-bottom: 20px;">
-        <Card shadow>
-          <chart-bar style="height: 300px;" :value="barData" text="每周用户活跃量" />
-        </Card>
-      </i-col>
-    </Row>
-    <Row>
-      <Card shadow>
-        <example style="height: 310px;" />
-      </Card>
-    </Row> -->
     <device-map ref="map" area="阜宁县" :center="center" />
   </div>
 </template>
 
 <script>
-import InforCard from '_c/info-card'
-import CountTo from '_c/count-to'
 import { ChartPie, ChartBar } from '_c/charts'
 import deviceMap from '_c/home/map'
-import Example from './example.vue'
+import deviceTree from '_c/home/deviceTree'
+import AlarmStatistics from '_c/home/alarmStatistics'
+import LatestTopFault from '_c/home/latestTopFault'
+import FaultStatistics from '_c/home/faultStatistics'
+import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
-    InforCard,
-    CountTo,
     ChartPie,
     ChartBar,
-    Example,
-    deviceMap
+    deviceMap,
+    deviceTree,
+    AlarmStatistics,
+    LatestTopFault,
+    FaultStatistics
   },
   data () {
     return {
-      center: [33.925221, 119.852412]
+      center: [33.68573, 119.795338],
+      barData: {
+        Mon: 13253,
+        Tue: 34235,
+        Wed: 26321,
+        Thu: 12340,
+        Fri: 24643,
+        Sat: 1322,
+        Sun: 1324
+      }
     }
+  },
+  computed: {
+    ...mapState({
+      latestTopFault: state => state.abnormal.latestTopFault,
+      levels: state => state.statistics.levels,
+      statusList: state => state.statistics.statusList
+    })
+  },
+  created () {
+    this.getDeviceTree() // 获取设备树
+    this.getLatestTopFault() // 最新TOP故障
+    this.getDeviceLevels() // 获取告警等级统计
+    this.getDeviceStatusList()
+  },
+  methods: {
+    ...mapActions([
+      'getDeviceTree',
+      'getLatestTopFault',
+      'getDeviceLevels',
+      'getDeviceStatusList'
+    ])
   },
   mounted () {
     //
@@ -57,11 +78,18 @@ export default {
 </script>
 
 <style lang="less">
-.count-style {
-  font-size: 50px;
-}
 .g_home_container {
   width: 100%;
   height: 100%;
+  position: relative;
+  .m_home_statistics {
+    position: absolute;
+    left: 0;
+    top: 15px;
+    padding: 0 10px;
+    .ivu-card-head {
+      padding: 5px 15px;
+    }
+  }
 }
 </style>

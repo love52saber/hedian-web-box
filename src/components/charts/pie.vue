@@ -22,31 +22,22 @@ export default {
   methods: {
     resize () {
       this.dom.resize()
-    }
-  },
-  mounted () {
-    this.$nextTick(() => {
-      let legend = this.value.map(_ => _.name)
+    },
+    render () {
       let option = {
-        title: {
-          text: this.text,
-          subtext: this.subtext,
-          x: 'center'
-        },
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
-        legend: {
-          orient: 'vertical',
-          left: 'left',
-          data: legend
-        },
+        color: ['#04bbb7', '#ff0000', '#1a689f', '#6d6c6c'],
         series: [
           {
+            name: '报警统计',
             type: 'pie',
-            radius: '55%',
+            radius: ['35%', '55%'],
+            avoidLabelOverlap: true,
             center: ['50%', '60%'],
+            minAngle: 5,
             data: this.value,
             itemStyle: {
               emphasis: {
@@ -60,7 +51,15 @@ export default {
       }
       this.dom = echarts.init(this.$refs.dom, 'tdTheme')
       this.dom.setOption(option)
+    }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.render()
       on(window, 'resize', this.resize)
+    })
+    this.$watch('value', () => {
+      this.render()
     })
   },
   beforeDestroy () {

@@ -1,3 +1,10 @@
+/*
+ * @Author: chenghao
+ * @Date: 2018-11-17 14:09:19
+ * @Last Modified by:   chenghao
+ * @Last Modified time: 2018-11-17 14:09:19
+ * @desc: 用户类数据流
+ */
 import {
   login
   // getUserInfo,

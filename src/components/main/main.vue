@@ -220,6 +220,12 @@ export default {
         name: this.$config.homeName
       })
     }
+
+    // const elem = document.querySelector('.content-wrapper')
+    // const bodyHeight = document.body.offsetHeight
+    // const headerAndNavHeight = 104
+    // elem.style.height = `${bodyHeight - headerAndNavHeight}px`
+    // console.log(elem, bodyHeight)
   }
 }
 </script>

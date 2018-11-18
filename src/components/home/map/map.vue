@@ -30,6 +30,7 @@
 import * as maps from 'vue2-leaflet'
 import L from 'leaflet'
 import _ from 'lodash'
+import { on } from '@/libs/tools'
 import urgent from '@/assets/images/home/urgent.gif'
 import important from '@/assets/images/home/important.gif'
 import secondary from '@/assets/images/home/secondary.gif'
@@ -39,7 +40,6 @@ import tips from '@/assets/images/home/tips.gif'
 import unknown from '@/assets/images/home/unknown.gif'
 import { tiandiTileLayer, geoqTileLayer } from '@/map'
 import { getDistrictBounds } from '@/map/amap-server'
-// import bus from '@/libs/bus'
 
 export default {
   name: 'Map',
@@ -89,15 +89,27 @@ export default {
   },
   computed: {
     deviceList () {
-      console.log(this.$store.state.device.deviceList)
       return this.$store.state.device.deviceList.filter(item => (_.get(item, 'resAlias', '').indexOf(this.filterParams.name) > -1 || _.get(item, 'resName', '').indexOf(this.filterParams.name) > -1) && _.get(item, 'resStatusDO.resStatusName', '').indexOf(this.filterParams.status) > -1 && _.get(item, 'resAbnormallevel.resAbnormallevelName', '').indexOf(this.filterParams.level) > -1)
     }
+  },
+  created () {
+
   },
   mounted () {
     // 设备树进行了筛选过滤
     // bus.$on('filter', (data) => {
     //   this.filterParams = data
     // })
+    // this.$refs.map.mapObject.fitBounds()
+    this.resize()
+    this.$nextTick(() => { // 页面尺寸更改时重新适配地图避免地图瓦片未加载
+      on(window, 'resize', (e) => {
+        console.log('resize trigger')
+        this.$refs.map.mapObject.invalidateSize(true)
+        this.resize()
+      })
+    })
+    // 获取阜宁县边框
     getDistrictBounds(this.area, 1).then(data => {
       let { polyline } = data.districts[0]
       polyline.split('|').forEach(el => {
@@ -111,6 +123,13 @@ export default {
     })
   },
   methods: {
+    resize () {
+      const offsetHeight = document.querySelector('.m_home_statistics').offsetHeight
+      const bodyHeight = document.body.offsetHeight
+      const headerAndNavHeight = 104
+      const elem = document.querySelector('div.g_home_container')
+      elem.style.height = offsetHeight > (bodyHeight - headerAndNavHeight) ? `${offsetHeight}px` : `${bodyHeight - headerAndNavHeight}px`
+    },
     gifIcon (data) {
       return L.icon({
         iconUrl: _.has(this.colorGifMap, data.resColor) ? this.colorGifMap[data.resColor] : this.colorGifMap['nokey'],

@@ -7,15 +7,19 @@ import store from './store'
 import iView from 'iview'
 import i18n from '@/locale'
 import config from '@/config'
+import 'iview/dist/styles/iview.css'
 import '../node_modules/leaflet/dist/leaflet.css'
 import installPlugin from '@/plugin'
-import './index.less'
 import '@/assets/icons/iconfont.css'
+import dayjs from 'dayjs'
 // 实际打包时应该不引入mock
 /* eslint-disable */
 // if (process.env.NODE_ENV !== 'production') require('@/mock')
 
 Vue.use(iView)
+Vue.filter('formatTime', function(val) {
+  return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
+})
 /**
  * @description 注册admin内置插件
  */
@@ -28,6 +32,11 @@ Vue.config.productionTip = false
  * @description 全局注册应用配置
  */
 Vue.prototype.$config = config
+
+Vue.prototype.$Notice.config({
+  top: 120,
+  duration: 5
+})
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,3 +1,10 @@
+/*
+ * @Author: chenghao
+ * @Date: 2018-11-17 10:17:33
+ * @Last Modified by:   chenghao
+ * @Last Modified time: 2018-11-17 10:17:33
+ * @desc：用户类接口
+ */
 import axios from '@/libs/api.request'
 
 /**

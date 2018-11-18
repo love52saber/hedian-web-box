@@ -1,0 +1,65 @@
+.g_card_container {
+  @border: 2px solid #63afd2;
+  border-radius: 0;
+  letter-spacing: 1px;
+  .left-top-border,
+  .left-bottom-border,
+  .right-top-border,
+  .right-bottom-border {
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+  .left-top-border {
+    top: -2px;
+    left: -2px;
+    border-top: @border;
+    border-left: @border;
+  }
+  .left-bottom-border {
+    bottom: -2px;
+    left: -2px;
+    border-bottom: @border;
+    border-left: @border;
+  }
+  .right-top-border {
+    right: -2px;
+    top: -2px;
+    border-right: @border;
+    border-top: @border;
+  }
+  .right-bottom-border {
+    right: -2px;
+    bottom: -2px;
+    border-right: @border;
+    border-bottom: @border;
+  }
+  .header {
+    height: 30px;
+    background: #24414d;
+  }
+  .ivu-card-head {
+    background: #24414d;
+    border: none;
+    height: 30px;
+    color: #fff;
+    p {
+      font-weight: normal;
+      color: #fff;
+    }
+  }
+  .ivu-card-extra {
+    right: 10px;
+    top: 6px;
+    color: #fff;
+  }
+  .ivu-card-body {
+    background: #0f191e;
+    border: 1px solid #2b4c5b;
+    color: #fff;
+    .m_card_content {
+      border: 1px blue solid;
+    }
+  }
+}

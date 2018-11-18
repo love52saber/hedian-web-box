@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-16 13:48:29
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-16 14:13:21
+ * @Last Modified time: 2018-11-18 13:03:39
  * @desc: 警告类接口
  */
 import axios from '@/libs/api.request'
@@ -35,5 +35,15 @@ export const getRealTimeAlarmList = params => {
       ...defaultParams,
       ...params
     }
+  })
+}
+
+/**
+ * 获取最新Top故障
+ */
+export const getLatestTopFault = () => {
+  return axios.request({
+    url: '/api/resBase/getTopAlarm',
+    method: 'get'
   })
 }
