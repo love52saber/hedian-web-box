@@ -44,12 +44,13 @@ export default {
           type: 'category',
           data: xAxisData,
           axisTick: {
-            alignWithLabel: true,
+            alignWithLabel: false,
             lineStyle: {
               color: '#63afd2'
             }
           },
           axisLine: {
+            show: false,
             lineStyle: {
               color: '#63afd2'
             }
@@ -58,7 +59,16 @@ export default {
             color: '#fff',
             show: true,
             interval: 0,
-            rotate: 15
+            margin: 2,
+            // rotate: 15,
+            formatter: (value) => {
+              let b = ''
+              // 从前往后数,每隔4个字符插入一个换行字符
+              for (let i = 0; i < value.length; i += 4) {
+                b += value.substr(i, 4) + '\n'
+              }
+              return b
+            }
           }
         }],
         yAxis: [

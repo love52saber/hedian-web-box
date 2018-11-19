@@ -1,17 +1,13 @@
 <template>
   <div class="g_home_container">
     <Row class="m_home_statistics">
-      <i-col :span="5" style="padding-bottom: 20px;z-index:499">
-        <device-tree />
+      <i-col :span="4" style="padding-bottom: 20px;z-index:499">
+        <device-tree :device-tree="deviceTree" />
       </i-col>
-      <i-col :push="14" :span="5" style="padding-bottom: 20px;z-index:499">
+      <i-col :push="15" :span="5" style="padding-bottom: 20px;z-index:499">
         <alarm-statistics :levels="levels" :status="statusList" class="mb20" />
         <latest-top-fault :data="latestTopFault" class="mb20" />
         <fault-statistics :device="topDevice" :fault="topFault" />
-        <!-- <Card title="最新TOP故障统计" shadow>
-          <chart-bar style="height: 180px;" :value="barData" />
-        </Card> -->
-
       </i-col>
     </Row>
     <device-map ref="map" area="阜宁县" :center="center" />
@@ -39,25 +35,17 @@ export default {
   },
   data () {
     return {
-      center: [33.68573, 119.795338],
-      barData: {
-        Mon: 13253,
-        Tue: 34235,
-        Wed: 26321,
-        Thu: 12340,
-        Fri: 24643,
-        Sat: 1322,
-        Sun: 1324
-      }
     }
   },
   computed: {
     ...mapState({
+      center: state => state.device.center,
       latestTopFault: state => state.abnormal.latestTopFault,
       levels: state => state.statistics.levels,
       statusList: state => state.statistics.statusList,
       topDevice: state => state.statistics.topFaultDeviceStatistics,
-      topFault: state => state.statistics.topFaultStatistics
+      topFault: state => state.statistics.topFaultStatistics,
+      deviceTree: state => state.device.deviceTree
     })
   },
   created () {

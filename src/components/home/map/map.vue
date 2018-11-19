@@ -9,7 +9,7 @@
     <l-tile-layer :url="geoqTileLayer.darkblue" :options="geoqOpt"></l-tile-layer>
     <l-tile-layer :url="tiandiTileLayer.img" :options="tiandiOpt"></l-tile-layer>
     <l-polyline v-for="(item,idx) in bounds" :key="idx" :latLngs="item"></l-polyline>
-    <!-- <div class="marker" v-for="(item,idx) in deviceList" :key="'marker'+idx">
+    <div class="marker" v-for="(item,idx) in deviceList" :key="'marker'+idx">
       <l-circle-marker v-if="item.resStatus === 1 && !item.selected" :latLng="[item.latitude,item.longitude]" :fillColor="item.resColor" :fillOpacity="0.8" :stroke="false" :radius="item.radius" @click="deviceDotClick(item)">
         <l-tooltip>
           <h4>{{item.resAbnormaldesc ? item.resAbnormaldesc : '正常运转'}}</h4>
@@ -21,7 +21,7 @@
         </l-tooltip>
         <l-popup v-if="item.resStatus !== 1" :latLng="[item.latitude,item.longitude]" :content="item.resAbnormaldesc ? item.resAbnormaldesc : '正常运转'"></l-popup>
       </l-marker>
-    </div> -->
+    </div>
 
   </l-map>
 </template>
@@ -30,7 +30,11 @@
 import * as maps from 'vue2-leaflet'
 import L from 'leaflet'
 import _ from 'lodash'
+import { mapMutations } from 'vuex'
 import { on } from '@/libs/tools'
+import { tiandiTileLayer, geoqTileLayer } from '@/map'
+import { getDistrictBounds } from '@/map/amap-server'
+import bus from '@/libs/bus'
 import urgent from '@/assets/images/home/urgent.gif'
 import important from '@/assets/images/home/important.gif'
 import secondary from '@/assets/images/home/secondary.gif'
@@ -38,8 +42,6 @@ import normal from '@/assets/images/home/normal.gif'
 import offline from '@/assets/images/home/offline.gif'
 import tips from '@/assets/images/home/tips.gif'
 import unknown from '@/assets/images/home/unknown.gif'
-import { tiandiTileLayer, geoqTileLayer } from '@/map'
-import { getDistrictBounds } from '@/map/amap-server'
 
 export default {
   name: 'Map',
@@ -78,7 +80,7 @@ export default {
         '#6d6c6c': offline, // 离线图片
         '#1a689f': unknown, // 未知图片
         '#04bbb7': normal, // 正常图片
-        'nokey': normal // 容错字段,使用未知图片
+        'nokey': normal // 容错字段,使用正常图片
       },
       filterParams: {
         name: '',
@@ -97,14 +99,17 @@ export default {
   },
   mounted () {
     // 设备树进行了筛选过滤
-    // bus.$on('filter', (data) => {
-    //   this.filterParams = data
-    // })
-    // this.$refs.map.mapObject.fitBounds()
+    bus.$on('filter', (data) => {
+      this.filterParams = data
+    })
+    // 设备树进行了点击
+    bus.$on('device-tree-click', (id) => {
+      this.openPopup(id)
+    })
     this.resize()
-    this.$nextTick(() => { // 页面尺寸更改时重新适配地图避免地图瓦片未加载
+    // 页面尺寸更改时重新适配地图避免地图瓦片未加载
+    this.$nextTick(() => {
       on(window, 'resize', (e) => {
-        console.log('resize trigger')
         this.$refs.map.mapObject.invalidateSize(true)
         this.resize()
       })
@@ -123,6 +128,9 @@ export default {
     })
   },
   methods: {
+    ...mapMutations([
+      'setCenter'
+    ]),
     resize () {
       const offsetHeight = document.querySelector('.m_home_statistics').offsetHeight
       const bodyHeight = document.body.offsetHeight
@@ -130,7 +138,7 @@ export default {
       const elem = document.querySelector('div.g_home_container')
       elem.style.height = offsetHeight > (bodyHeight - headerAndNavHeight) ? `${offsetHeight}px` : `${bodyHeight - headerAndNavHeight}px`
     },
-    gifIcon (data) {
+    gifIcon (data) { // 返回gif图标
       return L.icon({
         iconUrl: _.has(this.colorGifMap, data.resColor) ? this.colorGifMap[data.resColor] : this.colorGifMap['nokey'],
         iconSize: data.iconSize,
@@ -151,20 +159,14 @@ export default {
         this.tempRefValue = e
       })
     },
-    deviceDotClick (data) {
+    deviceDotClick (data) { // 地图上设备点击事件
       this.$emit('marker-click', data.resId);
       [...document.querySelectorAll('.u_device_item')].forEach(item => {
         item.classList.remove('active')
       })
       document.querySelector(`.u_res_id_${data.resId}`).classList.add('active')
-      const deviceList = this.$store.state.device.deviceList
-      deviceList.map(device => {
-        device.radius = 6
-        device.iconSize = [20, 20]
-        device.iconAnchor = [10, 10]
-        device.selected = false
-      })
-      bus.$emit('changeMapCenter', data.resId)
+      this.setCenter(data.resId)
+      this.openPopup(data.resId)
     }
   },
   components: {

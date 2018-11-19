@@ -1,8 +1,8 @@
 /*
  * @Author: chenghao
  * @Date: 2018-11-17 10:17:33
- * @Last Modified by:   chenghao
- * @Last Modified time: 2018-11-17 10:17:33
+ * @Last Modified by: chenghao
+ * @Last Modified time: 2018-11-18 16:52:46
  * @desc：用户类接口
  */
 import axios from '@/libs/api.request'
@@ -25,58 +25,11 @@ export const login = ({ username, password }) => {
 }
 
 /**
- * 退出系统
+ * 忘记密码
  */
-export const logout = () => {
+export const forgotPassword = () => {
   return axios.request({
-    url: 'logout',
-    method: 'post'
-  })
-}
-
-export const getMessage = () => {
-  return axios.request({
-    url: 'message/init',
+    url: '/api/sysConf/10000/Forget_Pwd',
     method: 'get'
-  })
-}
-
-export const getContentByMsgId = msg_id => {
-  return axios.request({
-    url: 'message/content',
-    method: 'get',
-    params: {
-      msg_id
-    }
-  })
-}
-
-export const hasRead = msg_id => {
-  return axios.request({
-    url: 'message/has_read',
-    method: 'post',
-    data: {
-      msg_id
-    }
-  })
-}
-
-export const removeReaded = msg_id => {
-  return axios.request({
-    url: 'message/remove_readed',
-    method: 'post',
-    data: {
-      msg_id
-    }
-  })
-}
-
-export const restoreTrash = msg_id => {
-  return axios.request({
-    url: 'message/restore',
-    method: 'post',
-    data: {
-      msg_id
-    }
   })
 }

@@ -5,11 +5,9 @@ import App from './App'
 import router from './router'
 import store from './store'
 import iView from 'iview'
-import i18n from '@/locale'
 import config from '@/config'
 import 'iview/dist/styles/iview.css'
 import '../node_modules/leaflet/dist/leaflet.css'
-import installPlugin from '@/plugin'
 import '@/assets/icons/iconfont.css'
 import dayjs from 'dayjs'
 // 实际打包时应该不引入mock
@@ -20,10 +18,6 @@ Vue.use(iView)
 Vue.filter('formatTime', function(val) {
   return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
 })
-/**
- * @description 注册admin内置插件
- */
-installPlugin(Vue)
 /**
  * @description 生产环境关掉提示
  */
@@ -42,7 +36,6 @@ Vue.prototype.$Notice.config({
 new Vue({
   el: '#app',
   router,
-  i18n,
   store,
   render: h => h(App)
 })

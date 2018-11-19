@@ -10,42 +10,37 @@
 </style>
 
 <template>
-  <Form ref="loginForm"
-    :model="form"
-    :rules="rules"
-    @keydown.enter.native="handleSubmit">
+  <Form ref="loginForm" :model="form" :rules="rules" @keydown.enter.native="handleSubmit">
     <FormItem prop="username">
-      <Input v-model="form.username"
-        placeholder="请输入用户名">
+      <Input v-model="form.username" placeholder="请输入用户名">
       <span slot="prepend">
-        <Icon :size="16"
-          type="ios-person"></Icon>
+        <Icon :size="16" type="ios-person"></Icon>
       </span>
       </Input>
     </FormItem>
     <FormItem prop="password">
-      <Input type="password"
-        v-model="form.password"
-        placeholder="请输入密码">
+      <Input type="password" ref="pwd" v-model="form.password" placeholder="请输入密码">
       <span slot="prepend">
-        <Icon :size="14"
-          type="md-lock"></Icon>
+        <Icon :size="14" type="md-lock"></Icon>
       </span>
       </Input>
     </FormItem>
 
     <FormItem>
       <Checkbox v-model="remember">记住用户名</Checkbox>
-      <span class="login_form_forget">忘记密码？</span>
-      <Button @click="handleSubmit"
-        type="primary"
-        long>登录</Button>
+      <span @click.stop="showForgot = true" class="login_form_forget">忘记密码？</span>
+      <Button @click="handleSubmit" type="primary" long>登录</Button>
     </FormItem>
+    <forgot-password :show="showForgot" @close='showForgot=false' />
   </Form>
 </template>
 <script>
+import ForgotPassword from './forgot'
 export default {
   name: 'LoginForm',
+  components: {
+    ForgotPassword
+  },
   props: {
     userNameRules: {
       type: Array,
@@ -70,7 +65,8 @@ export default {
         username: '',
         password: ''
       },
-      remember: false
+      remember: false,
+      showForgot: false
     }
   },
   mounted () {

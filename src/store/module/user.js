@@ -1,12 +1,13 @@
 /*
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
- * @Last Modified by:   chenghao
- * @Last Modified time: 2018-11-17 14:09:19
+ * @Last Modified by: chenghao
+ * @Last Modified time: 2018-11-18 17:20:05
  * @desc: 用户类数据流
  */
 import {
-  login
+  login,
+  forgotPassword
   // getUserInfo,
   // getMessage,
   // getContentByMsgId,
@@ -25,6 +26,7 @@ export default {
     token: getToken(),
     userInfo: '',
     access: '',
+    forgotPassword: '',
     hasGetInfo: false,
     messageUnreadList: [],
     messageReadedList: [],
@@ -51,6 +53,9 @@ export default {
     setUserInfo (state, user) {
       state.userInfo = user
       setUserInfo(user)
+    },
+    setForgotPassword (state, value) {
+      state.forgotPassword = value
     },
     setHasGetInfo (state, status) {
       state.hasGetInfo = status
@@ -127,6 +132,23 @@ export default {
         } catch (error) {
           reject(error)
         }
+      })
+    },
+    // 忘记密码
+    forgotPassword ({ commit }) {
+      return new Promise((resolve, reject) => {
+        forgotPassword()
+          .then(res => {
+            console.log('===忘记密码配置===', res)
+            if (res.msg === 'success') {
+              const data = res.data.paravalue.replace(/\\r\\n/g, '<br/>')
+              commit('setForgotPassword', data)
+            }
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
     // 获取消息列表，其中包含未读、已读、回收站三个列表
