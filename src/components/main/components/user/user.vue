@@ -2,26 +2,32 @@
   <div class="user-avator-dropdown">
     <Dropdown @on-click="handleClick">
       <DropdownMenu slot="list">
-        <DropdownItem name="message">基本资料</DropdownItem>
-        <DropdownItem name="message">修改密码</DropdownItem>
+        <DropdownItem name="userInfo">基本资料</DropdownItem>
+        <DropdownItem name="password">修改密码</DropdownItem>
         <DropdownItem name="logout">退出登录</DropdownItem>
       </DropdownMenu>
       <Badge :dot="!!messageUnreadCount">
-        <Avatar icon='ios-person'
-          :src="userAvator" />
+        <Avatar icon='ios-person' :src="userAvator" />
         {{userName}}
       </Badge>
-      <Icon :size="18"
-        type="md-arrow-dropdown"></Icon>
+      <Icon :size="18" type="md-arrow-dropdown"></Icon>
     </Dropdown>
+    <update-user :user-avator="userAvator" />
+    <update-password />
   </div>
 </template>
 
 <script>
 import './user.less'
-import { mapActions } from 'vuex'
+import UpdateUser from './updateUser.vue'
+import UpdatePassword from './updatePassword.vue'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   name: 'User',
+  components: {
+    UpdateUser,
+    UpdatePassword
+  },
   props: {
     userAvator: {
       type: String,
@@ -40,6 +46,10 @@ export default {
     ...mapActions([
       'handleLogOut'
     ]),
+    ...mapMutations([
+      'setShowUpdateUserInfoModal',
+      'setShowUpdatePasswordModal'
+    ]),
     logout () {
       this.handleLogOut().then(() => {
         this.$router.push({
@@ -54,9 +64,16 @@ export default {
     },
     handleClick (name) {
       switch (name) {
-        case 'logout': this.logout()
+        case 'logout':
+          this.logout()
           break
-        case 'message': this.message()
+        case 'userInfo':
+          this.setShowUpdateUserInfoModal(true)
+          break
+        case 'password':
+          this.setShowUpdatePasswordModal(true)
+          break
+        default:
           break
       }
     }

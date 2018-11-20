@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:17:33
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-18 16:52:46
+ * @Last Modified time: 2018-11-20 16:39:25
  * @desc：用户类接口
  */
 import axios from '@/libs/api.request'
@@ -31,5 +31,29 @@ export const forgotPassword = () => {
   return axios.request({
     url: '/api/sysConf/10000/Forget_Pwd',
     method: 'get'
+  })
+}
+
+/**
+ * 修改资料
+ * @param {*} params 参数对象
+ */
+export const updateUserInfo = params => {
+  return axios.request({
+    url: '/api/sysUser/info',
+    method: 'put',
+    data: params
+  })
+}
+
+/**
+ * 修改密码
+ * @param {*} params 参数对象
+ */
+export const updatePassword = params => {
+  return axios.request({
+    url: '/api/sysUser/updatePassword',
+    method: 'put',
+    data: params
   })
 }

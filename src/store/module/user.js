@@ -2,19 +2,10 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-18 17:20:05
+ * @Last Modified time: 2018-11-20 17:06:24
  * @desc: 用户类数据流
  */
-import {
-  login,
-  forgotPassword
-  // getUserInfo,
-  // getMessage,
-  // getContentByMsgId,
-  // hasRead,
-  // removeReaded,
-  // restoreTrash
-} from '@/api/user'
+import * as userApi from '@/api/user'
 import { setToken, getToken, getUserInfo, setUserInfo } from '@/libs/util'
 import _ from 'lodash'
 
@@ -27,6 +18,9 @@ export default {
     userInfo: '',
     access: '',
     forgotPassword: '',
+    showUpdateUserInfoModal: false,
+    showUpdatePasswordModal: false,
+    // TODO:待查验字段是否有用
     hasGetInfo: false,
     messageUnreadList: [],
     messageReadedList: [],
@@ -57,6 +51,13 @@ export default {
     setForgotPassword (state, value) {
       state.forgotPassword = value
     },
+    setShowUpdateUserInfoModal (state, status) {
+      state.showUpdateUserInfoModal = !!status
+    },
+    setShowUpdatePasswordModal (state, status) {
+      state.showUpdatePasswordModal = !!status
+    },
+    // TODO:待查验字段是否有用
     setHasGetInfo (state, status) {
       state.hasGetInfo = status
     },
@@ -89,10 +90,11 @@ export default {
     handleLogin ({ commit }, { username, password }) {
       username = username.trim()
       return new Promise((resolve, reject) => {
-        login({
-          username,
-          password
-        })
+        userApi
+          .login({
+            username,
+            password
+          })
           .then(res => {
             if (res.msg === 'success') {
               const data = res.data
@@ -137,9 +139,10 @@ export default {
     // 忘记密码
     forgotPassword ({ commit }) {
       return new Promise((resolve, reject) => {
-        forgotPassword()
+        userApi
+          .forgotPassword()
           .then(res => {
-            console.log('===忘记密码配置===', res)
+            // console.log('===忘记密码配置===', res)
             if (res.msg === 'success') {
               const data = res.data.paravalue.replace(/\\r\\n/g, '<br/>')
               commit('setForgotPassword', data)
@@ -151,6 +154,33 @@ export default {
           })
       })
     },
+    // 修改用户资料
+    updateUserInfo ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .updateUserInfo(params)
+          .then(res => {
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 修改密码
+    updatePassword ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .updatePassword(params)
+          .then(res => {
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // TODO:待定是否有用
     // 获取消息列表，其中包含未读、已读、回收站三个列表
     getMessageList ({ state, commit }) {
       return new Promise((resolve, reject) => {

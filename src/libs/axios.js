@@ -58,7 +58,7 @@ class HttpRequest {
       res => {
         this.destroy(url)
         if (res.data.msg !== 'success') {
-          return Notice.error({ title: res.data.msg, desc: `地址为${url}的数据接口出错，报错信息为${res.data.msg}` })
+          return Notice.error({ title: res.data.msg, desc: `${res.data.msg}` })
         }
         return res.data
       },
