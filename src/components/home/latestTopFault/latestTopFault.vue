@@ -42,9 +42,9 @@
       <li class="nodata" v-if="data.length === 0">没有故障数据</li>
       <li v-for="(item,index) in data" :key="index + '-' +item.resAbnormalId" :title="item.resAbnormaldesc" class="u_top_fault_item">
         <div class="cell" :title="item.resAbnormaldesc">
-          <Tag :color="item.resAbnormallevel.resAbnormallevelColor" v-text="item.resAbnormallevel.resAbnormallevelName"></Tag>
+          <Tag :color="item.resAbnormallevelColor" v-text="item.resAbnormallevelName"></Tag>
         </div>
-        <div class="cell"> {{item.resAbnomaltime|formatTime}}</div>
+        <div class="cell"> {{item.resAbnomaltime}}</div>
         <div class="cell" :title="item.resAbnormalName" v-text="item.resAbnormalName"></div>
       </li>
     </ul>

@@ -2,17 +2,8 @@ import axios from 'axios'
 import { getToken } from '@/libs/util'
 import $config from '@/config'
 import _ from 'lodash'
-// import { Spin } from 'iview'
-// const addErrorLog = errorInfo => {
-//   const { statusText, status, request: { responseURL } } = errorInfo
-//   let info = {
-//     type: 'ajax',
-//     code: status,
-//     mes: statusText,
-//     url: responseURL
-//   }
-//   if (!responseURL.includes('save_error_logger')) store.dispatch('addErrorLog', info)
-// }
+import $router from '@/router'
+import { Notice } from 'iview'
 
 class HttpRequest {
   constructor (baseUrl = baseURL) {
@@ -66,11 +57,27 @@ class HttpRequest {
     instance.interceptors.response.use(
       res => {
         this.destroy(url)
+        if (res.data.msg !== 'success') {
+          return Notice.error({ title: res.data.msg, desc: `地址为${url}的数据接口出错，报错信息为${res.data.msg}` })
+        }
         return res.data
       },
       error => {
         this.destroy(url)
-        console.log('===error===', JSON.stringify(error))
+        if (!error.response) return Notice.error({ title: '请求超时' })
+        // console.log('===error===', JSON.stringify(error))
+        switch (error.response.status) {
+          case 401:
+            $router.replace({
+              name: 'login'
+            })
+            break
+          case 500:
+            Notice.error({ title: '服务端异常', desc: `服务端发生异常,异常的接口地址为${error.response.data.path}` })
+            break
+          default:
+            break
+        }
         return Promise.reject(error)
       }
     )

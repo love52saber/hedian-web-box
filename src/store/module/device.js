@@ -2,11 +2,10 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:08:16
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-19 17:13:57
+ * @Last Modified time: 2018-11-20 10:49:36
  * @desc: 设备类数据流
  */
 import * as deviceApi from '@/api/device'
-import { Notice } from 'iview'
 
 export default {
   state: {
@@ -20,6 +19,12 @@ export default {
   mutations: {
     setDeviceTree (state, device) {
       state.deviceTree = device
+    },
+    setCurrentDevice (state, id) {
+      state.currentDevice = id
+    },
+    setCurrentRes (state, id) {
+      state.currentRes = id
     },
     pushDeviceList (state, data) {
       state.deviceList.push(data)
@@ -40,6 +45,9 @@ export default {
       device.iconSize = [40, 40]
       device.iconAnchor = [10, 10]
       state.center = [device.latitude, device.longitude]
+    },
+    setDeviceDetail (state, data) {
+      state.deviceDetail = data
     }
   },
   actions: {
@@ -50,9 +58,23 @@ export default {
           .getDeviceTree()
           .then(res => {
             // console.log('===设备树===', res)
-            if (res.msg !== 'success') return Notice.error({ title: res.msg })
             const { data } = res
             if (data) commit('setDeviceTree', data) && commit('setDeviceTree', [])
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    getDeviceDetail ({ commit }, resId) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .getDeviceDetail(resId)
+          .then(res => {
+            // console.log('===终端设备详情===', res)
+            const { data } = res
+            if (data) commit('setDeviceDetail', Object.values(data)[0])
             resolve(res)
           })
           .catch(err => {

@@ -196,7 +196,7 @@ export default {
     ...mapMutations([
       'setCenter'
     ]),
-    filter (item) {
+    filter (item) { // 设备过滤条件函数
       if (item.children && item.children.length) {
         item.children = item.children.filter(this.filter)
         return true
@@ -285,7 +285,7 @@ export default {
       menu.style.top = t + 'px'
       return false
     },
-    showDetail () {
+    showDetail () { // 显示详情
       if (!this.id) return
       this.$emit('tree-select', this.id)
     },

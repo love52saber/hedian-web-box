@@ -2,7 +2,7 @@
   <div class="g_home_container">
     <Row class="m_home_statistics">
       <i-col :span="4" style="padding-bottom: 20px;z-index:499">
-        <device-tree :device-tree="deviceTree" />
+        <device-tree @tree-select="handleMarkerClick" :device-tree="deviceTree" />
       </i-col>
       <i-col :push="15" :span="5" style="padding-bottom: 20px;z-index:499">
         <alarm-statistics :levels="levels" :status="statusList" class="mb20" />
@@ -10,7 +10,7 @@
         <fault-statistics :device="topDevice" :fault="topFault" />
       </i-col>
     </Row>
-    <device-map ref="map" area="阜宁县" :center="center" />
+    <device-map @marker-click="handleMarkerClick" ref="map" area="阜宁县" :center="center" />
   </div>
 </template>
 
@@ -21,7 +21,7 @@ import deviceTree from '_c/home/deviceTree'
 import AlarmStatistics from '_c/home/alarmStatistics'
 import LatestTopFault from '_c/home/latestTopFault'
 import FaultStatistics from '_c/home/faultStatistics'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 export default {
   name: 'Home',
   components: {
@@ -35,6 +35,7 @@ export default {
   },
   data () {
     return {
+      showDeviceDetail: false
     }
   },
   computed: {
@@ -63,8 +64,19 @@ export default {
       'getDeviceLevels',
       'getDeviceStatusList',
       'getTopFaultDeviceStatistics',
-      'getTopFaultStatistics'
-    ])
+      'getTopFaultStatistics',
+      'getDeviceDetail'
+    ]),
+    ...mapMutations([
+      'setCurrentDevice',
+      'setCurrentRes'
+    ]),
+    handleMarkerClick (resId) { // 点击地图上的点查看详情
+      this.showDeviceDetail = true
+      this.getDeviceDetail(resId)
+      this.setCurrentDevice(resId)
+      this.setCurrentRes(resId)
+    }
   },
   mounted () {
     //

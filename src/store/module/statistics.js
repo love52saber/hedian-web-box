@@ -2,11 +2,10 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:02
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-18 15:04:11
+ * @Last Modified time: 2018-11-20 09:00:33
  * @desc: 告警类数据流
  */
 import * as statisticsApi from '@/api/statistics'
-import { Notice } from 'iview'
 
 export default {
   state: {
@@ -36,7 +35,6 @@ export default {
           .getDeviceLevels()
           .then(res => {
             // console.log('===获取告警等级统计===', res)
-            if (res.msg !== 'success') return Notice.error({ title: res.msg })
             const { data } = res
             commit('setLevels', data)
             resolve(res)
@@ -52,7 +50,6 @@ export default {
           .getDeviceStatusList()
           .then(res => {
             // console.log('===获取设备状态统计===', res)
-            if (res.msg !== 'success') return Notice.error({ title: res.msg })
             const { data } = res
             commit('setStatusList', data)
             resolve(res)
@@ -68,7 +65,6 @@ export default {
           .getTopFaultDeviceStatistics()
           .then(res => {
             // console.log('===Top故障设备统计===', res)
-            if (res.msg !== 'success') return Notice.error({ title: res.msg })
             const { data } = res
             commit('setTopFaultDeviceStatistics', data)
             resolve(res)
@@ -84,7 +80,6 @@ export default {
           .getTopFaultStatistics()
           .then(res => {
             console.log('===Top故障统计===', res)
-            if (res.msg !== 'success') return Notice.error({ title: res.msg })
             const { data } = res
             commit('setTopFaultStatistics', data)
             resolve(res)
