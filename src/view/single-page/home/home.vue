@@ -22,6 +22,7 @@ import AlarmStatistics from '_c/home/alarmStatistics'
 import LatestTopFault from '_c/home/latestTopFault'
 import FaultStatistics from '_c/home/faultStatistics'
 import { mapActions, mapState, mapMutations } from 'vuex'
+import bus from '@/libs/bus'
 export default {
   name: 'Home',
   components: {
@@ -50,12 +51,7 @@ export default {
     })
   },
   created () {
-    this.getDeviceTree() // 获取设备树
-    this.getLatestTopFault() // 最新TOP故障
-    this.getDeviceLevels() // 获取告警等级统计
-    this.getDeviceStatusList() // 获取报警统计中状态统计
-    this.getTopFaultDeviceStatistics() // top故障设备统计
-    this.getTopFaultStatistics() // top故障统计
+    this.init()
   },
   methods: {
     ...mapActions([
@@ -71,6 +67,14 @@ export default {
       'setCurrentDevice',
       'setCurrentRes'
     ]),
+    init () {
+      this.getDeviceTree() // 获取设备树
+      this.getLatestTopFault() // 最新TOP故障
+      this.getDeviceLevels() // 获取告警等级统计
+      this.getDeviceStatusList() // 获取报警统计中状态统计
+      this.getTopFaultDeviceStatistics() // top故障设备统计
+      this.getTopFaultStatistics() // top故障统计
+    },
     handleMarkerClick (resId) { // 点击地图上的点查看详情
       this.showDeviceDetail = true
       this.getDeviceDetail(resId)
@@ -79,7 +83,12 @@ export default {
     }
   },
   mounted () {
-    //
+    bus.$on('shouldUpdatePage', () => {
+      this.init()
+      // TODO:增加对详情的判断，如果显示就刷新详情并刷新设备故障列表
+      if (!this.showDeviceDetail) return
+      this.getDeviceDetail(this.setCurrentDevice)
+    })
   }
 }
 </script>

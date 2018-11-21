@@ -48,15 +48,15 @@ export default [
       }
     ]
   },
-  // {
-  //   path: '',
-  //   name: 'doc',
-  //   meta: {
-  //     title: '文档',
-  //     href: 'https://lison16.github.io/iview-admin-doc/#/',
-  //     icon: 'ios-book'
-  //   }
-  // },
+  {
+    path: '',
+    name: 'doc',
+    meta: {
+      title: '文档',
+      href: 'https://lison16.github.io/iview-admin-doc/#/',
+      icon: 'ios-book'
+    }
+  },
   {
     path: '/join',
     name: 'join',
@@ -316,41 +316,32 @@ export default [
     ]
   },
   {
-    path: '/multilevel',
-    name: 'multilevel',
+    path: '/systemManagement',
+    name: 'systemManagement',
     meta: {
-      icon: 'md-menu',
-      title: '多级菜单'
+      icon: 'md-settings',
+      title: '系统管理'
     },
     component: Main,
     children: [
       {
-        path: 'level_2_1',
-        name: 'level_2_1',
+        path: 'organitionalUnit',
+        name: 'organitionalUnit',
         meta: {
-          icon: 'md-funnel',
-          title: '二级-1'
-        },
-        component: () => import('@/view/multilevel/level-2-1.vue')
-      },
-      {
-        path: 'level_2_2',
-        name: 'level_2_2',
-        meta: {
-          icon: 'md-funnel',
+          icon: 'md-contacts',
           showAlways: true,
-          title: '二级-2'
+          title: '组织单位管理'
         },
         component: parentView,
         children: [
           {
-            path: 'level_2_2_1',
-            name: 'level_2_2_1',
+            path: 'unit',
+            name: 'unit',
             meta: {
-              icon: 'md-funnel',
-              title: '三级'
+              icon: 'md-contacts',
+              title: '组织单位'
             },
-            component: () => import('@/view/multilevel/level-2-2/level-3-1.vue')
+            component: () => import('@/view/system-management/organizational-unit/unit.vue')
           }
         ]
       },

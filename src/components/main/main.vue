@@ -46,6 +46,7 @@ import routers from '@/router/routers'
 import minLogo from '@/assets/images/hedian.png'
 import maxLogo from '@/assets/images/logo.png'
 import './main.less'
+import bus from '@/libs/bus'
 export default {
   name: 'Main',
   components: {
@@ -129,6 +130,7 @@ export default {
       switch (type) {
         case 1: // 告警类通知， 刷新告警状态
           console.log('告警类通知')
+          bus.$emit('shouldUpdatePage')
           break
         case 2:
 

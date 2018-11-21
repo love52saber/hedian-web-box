@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:17:33
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-20 16:39:25
+ * @Last Modified time: 2018-11-20 20:12:29
  * @desc：用户类接口
  */
 import axios from '@/libs/api.request'
@@ -55,5 +55,15 @@ export const updatePassword = params => {
     url: '/api/sysUser/updatePassword',
     method: 'put',
     data: params
+  })
+}
+
+/**
+ * 获取组织单位树 系统管理=>组织单位管理=>组织单位
+ */
+export const getOrganizationalUnit = () => {
+  return axios.request({
+    url: '/api/sysDept/treeAll',
+    method: 'get'
   })
 }

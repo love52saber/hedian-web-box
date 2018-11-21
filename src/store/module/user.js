@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-20 17:06:24
+ * @Last Modified time: 2018-11-20 20:17:26
  * @desc: 用户类数据流
  */
 import * as userApi from '@/api/user'
@@ -20,8 +20,9 @@ export default {
     forgotPassword: '',
     showUpdateUserInfoModal: false,
     showUpdatePasswordModal: false,
-    // TODO:待查验字段是否有用
     hasGetInfo: false,
+    organizationalUnit: [], // 组织单位数据
+    // TODO:待查验字段是否有用
     messageUnreadList: [],
     messageReadedList: [],
     messageTrashList: [],
@@ -57,10 +58,13 @@ export default {
     setShowUpdatePasswordModal (state, status) {
       state.showUpdatePasswordModal = !!status
     },
-    // TODO:待查验字段是否有用
     setHasGetInfo (state, status) {
       state.hasGetInfo = status
     },
+    setOrganizationalUnit (state, data) {
+      state.organizationalUnit = data
+    },
+    // TODO:待查验字段是否有用
     setMessageUnreadList (state, list) {
       state.messageUnreadList = list
     },
@@ -98,7 +102,6 @@ export default {
           .then(res => {
             if (res.msg === 'success') {
               const data = res.data
-              console.log(data.token)
               commit('setToken', data.token)
               commit('setUserInfo', data.user)
             }
@@ -173,6 +176,21 @@ export default {
         userApi
           .updatePassword(params)
           .then(res => {
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 获取组织单位
+    getOrganizationalUnit ({ commit }) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .getOrganizationalUnit()
+          .then(res => {
+            console.log('===获取组织单位（页面）===', res)
+            commit('setOrganizationalUnit', res.data)
             resolve(res)
           })
           .catch(err => {
