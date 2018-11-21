@@ -25,7 +25,7 @@ export const setAppName = name => {
 export const getToken = () => {
   const token = Cookies.get(TOKEN_KEY)
   if (token) return token
-  else return false
+  else return ''
 }
 
 export const getUserInfo = () => {
@@ -37,7 +37,7 @@ export const getUserInfo = () => {
 export const getAppName = () => {
   const appName = Cookies.get(APP_NAME)
   if (appName) return appName
-  else return false
+  else return ''
 }
 
 export const hasChild = item => {

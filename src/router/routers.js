@@ -346,13 +346,25 @@ export default [
         ]
       },
       {
-        path: 'level_2_3',
-        name: 'level_2_3',
+        path: 'safetyManagement',
+        name: 'safetyManagement',
         meta: {
-          icon: 'md-funnel',
-          title: '二级-3'
+          icon: 'md-umbrella',
+          title: '安全管理',
+          showAlways: true
         },
-        component: () => import('@/view/multilevel/level-2-3.vue')
+        component: parentView,
+        children: [
+          {
+            path: 'role',
+            name: 'role',
+            meta: {
+              icon: 'md-aperture',
+              title: '角色管理'
+            },
+            component: () => import('@/view/system-management/safety-management/role.vue')
+          }
+        ]
       }
     ]
   },

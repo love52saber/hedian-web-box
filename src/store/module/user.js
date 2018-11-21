@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-21 13:26:29
+ * @Last Modified time: 2018-11-21 17:47:06
  * @desc: 用户类数据流
  */
 import * as userApi from '@/api/user'
@@ -22,6 +22,8 @@ export default {
     showUpdatePasswordModal: false,
     hasGetInfo: false,
     organizationalUnit: [], // 组织单位数据
+    roleList: [],
+    roleTotal: 0,
     // TODO:待查验字段是否有用
     messageUnreadList: [],
     messageReadedList: [],
@@ -63,6 +65,12 @@ export default {
     },
     setOrganizationalUnit (state, data) {
       state.organizationalUnit = data
+    },
+    setRoleList (state, data) {
+      state.roleList = data
+    },
+    setRoleTotal (state, num) {
+      state.roleTotal = num
     },
     // TODO:待查验字段是否有用
     setMessageUnreadList (state, list) {
@@ -189,7 +197,7 @@ export default {
         userApi
           .getOrganizationalUnit()
           .then(res => {
-            console.log('===获取组织单位（页面）===', res)
+            // console.log('===获取组织单位（页面）===', res)
             commit('setOrganizationalUnit', res.data)
             resolve(res)
           })
@@ -223,6 +231,23 @@ export default {
           .deleteUnit(deptId)
           .then(res => resolve(res))
           .catch(err => reject(err))
+      })
+    },
+    // 获取角色列表
+    getRoleList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .getRoleList(params)
+          .then(res => {
+            console.log('===获取角色列表（页面）===', res)
+            commit('setRoleList', res.data.list)
+            const { total = 0 } = res.data
+            commit('setRoleTotal', total)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
     // TODO:待定是否有用

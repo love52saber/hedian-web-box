@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:17:33
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-21 13:26:00
+ * @Last Modified time: 2018-11-21 17:34:19
  * @desc：用户类接口
  */
 import axios from '@/libs/api.request'
@@ -100,5 +100,18 @@ export const deleteUnit = deptId => {
   return axios.request({
     url: `/api/sysDept/${deptId}`,
     method: 'delete'
+  })
+}
+
+export const getRoleList = params => {
+  const { pageIndex = 1, pageSize = 15, info = '' } = params
+  return axios.request({
+    url: `/api/sysRole/pageList`,
+    method: 'get',
+    params: {
+      pageIndex,
+      pageSize,
+      info
+    }
   })
 }

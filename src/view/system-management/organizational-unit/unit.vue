@@ -1,33 +1,3 @@
-<style lang="less">
-.g_unit_container {
-  padding: 15px;
-  width: 100%;
-  height: 100%;
-  .m_unit_content {
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 3px 5px #eee;
-    overflow: auto;
-    .m_unit_header {
-      height: 36px;
-      line-height: 36px;
-      .u_btn {
-        position: relative;
-        width: 80px;
-        &.u_add_btn {
-          float: right;
-          top: -36px;
-          margin-right: 30px;
-          background: #04bbb7;
-          border-color: #04bbb7;
-        }
-      }
-    }
-  }
-}
-</style>
 <template>
   <div class="g_unit_container">
     <Card class="m_unit_content" shadow bordered>
@@ -48,6 +18,7 @@ import TreeGrid from '_c/unit/treeGrid.vue'
 import { Confirm } from '_c/controls'
 import UnitForm from '_c/unit/form.vue'
 import UnitDetail from '_c/unit/detail.vue'
+import './unit.less'
 export default {
   name: 'Unit',
   components: {
