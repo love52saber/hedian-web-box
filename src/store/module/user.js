@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-20 20:17:26
+ * @Last Modified time: 2018-11-21 13:26:29
  * @desc: 用户类数据流
  */
 import * as userApi from '@/api/user'
@@ -196,6 +196,33 @@ export default {
           .catch(err => {
             reject(err)
           })
+      })
+    },
+    // 新增组织单位
+    addUnit ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .addUnit(params)
+          .then(res => resolve(res))
+          .catch(err => reject(err))
+      })
+    },
+    // 修改组织单位
+    updateUnit ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .updateUnit(params)
+          .then(res => resolve(res))
+          .catch(err => reject(err))
+      })
+    },
+    // 删除组织单位
+    deleteUnit ({ commit }, deptId) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .deleteUnit(deptId)
+          .then(res => resolve(res))
+          .catch(err => reject(err))
       })
     },
     // TODO:待定是否有用

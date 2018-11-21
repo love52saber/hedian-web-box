@@ -43,13 +43,14 @@ export default {
     ]),
     handleSubmit ({ username, password }) {
       this.handleLogin({ username, password }).then(res => {
-        if (res.msg !== 'success') return this.$Message.error(res.msg)
+        if (res.msg !== 'success') return this.$Notice.error({ title: res.msg })
         if (this.$refs.loginForm.remember) { // 如果勾选记住用户名，则把用户名存在本地
           localStorage.setItem('username', username)
         }
         this.$router.push({
           name: this.$config.homeName
         })
+        this.$Notice.success({ title: '欢迎登录' })
         if (res.data.user.pwdFlag === 2) this.$Notice.warning({ title: '您的密码需要修改', desc: '初始密码需要修改' })
       })
     }

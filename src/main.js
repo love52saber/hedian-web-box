@@ -11,11 +11,9 @@ import '../node_modules/leaflet/dist/leaflet.css'
 import '@/assets/icons/iconfont.css'
 import dayjs from 'dayjs'
 // 实际打包时应该不引入mock
-/* eslint-disable */
-// if (process.env.NODE_ENV !== 'production') require('@/mock')
 
 Vue.use(iView)
-Vue.filter('formatTime', function(val) {
+Vue.filter('formatTime', function (val) {
   return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
 })
 /**

@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:17:33
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-20 20:12:29
+ * @Last Modified time: 2018-11-21 13:26:00
  * @desc：用户类接口
  */
 import axios from '@/libs/api.request'
@@ -65,5 +65,40 @@ export const getOrganizationalUnit = () => {
   return axios.request({
     url: '/api/sysDept/treeAll',
     method: 'get'
+  })
+}
+
+/**
+ * 新增组织单位
+ * @param {*} params 参数对象
+ */
+export const addUnit = params => {
+  return axios.request({
+    url: '/api/sysDept/',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * 修改组织单位
+ * @param {*} params 参数对象
+ */
+export const updateUnit = params => {
+  return axios.request({
+    url: '/api/sysDept/',
+    method: 'put',
+    data: params
+  })
+}
+
+/**
+ * 删除组织单位
+ * @param {*} deptId 部门id
+ */
+export const deleteUnit = deptId => {
+  return axios.request({
+    url: `/api/sysDept/${deptId}`,
+    method: 'delete'
   })
 }

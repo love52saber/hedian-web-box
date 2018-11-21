@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:08:45
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-19 16:07:23
+ * @Last Modified time: 2018-11-21 12:36:40
  * @系统应用类数据流
  */
 import {
@@ -40,6 +40,7 @@ export default {
     tagNavList: [],
     homeRoute: {},
     appName: getAppName() || '智能运维管理系统',
+    showConfirmModal: false,
     local: localRead('local'),
     errorList: [],
     errorCount: state => state.errorList.length
@@ -95,6 +96,9 @@ export default {
     },
     setAppName (state, name) {
       state.appName = name
+    },
+    setShowConfirmModal (state, status) {
+      state.showConfirmModal = !!status
     }
   },
   actions: {
