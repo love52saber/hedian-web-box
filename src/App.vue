@@ -28,12 +28,21 @@ body {
     text-align: center;
     margin: 10px auto 0;
     .ivu-page-item-active {
-      background-color: #04bbb7;
-      border-color: #04bbb7;
+      background-color: #2db7f5;
+      border-color: #2db7f5;
       a {
         color: #fff;
       }
     }
+  }
+  .u_btn {
+    width: 100px;
+    &.u_btn_ok {
+      background: #04bbb7 !important;
+    }
+  }
+  .m_footer {
+    text-align: center;
   }
 }
 #app {

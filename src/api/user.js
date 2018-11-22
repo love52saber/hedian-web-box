@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:17:33
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-21 17:34:19
+ * @Last Modified time: 2018-11-22 20:35:20
  * @desc：用户类接口
  */
 import axios from '@/libs/api.request'
@@ -103,6 +103,10 @@ export const deleteUnit = deptId => {
   })
 }
 
+/**
+ * 获取角色列表
+ * @param {*} params 参数对象
+ */
 export const getRoleList = params => {
   const { pageIndex = 1, pageSize = 15, info = '' } = params
   return axios.request({
@@ -113,5 +117,121 @@ export const getRoleList = params => {
       pageSize,
       info
     }
+  })
+}
+
+/**
+ * 获取全部角色列表
+ */
+export const getAllRoleList = () => {
+  return axios.request({
+    url: `/api/sysRole/all`,
+    method: 'get'
+  })
+}
+
+/**
+ * 获取菜单权限 系统管理=>安全管理=>角色管理
+ */
+export const getMenuTreeData = () => {
+  return axios.request({
+    url: '/api/sysMenu/all',
+    method: 'get'
+  })
+}
+
+/**
+ * 角色新增
+ * @param {*} params 新增参数
+ */
+export const addRole = params => {
+  return axios.request({
+    url: '/api/sysRole/',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * 角色修改
+ * @param {*} params 新增参数
+ */
+export const updateRole = params => {
+  return axios.request({
+    url: '/api/sysRole/',
+    method: 'put',
+    data: params
+  })
+}
+
+/**
+ * 角色删除
+ * @param {*} roleId 角色id
+ */
+export const deleteRole = roleId => {
+  return axios.request({
+    url: `/api/sysRole/${roleId}`,
+    method: 'delete'
+  })
+}
+
+/**
+ * 获取用户列表
+ * @param {*} params
+ */
+export const getUserList = params => {
+  const { deptId = '', pageIndex = 1, info = '', pageSize = 15 } = params
+  return axios.request({
+    url: '/api/sysUser/pageList',
+    method: 'get',
+    params: { deptId, pageIndex, info, pageSize }
+  })
+}
+
+/**
+ * 新增用户
+ * @param {*} params
+ */
+export const addUser = params => {
+  return axios.request({
+    url: '/api/sysUser/',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * 修改用户
+ * @param {*} params
+ */
+export const updateUser = params => {
+  return axios.request({
+    url: '/api/sysUser/',
+    method: 'put',
+    data: params
+  })
+}
+
+/**
+ * 锁定/解锁用户
+ * @param {*} userId 用户id
+ * @param {*} isLock 锁定信息，lock为锁定，unlock为解锁
+ */
+export const lockUser = (userId, isLock) => {
+  console.log(userId, isLock)
+  return axios.request({
+    url: `/api/sysUser/lock/${userId}/${isLock}`,
+    method: 'get'
+  })
+}
+
+/**
+ * 删除用户
+ * @param {*} userId 用户id
+ */
+export const deleteUser = userId => {
+  return axios.request({
+    url: `/api/sysUser/${userId}`,
+    method: 'delete'
   })
 }

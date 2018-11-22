@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-21 17:47:06
+ * @Last Modified time: 2018-11-22 20:37:13
  * @desc: 用户类数据流
  */
 import * as userApi from '@/api/user'
@@ -23,7 +23,11 @@ export default {
     hasGetInfo: false,
     organizationalUnit: [], // 组织单位数据
     roleList: [],
+    allRoleList: [],
     roleTotal: 0,
+    menuTreeData: [],
+    userList: [],
+    userTotal: 0,
     // TODO:待查验字段是否有用
     messageUnreadList: [],
     messageReadedList: [],
@@ -69,12 +73,24 @@ export default {
     setRoleList (state, data) {
       state.roleList = data
     },
+    setAllRoleList (state, data) {
+      state.allRoleList = data
+    },
     setRoleTotal (state, num) {
       state.roleTotal = num
+    },
+    setUserList (state, data) {
+      state.userList = data
+    },
+    setUserTotal (state, num) {
+      state.userTotal = num
     },
     // TODO:待查验字段是否有用
     setMessageUnreadList (state, list) {
       state.messageUnreadList = list
+    },
+    setMenuTreeData (state, list) {
+      state.menuTreeData = list
     },
     setMessageReadedList (state, list) {
       state.messageReadedList = list
@@ -243,6 +259,156 @@ export default {
             commit('setRoleList', res.data.list)
             const { total = 0 } = res.data
             commit('setRoleTotal', total)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 获取全部角色
+    getAllRoleList ({ commit }) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .getAllRoleList()
+          .then(res => {
+            console.log('===获取全部角色列表===', res)
+            commit('setAllRoleList', res.data)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 获取权限树
+    getMenuTreeData ({ commit }) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .getMenuTreeData()
+          .then(res => {
+            console.log('===获取权限菜单===', res)
+            commit('setMenuTreeData', res.data)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 新增角色
+    addRole ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .addRole(params)
+          .then(res => {
+            console.log('===角色新增===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 角色修改
+    updateRole ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .updateRole(params)
+          .then(res => {
+            console.log('===角色修改===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 删除角色
+    deleteRole ({ commit }, roleId) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .deleteRole(roleId)
+          .then(res => {
+            console.log('===角色修改===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 获取用户列表
+    getUserList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .getUserList(params)
+          .then(res => {
+            console.log('===获取用户列表（页面）===', res)
+            res.data.list.forEach(item => {
+              if (!item.delflag) {
+                item._disabled = true
+              }
+            })
+            commit('setUserList', res.data.list)
+            const { total = 0 } = res.data
+            commit('setUserTotal', total)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 新增用户
+    addUser ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .addUser(params)
+          .then(res => {
+            console.log('===用户新增===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 修改用户
+    updateUser ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .updateUser(params)
+          .then(res => {
+            console.log('===用户删除===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 锁定/解锁用户
+    lockUser ({ commit }, { userId, lockInfo }) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .lockUser(userId, lockInfo)
+          .then(res => {
+            console.log('===用户锁定/解锁===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 删除用户
+    deleteUser ({ commit }, userId) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .deleteUser(userId)
+          .then(res => {
+            console.log('===用户删除===', res)
             resolve(res)
           })
           .catch(err => {

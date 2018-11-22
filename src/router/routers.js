@@ -356,6 +356,15 @@ export default [
         component: parentView,
         children: [
           {
+            path: 'user',
+            name: 'user',
+            meta: {
+              icon: 'md-person',
+              title: '用户管理'
+            },
+            component: () => import('@/view/system-management/safety-management/user.vue')
+          },
+          {
             path: 'role',
             name: 'role',
             meta: {

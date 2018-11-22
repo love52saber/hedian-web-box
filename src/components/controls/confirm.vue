@@ -45,12 +45,17 @@ export default {
     },
     onOk: {
       type: Function
+    },
+    confirmId: {
+      default: ''
     }
   },
   methods: {
     ...mapMutations(['setShowConfirmModal']),
     ok () {
-      this.onOk()
+      // 第二个参数是用来删除提示的，因为批量删除只需要提示一此
+      // 第三个参数在用户管理里面用到，锁定和解锁用户，其余功能都没有接收第三个参数
+      this.onOk(this.confirmId, true, this.action === '锁定' ? 'lock' : 'unlock')
     },
     cancel () {
       this.setShowConfirmModal(false)
