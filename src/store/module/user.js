@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-22 20:37:13
+ * @Last Modified time: 2018-11-23 09:12:08
  * @desc: 用户类数据流
  */
 import * as userApi from '@/api/user'
@@ -28,6 +28,8 @@ export default {
     menuTreeData: [],
     userList: [],
     userTotal: 0,
+    userGroupList: [],
+    userGroupTotal: 0,
     // TODO:待查验字段是否有用
     messageUnreadList: [],
     messageReadedList: [],
@@ -84,6 +86,12 @@ export default {
     },
     setUserTotal (state, num) {
       state.userTotal = num
+    },
+    setUserGroupList (state, data) {
+      state.userGroupList = data
+    },
+    setUserGroupTotal (state, num) {
+      state.userGroupTotal = num
     },
     // TODO:待查验字段是否有用
     setMessageUnreadList (state, list) {
@@ -409,6 +417,27 @@ export default {
           .deleteUser(userId)
           .then(res => {
             console.log('===用户删除===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    getUserGroupList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .getUserGroupList(params)
+          .then(res => {
+            console.log('===获取用户组列表（页面）===', res)
+            res.data.list.forEach(item => {
+              if (!item.delflag) {
+                item._disabled = true
+              }
+            })
+            commit('setUserGroupList', res.data.list)
+            const { total = 0 } = res.data
+            commit('setUserGroupTotal', total)
             resolve(res)
           })
           .catch(err => {

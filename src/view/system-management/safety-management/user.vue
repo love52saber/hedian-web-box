@@ -1,34 +1,3 @@
-<style lang="less">
-.g_user_container {
-  padding: 15px;
-  width: 100%;
-  height: 100%;
-  .m_user_left,
-  .m_user_right {
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 3px 5px #eee;
-    overflow: auto;
-    .ivu-card-body {
-      padding-bottom: 0;
-    }
-    .m_role_header {
-      height: 36px;
-      line-height: 36px;
-      .u_btn {
-        width: 80px;
-        margin-right: 20px;
-      }
-      .u_search {
-        float: right;
-        width: 350px;
-      }
-    }
-  }
-}
-</style>
 <template>
   <div class="g_user_container">
     <Row :gutter="16" style="height:100%">
@@ -48,7 +17,7 @@
           </div>
           <Table border ref="selection" :columns="columns" :data="userList" @on-selection-change="selectionChange"></Table>
           <div class="u_page">
-            <Page @on-change="pageChanged" :page-size='pageSize' :total="userTotal" transfer />
+            <Page @on-change="pageChanged" :page-size='pageSize' :total="total" transfer />
           </div>
         </Card>
       </i-col>
@@ -63,6 +32,7 @@ import { mapActions, mapState, mapMutations } from 'vuex'
 import UserDetail from '_c/user/detail.vue'
 import UserForm from '_c/user/form.vue'
 import { Confirm } from '_c/controls'
+import './user.less'
 export default {
   name: 'UserManagement',
   components: {
@@ -263,7 +233,6 @@ export default {
                 },
                 on: {
                   click: () => {
-                    console.log(row)
                     this.confirm.operator = row.name
                     this.confirm.action = !row.lockflag ? '锁定' : '解锁'
                     this.confirm.id = row.userId
@@ -313,6 +282,12 @@ export default {
       userList: state => state.user.userList,
       userTotal: state => state.user.userTotal
     }),
+    total () {
+      if (this.userTotal >= this.pageSize && this.userList.length === 0) {
+        this.pageIndex -= 1
+      }
+      return this.userTotal
+    },
     tree () {
       let tree = []
       if (this.unitList && this.unitList.length) {
@@ -407,7 +382,6 @@ export default {
       })
     },
     lock (userId, isFinal, lockInfo) {
-      console.log(lockInfo)
       this.lockUser({ userId, lockInfo }).then(res => {
         if (res.msg !== 'success') return
         this.$Notice.success({ title: `用户${lockInfo === 'lock' ? '锁定' : '解锁'}成功` })

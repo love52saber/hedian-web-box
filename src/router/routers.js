@@ -365,6 +365,15 @@ export default [
             component: () => import('@/view/system-management/safety-management/user.vue')
           },
           {
+            path: 'userGroup',
+            name: 'userGroup',
+            meta: {
+              icon: 'md-people',
+              title: '用户组管理'
+            },
+            component: () => import('@/view/system-management/safety-management/user-group.vue')
+          },
+          {
             path: 'role',
             name: 'role',
             meta: {

@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:17:33
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-22 20:35:20
+ * @Last Modified time: 2018-11-23 08:51:17
  * @desc：用户类接口
  */
 import axios from '@/libs/api.request'
@@ -218,7 +218,6 @@ export const updateUser = params => {
  * @param {*} isLock 锁定信息，lock为锁定，unlock为解锁
  */
 export const lockUser = (userId, isLock) => {
-  console.log(userId, isLock)
   return axios.request({
     url: `/api/sysUser/lock/${userId}/${isLock}`,
     method: 'get'
@@ -233,5 +232,23 @@ export const deleteUser = userId => {
   return axios.request({
     url: `/api/sysUser/${userId}`,
     method: 'delete'
+  })
+}
+
+/**
+ * 获取用户组列表 系统管理=>安全管理=>用户组管理
+ * @param {*} params 参数对象
+ */
+export const getUserGroupList = params => {
+  const { pageIndex = 1, grpName = '', pageSize = 15, grpType = '' } = params
+  return axios.request({
+    url: '/api/sysGroup/pageList',
+    method: 'get',
+    params: {
+      pageIndex,
+      pageSize,
+      grpName,
+      grpType
+    }
   })
 }
