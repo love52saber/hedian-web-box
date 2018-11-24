@@ -57,15 +57,15 @@ class HttpRequest {
     instance.interceptors.response.use(
       res => {
         this.destroy(url)
-        if (res.data.msg !== 'success') {
-          return Notice.error({ title: res.data.msg, desc: `${res.data.msg}` })
+        if (res.data && res.data.msg !== 'success') {
+          Notice.error({ title: res.data.msg, desc: `${res.data.msg}` })
         }
         return res.data
       },
       error => {
         this.destroy(url)
         if (!error.response) return Notice.error({ title: '请求超时' })
-        // console.log('===error===', JSON.stringify(error))
+        console.log('===error===', JSON.stringify(error))
         switch (error.response.status) {
           case 401:
             $router.replace({

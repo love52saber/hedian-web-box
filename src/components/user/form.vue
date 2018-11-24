@@ -60,7 +60,6 @@
 <script>
 import { mapState } from 'vuex'
 import { getToken } from '@/libs/util'
-import config from '@/config'
 import _ from 'lodash'
 export default {
   name: 'UserForm',
@@ -77,7 +76,7 @@ export default {
       headers: {
         Authorization: getToken()
       },
-      action: process.env.NODE_ENV === 'development' ? `${config.baseUrl.dev}/api/resource` : `${config.baseUrl.pro}/api/resource`,
+      action: process.env.NODE_ENV === 'development' ? `${this.$config.baseUrl.dev}/api/resource` : `${this.$config.baseUrl.pro}/api/resource`,
       form: {
         name: '',
         username: '',
@@ -133,7 +132,7 @@ export default {
       return menuTree
     },
     avatar () {
-      return (this.hasUploadAvatar || this.form.url) ? config.fileHost + this.form.url : ''
+      return (this.hasUploadAvatar || this.form.url) ? this.$config.fileHost + this.form.url : ''
     }
   },
   mounted () {

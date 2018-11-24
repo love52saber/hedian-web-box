@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:17:33
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-23 08:51:17
+ * @Last Modified time: 2018-11-23 10:44:22
  * @desc：用户类接口
  */
 import axios from '@/libs/api.request'
@@ -250,5 +250,40 @@ export const getUserGroupList = params => {
       grpName,
       grpType
     }
+  })
+}
+
+/**
+ * 新增用户组
+ * @param {*} params 参数对象
+ */
+export const addUserGroup = params => {
+  return axios.request({
+    url: '/api/sysGroup',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * 修改用户组
+ * @param {*} params 参数对象
+ */
+export const updateUserGroup = params => {
+  return axios.request({
+    url: '/api/sysGroup',
+    method: 'put',
+    data: params
+  })
+}
+
+/**
+ * 删除用户组
+ * @param {*} grpId 用户组id
+ */
+export const deleteUserGroup = grpId => {
+  return axios.request({
+    url: `/api/sysGroup/${grpId}`,
+    method: 'delete'
   })
 }

@@ -283,9 +283,7 @@ export default {
       userTotal: state => state.user.userTotal
     }),
     total () {
-      if (this.userTotal >= this.pageSize && this.userList.length === 0) {
-        this.pageIndex -= 1
-      }
+      if (this.userTotal >= this.pageSize && this.userList.length === 0) this.pageIndex -= 1
       return this.userTotal
     },
     tree () {

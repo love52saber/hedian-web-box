@@ -51,7 +51,6 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import { getUserInfo, getToken, setUserInfo } from '@/libs/util'
 import _ from 'lodash'
-import config from '@/config'
 export default {
   name: 'UpdateUserInfo',
   props: {
@@ -65,7 +64,7 @@ export default {
       show: state => state.user.showUpdateUserInfoModal
     }),
     avatar () {
-      return !this.hasUploadAvatar ? this.userAvator : config.fileHost + this.form.url
+      return !this.hasUploadAvatar ? this.userAvator : this.$config.fileHost + this.form.url
     }
   },
   data () {
@@ -84,11 +83,11 @@ export default {
       headers: {
         Authorization: getToken()
       },
-      action: process.env.NODE_ENV === 'development' ? `${config.baseUrl.dev}/api/resource` : `${config.baseUrl.pro}/api/resource`,
+      action: process.env.NODE_ENV === 'development' ? `${this.$config.baseUrl.dev}/api/resource` : `${this.$config.baseUrl.pro}/api/resource`,
       rules: {
         mobile: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
-          { pattern: /^[1][34578]\d{9}$/, message: '手机号码不正确', trigger: 'blur' }
+          { pattern: /^[1][3456789]\d{9}$/, message: '手机号码不正确', trigger: 'blur' }
         ],
         telephone: [
           { required: true, message: '请输入固话号码', trigger: 'blur' },

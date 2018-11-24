@@ -12,6 +12,7 @@
       </div>
     </Card>
     <user-group-detail :data="detail" />
+    <user-group-form ref="form" :form-data="formData" />
     <confirm :show="showConfirmModal" :action="confirm.action" :operator="confirm.operator" :on-ok="confirm.callback" :confirm-id="confirm.id" />
   </div>
 </template>
@@ -19,12 +20,14 @@
 import './role.less'
 import { Confirm } from '_c/controls'
 import UserGroupDetail from '_c/user-group/detail.vue'
+import UserGroupForm from '_c/user-group/form.vue'
 import { mapActions, mapState, mapMutations } from 'vuex'
 export default {
   name: 'UserGroupManagement',
   components: {
     Confirm,
-    UserGroupDetail
+    UserGroupDetail,
+    UserGroupForm
   },
   data () {
     return {
@@ -35,6 +38,13 @@ export default {
       detail: {
         show: false,
         data: {}
+      },
+      formData: {
+        show: false,
+        action: '新增用户组',
+        callback: null,
+        type: 1, // 新增1， 修改2
+        info: {}
       },
       confirm: {
         operator: '',
@@ -123,7 +133,6 @@ export default {
                 },
                 on: {
                   click: () => {
-                    console.log(row)
                     this.detail.show = true
                     this.detail.data = row
                   }
@@ -144,35 +153,36 @@ export default {
                 },
                 on: {
                   click: () => {
-                    // this.addObj.action = '用户组编辑'
-                    // this.addObj.callback = this.updateGroup
-                    // this.addObj.info = row
-                    // this.addObj.show = true
+                    this.formData = {
+                      action: '修改用户组',
+                      callback: this.update,
+                      type: 2,
+                      info: row,
+                      show: true
+                    }
                   }
                 }
               }),
               h('Icon', {
                 props: {
                   type: 'md-trash',
-                  color: '#04bbb7',
+                  color: !row.delflag ? '#ccc' : '#04bbb7',
                   size: 20
                 },
                 attrs: {
-                  title: '删除'
+                  title: !row.delflag ? '不可删除' : '删除'
                 },
                 style: {
                   cursor: 'pointer'
                 },
                 on: {
                   click: () => {
-                    if (!row.delflag) {
-                      this.$Message.error(row.grpName + '不可被删除')
-                    }
-                    // this.confirmObj.confirmAction = '删除'
-                    // this.confirmObj.confirmName = row.grpName
-                    // this.confirmObj.confirmShow = true
-                    // this.confirmObj.confirmCallBack = this.deleteGroup
-                    // this.confirmObj.confirmId = row.grpId
+                    if (!row.delflag) return
+                    this.confirm.action = '删除'
+                    this.confirm.operator = row.grpName
+                    this.confirm.callback = this.delete
+                    this.confirm.id = row.grpId
+                    this.setShowConfirmModal(true)
                   }
                 }
               })
@@ -186,6 +196,7 @@ export default {
     this.getUserGroupList({})
     this.getAllRoleList()
     this.getUserList({ pageSize: 9999 })
+    this.getOrganizationalUnit()
   },
   computed: {
     ...mapState({
@@ -194,9 +205,7 @@ export default {
       showConfirmModal: state => state.app.showConfirmModal
     }),
     total () {
-      if (this.userGroupTotal >= this.pageSize && this.userGroupList.length === 0) {
-        this.pageIndex -= 1
-      }
+      if (this.userGroupTotal >= this.pageSize && this.userGroupList.length === 0) this.pageIndex -= 1
       return this.userGroupTotal
     }
   },
@@ -207,13 +216,32 @@ export default {
   },
   methods: {
     ...mapActions([
+      'getOrganizationalUnit',
       'getUserGroupList',
       'getAllRoleList',
-      'getUserList'
+      'getUserList',
+      'updateUserGroup',
+      'addUserGroup',
+      'deleteUserGroup'
     ]),
     ...mapMutations(['setShowConfirmModal']),
-    handleAddBtnClick () { },
-    handleDeleteBtnClick () { },
+    handleAddBtnClick () {
+      this.formData = {
+        show: true,
+        action: '新增用户组',
+        callback: this.add,
+        type: 1, // 新增1， 修改2
+        info: {}
+      }
+    },
+    handleDeleteBtnClick () {
+      if (!this.selectedIds.length) return this.$Notice.error({ title: '请先勾选用户组再进行删除' })
+      this.confirm.operator = '所勾选的用户组'
+      this.confirm.action = '删除'
+      this.confirm.callback = this.batchDelete
+      this.confirm.id = ''
+      this.setShowConfirmModal(true)
+    },
     handleSearch () {
       this.getUserGroupList({ grpName: this.grpName, pageIndex: 1 })
     },
@@ -224,6 +252,41 @@ export default {
       this.selectedIds = []
       e.map((item) => {
         this.selectedIds.push(item.grpId)
+      })
+    },
+    add (params) {
+      this.addUserGroup(params).then(res => {
+        if (res.msg !== 'success') return
+        this.$Notice.success({ title: '用户组新增成功' })
+        this.formData.show = false
+        this.$refs.form.clear()
+        this.getUserGroupList({ pageIndex: this.pageIndex })
+      })
+    },
+    update (params) {
+      this.updateUserGroup(params).then(res => {
+        if (res.msg !== 'success') return
+        this.$Notice.success({ title: '用户组修改成功' })
+        this.formData.show = false
+        this.$refs.form.clear()
+        this.getUserGroupList({ pageIndex: this.pageIndex })
+      })
+    },
+    batchDelete () {
+      this.selectedIds.forEach((item, index, arr) => {
+        if (index === this.selectedIds.length - 1) {
+          this.delete(item, true)
+          this.selectedIds = []
+        } else this.delete(item)
+      })
+    },
+    delete (grpId, isFinal = false) {
+      this.deleteUserGroup(grpId).then(res => {
+        if (res.msg !== 'success') return
+        if (!isFinal) return
+        this.$Notice.success({ title: '用户组删除成功' })
+        this.setShowConfirmModal(false)
+        this.getUserGroupList({ pageIndex: this.pageIndex })
       })
     }
   }

@@ -186,9 +186,7 @@ export default {
       showConfirmModal: state => state.app.showConfirmModal
     }),
     total () {
-      if (this.roleTotal >= this.pageSize && this.roleList.length === 0) {
-        this.pageIndex -= 1
-      }
+      if (this.roleTotal >= this.pageSize && this.roleList.length === 0) this.pageIndex -= 1
       return this.roleTotal
     }
   },

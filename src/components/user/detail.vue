@@ -53,7 +53,6 @@
 </template>
 <script>
 import _ from 'lodash'
-import config from '@/config'
 import { mapState } from 'vuex'
 export default {
   name: 'UserDetail',
@@ -72,7 +71,7 @@ export default {
     },
     avatar () {
       const url = _.get(this.info, 'sysFile.url', '')
-      return url ? `${config.fileHost}${url}` : ''
+      return url ? `${this.$config.fileHost}${url}` : ''
     }
   }
 }

@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-23 09:12:08
+ * @Last Modified time: 2018-11-24 13:59:09
  * @desc: 用户类数据流
  */
 import * as userApi from '@/api/user'
@@ -132,11 +132,9 @@ export default {
             password
           })
           .then(res => {
-            if (res.msg === 'success') {
-              const data = res.data
-              commit('setToken', data.token)
-              commit('setUserInfo', data.user)
-            }
+            const data = res.data
+            commit('setToken', data.token)
+            commit('setUserInfo', data.user)
             resolve(res)
           })
           .catch(err => {
@@ -178,10 +176,8 @@ export default {
           .forgotPassword()
           .then(res => {
             // console.log('===忘记密码配置===', res)
-            if (res.msg === 'success') {
-              const data = res.data.paravalue.replace(/\\r\\n/g, '<br/>')
-              commit('setForgotPassword', data)
-            }
+            const data = res.data.paravalue.replace(/\\r\\n/g, '<br/>')
+            commit('setForgotPassword', data)
             resolve(res)
           })
           .catch(err => {
@@ -338,7 +334,7 @@ export default {
         userApi
           .deleteRole(roleId)
           .then(res => {
-            console.log('===角色修改===', res)
+            console.log('===角色删除===', res)
             resolve(res)
           })
           .catch(err => {
@@ -347,7 +343,7 @@ export default {
       })
     },
     // 获取用户列表
-    getUserList ({ commit }, params) {
+    getUserList ({ state, commit }, params) {
       return new Promise((resolve, reject) => {
         userApi
           .getUserList(params)
@@ -357,6 +353,7 @@ export default {
               if (!item.delflag) {
                 item._disabled = true
               }
+              item.checked = `false-${item.userId}`
             })
             commit('setUserList', res.data.list)
             const { total = 0 } = res.data
@@ -424,6 +421,7 @@ export default {
           })
       })
     },
+    // 获取用户组列表
     getUserGroupList ({ commit }, params) {
       return new Promise((resolve, reject) => {
         userApi
@@ -438,6 +436,48 @@ export default {
             commit('setUserGroupList', res.data.list)
             const { total = 0 } = res.data
             commit('setUserGroupTotal', total)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 新增用户组
+    addUserGroup ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .addUserGroup(params)
+          .then(res => {
+            console.log('===新增用户组===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 修改用户组
+    updateUserGroup ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .updateUserGroup(params)
+          .then(res => {
+            console.log('===修改用户组===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 删除用户组
+    deleteUserGroup ({ commit }, grpId) {
+      return new Promise((resolve, reject) => {
+        userApi
+          .deleteUserGroup(grpId)
+          .then(res => {
+            console.log('===删除用户组===', res)
             resolve(res)
           })
           .catch(err => {
