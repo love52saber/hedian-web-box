@@ -4,27 +4,30 @@
       <div class="m_role_header" slot="title">
         <Button class="u_btn u_btn_add" @click="handleAddBtnClick" type="info" size='large'> 添加 </Button>
         <Button class="u_btn" type="error" @click="handleDeleteBtnClick" size='large'> 删除 </Button>
-        <Input class="u_search" v-model="info" @on-search="handleSearch" search enter-button="查询" placeholder="输入角色名称进行搜索" />
+        <Input class="u_search" v-model="info" @on-search="handleSearch" search enter-button="查询" placeholder="输入维护域名称进行搜索，可以使用回车键" />
       </div>
-      <Table border ref="selection" :columns="columns" :data="roleList" @on-selection-change="selectionChange"></Table>
+      <Table border ref="selection" :columns="columns" :data="mdList" @on-selection-change="selectionChange"></Table>
       <div class="u_page">
         <Page @on-change="pageChanged" :page-size='pageSize' :total="total" transfer />
       </div>
     </Card>
-    <role-form ref="form" :menu="menuTree" :form-data="formData" />
     <confirm :show="showConfirmModal" :action="confirm.action" :operator="confirm.operator" :on-ok="confirm.callback" :confirm-id="confirm.id" />
+    <maintain-domain-detail :data="detail" />
+    <maintain-domain-form ref="form" :form-data="formData" />
   </div>
 </template>
 <script>
 import { mapActions, mapState, mapMutations } from 'vuex'
-import RoleForm from '_c/role/form'
 import { Confirm } from '_c/controls'
-import './role.less'
+import MaintainDomainDetail from '_c/maintain-domain/detail.vue'
+import MaintainDomainForm from '_c/maintain-domain/form.vue'
+import '@/view/system-management/safety-management/role.less'
 export default {
-  name: 'RoleManagement',
+  name: 'MaintenanceDomain',
   components: {
-    RoleForm,
-    Confirm
+    Confirm,
+    MaintainDomainDetail,
+    MaintainDomainForm
   },
   data () {
     return {
@@ -38,11 +41,15 @@ export default {
         id: '',
         callback: this.delete
       },
+      detail: {
+        show: false,
+        data: {}
+      },
       formData: { // 表单数据
-        action: '角色新增',
+        action: '维护域新增',
         show: false,
         callback: null,
-        type: 1, // 1是新增, 2是修改，0是详情
+        type: 1, // 1是新增, 2是修改
         info: {}
       },
       columns: [
@@ -53,43 +60,43 @@ export default {
         },
         {
           title: '序号',
-          key: 'roleId',
+          key: 'mdId',
+          align: 'center',
+          width: 80,
           sortable: true,
           ellipsis: true,
-          width: 80,
-          align: 'center',
           render: (h, { row }) => {
             return h('span', {
               attrs: {
-                title: row.roleId
+                title: row.mdId
               }
-            }, row.roleId)
+            }, row.mdId)
           }
         },
         {
-          title: '角色名称',
-          key: 'roleName',
-          ellipsis: true,
+          title: '名称',
+          key: 'mdName',
           align: 'center',
+          ellipsis: true,
           render: (h, { row }) => {
             return h('span', {
               attrs: {
-                title: row.roleName
+                title: row.mdName
               }
-            }, row.roleName)
+            }, row.mdName)
           }
         },
         {
-          title: '备注',
-          key: 'remark',
-          ellipsis: true,
+          title: '描述',
           align: 'center',
+          key: 'mdDesc',
+          ellipsis: true,
           render: (h, { row }) => {
             return h('span', {
               attrs: {
-                title: row.remark
+                title: row.mdDesc
               }
-            }, row.remark)
+            }, row.mdDesc)
           }
         },
         {
@@ -113,11 +120,8 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.formData.action = '角色详情'
-                    this.formData.callback = null
-                    this.formData.info = row
-                    this.formData.type = 0
-                    this.formData.show = true
+                    this.detail.data = row
+                    this.detail.show = true
                   }
                 }
               }),
@@ -136,7 +140,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.formData.action = '角色修改'
+                    this.formData.action = '维护域修改'
                     this.formData.callback = this.update
                     this.formData.info = row
                     this.formData.type = 2
@@ -159,10 +163,10 @@ export default {
                 on: {
                   click: () => {
                     if (!row.delflag) return
-                    this.confirm.operator = row.roleName
+                    this.confirm.operator = row.mdName
                     this.confirm.action = '删除'
                     this.confirm.callback = this.delete
-                    this.confirm.id = row.roleId
+                    this.confirm.id = row.mdId
                     this.setShowConfirmModal(true)
                   }
                 }
@@ -173,49 +177,44 @@ export default {
       ]
     }
   },
-  created () {
-    this.getRoleList({})
-    this.getMenuTreeData()
-  },
   computed: {
     ...mapState({
       roleList: state => state.user.roleList,
-      roleTotal: state => state.user.roleTotal,
-      menuTree: state => state.user.menuTreeData,
+      mdTotal: state => state.device.mdTotal,
+      mdList: state => state.device.maintainDomainList,
       showConfirmModal: state => state.app.showConfirmModal
     }),
     total () {
-      if (this.roleTotal >= this.pageSize && this.roleList.length === 0) this.pageIndex -= 1
-      return this.roleTotal
+      if (this.mdTotal >= this.pageSize && this.mdList.length === 0) this.pageIndex -= 1
+      return this.mdTotal
     }
   },
-  watch: {
-    pageIndex (current, pre) {
-      this.getRoleList({ pageIndex: this.pageIndex, info: this.info })
-    }
+  created () {
+    this.getMaintainDomainList({})
+    this.getOrganizationalUnit()
   },
   methods: {
     ...mapActions([
-      'getRoleList',
-      'getMenuTreeData',
-      'addRole',
-      'updateRole',
-      'deleteRole'
+      'getMaintainDomainList',
+      'addMaintainDomain',
+      'updateMaintainDomain',
+      'deleteMaintainDomain',
+      'getOrganizationalUnit'
     ]),
     ...mapMutations(['setShowConfirmModal']),
     handleSearch () {
-      this.getRoleList({ info: this.info, pageIndex: 1 })
+      this.getMaintainDomainList({ info: this.info, pageIndex: 1 })
     },
     handleAddBtnClick () {
       this.formData.show = true
-      this.formData.action = '角色新增'
+      this.formData.action = '维护域新增'
       this.formData.callback = this.add
       this.formData.type = 1
       this.formData.info = {}
     },
     handleDeleteBtnClick () {
-      if (!this.selectedIds.length) return this.$Notice.error({ title: '请先勾选角色再进行删除' })
-      this.confirm.operator = '所勾选的角色'
+      if (!this.selectedIds.length) return this.$Notice.error({ title: '请先勾选维护域再进行删除' })
+      this.confirm.operator = '所勾选的维护域'
       this.confirm.action = '删除'
       this.confirm.callback = this.batchDelete
       this.confirm.id = ''
@@ -223,6 +222,12 @@ export default {
     },
     pageChanged (e) {
       this.pageIndex = e
+    },
+    selectionChange (e) { // 表格勾选事件
+      this.selectedIds = []
+      e.map((item) => {
+        this.selectedIds.push(item.mdId)
+      })
     },
     batchDelete () {
       this.selectedIds.forEach((item, index, arr) => {
@@ -232,37 +237,31 @@ export default {
         } else this.delete(item)
       })
     },
-    selectionChange (e) { // 表格勾选事件
-      this.selectedIds = []
-      e.map((item) => {
-        this.selectedIds.push(item.roleId)
-      })
-    },
     add (params) {
-      this.addRole(params).then(res => {
+      this.addMaintainDomain(params).then(res => {
         if (res.msg !== 'success') return
-        this.$Notice.success({ title: '角色新增成功' })
+        this.$Notice.success({ title: '维护域新增成功' })
         this.formData.show = false
         this.$refs.form.clear()
-        this.getRoleList({ pageIndex: this.pageIndex })
+        this.getMaintainDomainList({ pageIndex: this.pageIndex })
       })
     },
     update (params) {
-      this.updateRole(params).then(res => {
+      this.updateMaintainDomain(params).then(res => {
         if (res.msg !== 'success') return
-        this.$Notice.success({ title: '角色更新成功' })
+        this.$Notice.success({ title: '维护域修改成功' })
         this.formData.show = false
         this.$refs.form.clear()
-        this.getRoleList({ pageIndex: this.pageIndex })
+        this.getMaintainDomainList({ pageIndex: this.pageIndex })
       })
     },
-    delete (roleId, isFinal = false) {
-      this.deleteRole(roleId).then(res => {
+    delete (grpId, isFinal = false) {
+      this.deleteMaintainDomain(grpId).then(res => {
         if (res.msg !== 'success') return
         if (!isFinal) return
-        this.$Notice.success({ title: '角色删除成功' })
+        this.$Notice.success({ title: '维护域删除成功' })
         this.setShowConfirmModal(false)
-        this.getRoleList({ pageIndex: this.pageIndex })
+        this.getMaintainDomainList({ pageIndex: this.pageIndex })
       })
     }
   }

@@ -107,7 +107,7 @@ export default {
       },
       searchStr: '',
       deptId: '',
-      pageSize: 9999, // 不分页
+      pageSize: 99999, // 不分页
       rules: {
         grpName: [
           { required: true, message: '用户组名称不能为空', trigger: 'blur' }

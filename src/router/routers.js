@@ -58,31 +58,12 @@ export default [
     }
   },
   {
-    path: '/join',
-    name: 'join',
-    component: Main,
-    meta: {
-      hideInBread: true
-    },
-    children: [
-      {
-        path: 'join_page',
-        name: 'join_page',
-        meta: {
-          icon: '_qq',
-          title: 'QQ群'
-        },
-        component: () => import('@/view/join-page.vue')
-      }
-    ]
-  },
-  {
     path: '/message',
     name: 'message',
     component: Main,
     meta: {
-      hideInBread: true
-      // hideInMenu: true
+      hideInBread: true,
+      hideInMenu: true
     },
     children: [
       {
@@ -237,81 +218,36 @@ export default [
       }
     ]
   },
-  // {
-  //   path: '/tools_methods',
-  //   name: 'tools_methods',
-  //   meta: {
-  //     hideInBread: true
-  //   },
-  //   component: Main,
-  //   children: [
-  //     {
-  //       path: 'tools_methods_page',
-  //       name: 'tools_methods_page',
-  //       meta: {
-  //         icon: 'ios-hammer',
-  //         title: '工具方法',
-  //         beforeCloseName: 'before_close_normal'
-  //       },
-  //       component: () => import('@/view/tools-methods/tools-methods.vue')
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/i18n',
-  //   name: 'i18n',
-  //   meta: {
-  //     hideInBread: true
-  //   },
-  //   component: Main,
-  //   children: [
-  //     {
-  //       path: 'i18n_page',
-  //       name: 'i18n_page',
-  //       meta: {
-  //         icon: 'md-planet',
-  //         title: 'i18n - {{ i18n_page }}'
-  //       },
-  //       component: () => import('@/view/i18n/i18n-page.vue')
-  //     }
-  //   ]
-  // },
   {
-    path: '/error_store',
-    name: 'error_store',
+    path: '/monitorManagement',
+    name: 'monitorManagement',
     meta: {
-      hideInBread: true
+      icon: 'md-bulb',
+      title: '监控管理',
+      showAlways: true
     },
     component: Main,
     children: [
       {
-        path: 'error_store_page',
-        name: 'error_store_page',
+        path: 'monitor',
+        name: 'monitor',
         meta: {
-          icon: 'ios-bug',
-          title: '错误收集'
+          icon: 'md-pricetag',
+          title: '监测管理',
+          showAlways: true
         },
-        component: () => import('@/view/error-store/error-store.vue')
-      }
-    ]
-  },
-  {
-    path: '/error_logger',
-    name: 'error_logger',
-    meta: {
-      hideInBread: true,
-      hideInMenu: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'error_logger_page',
-        name: 'error_logger_page',
-        meta: {
-          icon: 'ios-bug',
-          title: '错误收集'
-        },
-        component: () => import('@/view/single-page/error-logger.vue')
+        component: parentView,
+        children: [
+          {
+            path: 'domain',
+            name: 'domain',
+            meta: {
+              icon: 'md-build',
+              title: '维护域管理'
+            },
+            component: () => import('@/view/monitor-management/monitor/maintenance-domain.vue')
+          }
+        ]
       }
     ]
   },
