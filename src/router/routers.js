@@ -61,10 +61,7 @@ export default [
     path: '/message',
     name: 'message',
     component: Main,
-    meta: {
-      hideInBread: true,
-      hideInMenu: true
-    },
+    meta: {},
     children: [
       {
         path: 'message_page',
@@ -160,64 +157,64 @@ export default [
       }
     ]
   },
-  {
-    path: '/update',
-    name: 'update',
-    meta: {
-      icon: 'md-cloud-upload',
-      title: '数据上传'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'update_table_page',
-        name: 'update_table_page',
-        meta: {
-          icon: 'ios-document',
-          title: '上传Csv'
-        },
-        component: () => import('@/view/update/update-table.vue')
-      },
-      {
-        path: 'update_paste_page',
-        name: 'update_paste_page',
-        meta: {
-          icon: 'md-clipboard',
-          title: '粘贴表格数据'
-        },
-        component: () => import('@/view/update/update-paste.vue')
-      }
-    ]
-  },
-  {
-    path: '/excel',
-    name: 'excel',
-    meta: {
-      icon: 'ios-stats',
-      title: 'EXCEL导入导出'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'upload-excel',
-        name: 'upload-excel',
-        meta: {
-          icon: 'md-add',
-          title: '导入EXCEL'
-        },
-        component: () => import('@/view/excel/upload-excel.vue')
-      },
-      {
-        path: 'export-excel',
-        name: 'export-excel',
-        meta: {
-          icon: 'md-download',
-          title: '导出EXCEL'
-        },
-        component: () => import('@/view/excel/export-excel.vue')
-      }
-    ]
-  },
+  // {
+  //   path: '/update',
+  //   name: 'update',
+  //   meta: {
+  //     icon: 'md-cloud-upload',
+  //     title: '数据上传'
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'update_table_page',
+  //       name: 'update_table_page',
+  //       meta: {
+  //         icon: 'ios-document',
+  //         title: '上传Csv'
+  //       },
+  //       component: () => import('@/view/update/update-table.vue')
+  //     },
+  //     {
+  //       path: 'update_paste_page',
+  //       name: 'update_paste_page',
+  //       meta: {
+  //         icon: 'md-clipboard',
+  //         title: '粘贴表格数据'
+  //       },
+  //       component: () => import('@/view/update/update-paste.vue')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/excel',
+  //   name: 'excel',
+  //   meta: {
+  //     icon: 'ios-stats',
+  //     title: 'EXCEL导入导出'
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'upload-excel',
+  //       name: 'upload-excel',
+  //       meta: {
+  //         icon: 'md-add',
+  //         title: '导入EXCEL'
+  //       },
+  //       component: () => import('@/view/excel/upload-excel.vue')
+  //     },
+  //     {
+  //       path: 'export-excel',
+  //       name: 'export-excel',
+  //       meta: {
+  //         icon: 'md-download',
+  //         title: '导出EXCEL'
+  //       },
+  //       component: () => import('@/view/excel/export-excel.vue')
+  //     }
+  //   ]
+  // },
   {
     path: '/monitorManagement',
     name: 'monitorManagement',
@@ -238,6 +235,15 @@ export default [
         },
         component: parentView,
         children: [
+          {
+            path: 'target',
+            name: 'target',
+            meta: {
+              icon: 'logo-buffer',
+              title: '监测指标管理'
+            },
+            component: () => import('@/view/monitor-management/monitor/monitor-target.vue')
+          },
           {
             path: 'domain',
             name: 'domain',

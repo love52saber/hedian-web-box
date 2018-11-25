@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:08:16
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-25 11:10:32
+ * @Last Modified time: 2018-11-25 15:16:35
  * @desc: 设备类数据流
  */
 import * as deviceApi from '@/api/device'
@@ -19,7 +19,9 @@ export default {
     mdTotal: 0, // 维护域总数
     mainTypeList: [], // 资源主类型列表
     subTypeList: [], // 资源子类型列表
-    resList: [] // 资源列表
+    resList: [], // 资源列表
+    moKpiList: [],
+    moKpiTotal: 0
   },
   mutations: {
     setDeviceTree (state, device) {
@@ -68,6 +70,12 @@ export default {
     },
     setResList (state, data) {
       state.resList = data
+    },
+    setMoKpiList (state, data) {
+      state.moKpiList = data
+    },
+    setMoKpiTotal (state, num) {
+      state.moKpiTotal = num
     }
   },
   actions: {
@@ -191,6 +199,7 @@ export default {
           })
       })
     },
+    // 获取资源列表
     getResList ({ commit }, params) {
       deviceApi
         .getResList(params)
@@ -206,6 +215,64 @@ export default {
         .catch(err => {
           reject(err)
         })
+    },
+    getMoKpiList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .getMoKpiList(params)
+          .then(res => {
+            console.log('===监测指标列表（页面）===', res)
+            commit('setMoKpiList', res.data.list)
+            const { total = 0 } = res.data
+            commit('setMoKpiTotal', total)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 新增监控指标
+    addMoKpi ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .addMoKpi(params)
+          .then(res => {
+            console.log('===指标新增===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 修改监控指标
+    updateMoKpi ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .updateMoKpi(params)
+          .then(res => {
+            console.log('===指标修改===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 删除指标
+    deleteMoKpi ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .deleteMoKpi(params)
+          .then(res => {
+            console.log('===指标删除===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
     }
   }
 }

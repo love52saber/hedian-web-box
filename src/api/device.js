@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:15:50
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-25 11:01:54
+ * @Last Modified time: 2018-11-25 15:00:21
  * @desc: 设备资源类接口
  */
 import axios from '@/libs/api.request'
@@ -153,5 +153,53 @@ export const getResList = params => {
       pageIndex: 1,
       pageSize: 99999
     }
+  })
+}
+
+/**
+ * 获取监控指标列表（页面）
+ * @param {*} params
+ */
+export const getMoKpiList = params => {
+  const { info = '', pageIndex = 1, pageSize = 15 } = params
+  return axios.request({
+    url: '/api/moKpi/pageList',
+    method: 'get',
+    params: { info, pageIndex, pageSize }
+  })
+}
+
+/**
+ * 删除监控指标
+ * @param {*} params
+ */
+export const deleteMoKpi = mokpiId => {
+  return axios.request({
+    url: `/api/moKpi/${mokpiId}`,
+    method: 'delete'
+  })
+}
+
+/**
+ * 新增监控指标
+ * @param {*} params
+ */
+export const addMoKpi = params => {
+  return axios.request({
+    url: '/api/moKpi/',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * 修改监控指标
+ * @param {*} params
+ */
+export const updateMoKpi = params => {
+  return axios.request({
+    url: '/api/moKpi/',
+    method: 'put',
+    data: params
   })
 }
