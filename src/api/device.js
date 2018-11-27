@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:15:50
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-25 15:00:21
+ * @Last Modified time: 2018-11-27 12:47:33
  * @desc: 设备资源类接口
  */
 import axios from '@/libs/api.request'
@@ -199,6 +199,55 @@ export const addMoKpi = params => {
 export const updateMoKpi = params => {
   return axios.request({
     url: '/api/moKpi/',
+    method: 'put',
+    data: params
+  })
+}
+
+/**
+ * 获取监控对象
+ * @param {*} resStype 资源子类型id
+ */
+export const getKpiObjectList = (resStype = '') => {
+  return axios.request({
+    url: '/api/moKpi/allMokpiObject',
+    method: 'get',
+    params: {
+      resStype
+    }
+  })
+}
+
+/**
+ * 删除监控对象
+ * @param {number} skId 监控对象id
+ */
+export const deleteKpiObject = (skId = '') => {
+  return axios.request({
+    url: `/api/resStypeKpi/${skId}`,
+    method: 'delete'
+  })
+}
+
+/**
+ *新增监控对象
+ * @param {object} params 参数对象
+ */
+export const addKpiObject = params => {
+  return axios.request({
+    url: `/api/resStypeKpi`,
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ *修改监控对象
+ * @param {object} params 参数对象
+ */
+export const updateKpiObject = params => {
+  return axios.request({
+    url: `/api/resStypeKpi`,
     method: 'put',
     data: params
   })

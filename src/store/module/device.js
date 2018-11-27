@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:08:16
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-25 15:16:35
+ * @Last Modified time: 2018-11-27 12:29:24
  * @desc: 设备类数据流
  */
 import * as deviceApi from '@/api/device'
@@ -20,8 +20,9 @@ export default {
     mainTypeList: [], // 资源主类型列表
     subTypeList: [], // 资源子类型列表
     resList: [], // 资源列表
-    moKpiList: [],
-    moKpiTotal: 0
+    moKpiList: [], // 监测指标列表
+    moKpiTotal: 0, // 指标总数
+    kpiObjectList: [] // 监控对象列表
   },
   mutations: {
     setDeviceTree (state, device) {
@@ -76,6 +77,9 @@ export default {
     },
     setMoKpiTotal (state, num) {
       state.moKpiTotal = num
+    },
+    setKpiObjectList (state, data) {
+      state.kpiObjectList = data
     }
   },
   actions: {
@@ -175,7 +179,7 @@ export default {
         deviceApi
           .getMainTypeList()
           .then(res => {
-            console.log('===资源主类型数据===', res)
+            // console.log('===资源主类型数据===', res)
             commit('setMainTypeList', res.data)
             resolve(res)
           })
@@ -190,7 +194,7 @@ export default {
         deviceApi
           .getSubTypeList(resMtype)
           .then(res => {
-            console.log('===资源子类型数据===', res)
+            // console.log('===资源子类型数据===', res)
             commit('setSubTypeList', res.data)
             resolve(res)
           })
@@ -204,7 +208,7 @@ export default {
       deviceApi
         .getResList(params)
         .then(res => {
-          console.log('===资源列表===', res)
+          // console.log('===资源列表===', res)
           if (res.msg === 'success') {
             res.data.list.forEach(item => {
               item.selected = false
@@ -216,6 +220,7 @@ export default {
           reject(err)
         })
     },
+    // 获取监控指标
     getMoKpiList ({ commit }, params) {
       return new Promise((resolve, reject) => {
         deviceApi
@@ -267,6 +272,63 @@ export default {
           .deleteMoKpi(params)
           .then(res => {
             console.log('===指标删除===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 获取监控对象列表
+    getKpiObjectList ({ commit }, resStype) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .getKpiObjectList(resStype)
+          .then(res => {
+            console.log('===监测对象列表（页面）===', res)
+            commit('setKpiObjectList', res.data)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 删除监控对象
+    deleteKpiObject ({ commit }, skId) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .deleteKpiObject(skId)
+          .then(res => {
+            console.log('===监控对象删除===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 修改监控对象
+    updateKpiObject ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .updateKpiObject(params)
+          .then(res => {
+            console.log('===监控对象修改===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 新增监控对象
+    addKpiObject ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .addKpiObject(params)
+          .then(res => {
+            console.log('===监控对象新增===', res)
             resolve(res)
           })
           .catch(err => {

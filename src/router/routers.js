@@ -238,6 +238,15 @@ export default [
         component: parentView,
         children: [
           {
+            path: 'object',
+            name: 'object',
+            meta: {
+              icon: 'md-cube',
+              title: '对象管理'
+            },
+            component: () => import('@/view/monitor-management/monitor/object.vue')
+          },
+          {
             path: 'target',
             name: 'target',
             meta: {

@@ -143,7 +143,6 @@ export default {
                 },
                 on: {
                   click: () => {
-                    console.log(row)
                     this.detail.data = row
                     this.detail.show = true
                   }
