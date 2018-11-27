@@ -23,7 +23,7 @@
         </Input>
       </FormItem>
     </Form>
-    <div class="m_footer" slot="footer" style="">
+    <div class="m_footer" slot="footer">
       <Button class="u_btn u_btn_ok" type="info" size="large" @click="ok">确定</Button>
       <Button class="u_btn" type="default" size="large" @click="cancel">取消</Button>
     </div>

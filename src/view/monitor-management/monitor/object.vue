@@ -215,7 +215,6 @@ export default {
                 },
                 on: {
                   click: () => {
-                    console.log(row.resCurStypeName)
                     if (row.resCurStypeName) return
                     this.formData.action = '监测对象修改'
                     this.formData.info = row

@@ -145,6 +145,7 @@ export default {
             ...user,
             ...this.form
           }
+          if (!willUpdateUserInfo.sysFile) willUpdateUserInfo.sysFile = {}
           willUpdateUserInfo.sysFile.url = this.form.url ? this.form.url : willUpdateUserInfo.sysFile.url
           setUserInfo(willUpdateUserInfo)
           this.cancel()
