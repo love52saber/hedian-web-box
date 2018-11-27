@@ -14,36 +14,56 @@ export const APP_NAME = 'appName'
 export const setToken = token => {
   Cookies.set(TOKEN_KEY, token, { expires: config.cookieExpires || 1 })
 }
-
+/**
+ * 设置用户信息
+ * @param {*} user 用户信息
+ */
 export const setUserInfo = user => {
   Cookies.set(USER_INFO, user, { expires: config.cookieExpires || 1 })
 }
+/**
+ * 设置应用名
+ * @param {*} name 应用名称
+ */
 export const setAppName = name => {
   Cookies.set(APP_NAME, name, { expires: config.cookieExpires || 1 })
 }
-
+/**
+ * 获取token
+ */
 export const getToken = () => {
   const token = Cookies.get(TOKEN_KEY)
   if (token) return token
   else return ''
 }
-
+/**
+ * 获取用户信息
+ */
 export const getUserInfo = () => {
   const userInfo = Cookies.get(USER_INFO)
   if (userInfo) return userInfo
   else return false
 }
-
+/**
+ * 获取应用名称
+ */
 export const getAppName = () => {
   const appName = Cookies.get(APP_NAME)
   if (appName) return appName
   else return ''
 }
-
+/**
+ * 是否有子路由
+ * @param {*} item
+ */
 export const hasChild = item => {
   return item.children && item.children.length !== 0
 }
-
+/**
+ * 是否显示该菜单
+ * @param {*} item
+ * @param {*} access
+ */
 const showThisMenuEle = (item, access) => {
   if (item.meta && item.meta.access && item.meta.access.length) {
     if (hasOneOf(item.meta.access, access)) return true
