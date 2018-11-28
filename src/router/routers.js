@@ -274,6 +274,54 @@ export default [
             component: () => import('@/view/monitor-management/monitor/maintenance-domain.vue')
           }
         ]
+      },
+      {
+        path: 'abnormal',
+        name: 'abnormal',
+        meta: {
+          icon: 'md-alert',
+          title: '告警管理',
+          overNumber: 0
+        },
+        component: parentView,
+        children: [
+          {
+            path: 'realTimeAbnormal',
+            name: 'realTimeAbnormal',
+            meta: {
+              icon: 'md-warning',
+              title: '实时告警'
+            },
+            component: () => import('@/view/monitor-management/abnormal/real-time-abnormal.vue')
+          },
+          {
+            path: 'historyAbnormal',
+            name: 'historyAbnormal',
+            meta: {
+              icon: 'md-warning',
+              title: '历史告警'
+            },
+            component: () => import('@/view/monitor-management/abnormal/history-abnormal.vue')
+          },
+          {
+            path: 'ms',
+            name: 'ms',
+            meta: {
+              icon: 'md-bookmark',
+              title: '维护期策略'
+            },
+            component: () => import('@/view/monitor-management/abnormal/history-abnormal.vue')
+          },
+          {
+            path: 'fms',
+            name: 'fms',
+            meta: {
+              icon: 'md-bookmark',
+              title: '故障维护策略'
+            },
+            component: () => import('@/view/monitor-management/abnormal/history-abnormal.vue')
+          }
+        ]
       }
     ]
   },

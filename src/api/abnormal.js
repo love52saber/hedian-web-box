@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-16 13:48:29
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-19 19:15:37
+ * @Last Modified time: 2018-11-28 15:36:58
  * @desc: 警告类接口
  */
 import axios from '@/libs/api.request'
@@ -50,5 +50,91 @@ export const getLatestTopFault = () => {
       pageSize: 5, // 每页长度
       isAutoOrder: false // 已派单
     }
+  })
+}
+
+/**
+ * 获取历史告警列表
+ * @param {object} params
+ */
+export const getHistoryAbormalList = params => {
+  const {
+    pageIndex = 1,
+    pageSize = 10,
+    beginTime = '',
+    endTime = '',
+    abnormalLevel = '',
+    abnormalType = '',
+    abnormalName = '',
+    mokpiName = '',
+    resName = '',
+    resAlias = '',
+    isAutoOrder = false,
+    useflag = false
+  } = params
+  return axios.request({
+    url: '/api/resMoAbnormalInfoH/pageList',
+    method: 'get',
+    params: {
+      pageIndex,
+      pageSize,
+      beginTime,
+      endTime,
+      abnormalLevel,
+      abnormalType,
+      abnormalName,
+      mokpiName,
+      resName,
+      resAlias,
+      isAutoOrder,
+      useflag
+    }
+  })
+}
+
+/**
+ *删除告警
+ * @param {number} id 告警id
+ */
+export const deleteAbnormal = id => {
+  return axios.request({
+    url: `/api/resMoAbnormalInfo/${id}`,
+    method: 'delete'
+  })
+}
+
+/**
+ * 获取实时告警页面内的数量统计
+ */
+export const getAbnormalLevelCount = () => {
+  return axios.request({
+    url: '/api/resMoAbnormalInfo/abnormalLevelCount',
+    method: 'get'
+  })
+}
+
+/**
+ *确认告警
+ * @param {object} params
+ * resAbnormalId， confirmInfo
+ */
+export const confirmAbnormal = params => {
+  return axios.request({
+    url: `/api/resMoAbnormalInfo/confirmAbnormal`,
+    method: 'put',
+    data: params
+  })
+}
+
+/**
+ *清除告警
+ * @param {object} params
+ * resAbnormalId， cleanInfo
+ */
+export const cleanAbnormal = params => {
+  return axios.request({
+    url: `/api/resMoAbnormalInfo/cleanAbnormal`,
+    method: 'put',
+    data: params
   })
 }
