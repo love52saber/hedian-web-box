@@ -210,6 +210,11 @@ export default {
       return this.moKpiTotal
     }
   },
+  watch: {
+    pageIndex () {
+      this.getMoKpiList({ pageIndex: this.pageIndex })
+    }
+  },
   created () {
     this.getMoKpiList({})
   },

@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:15:50
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-27 12:47:33
+ * @Last Modified time: 2018-11-27 16:56:16
  * @desc: 设备资源类接口
  */
 import axios from '@/libs/api.request'
@@ -250,5 +250,80 @@ export const updateKpiObject = params => {
     url: `/api/resStypeKpi`,
     method: 'put',
     data: params
+  })
+}
+
+/**
+ * 获取阈值规则列表
+ * @param {object} params
+ */
+export const getThresholdList = params => {
+  const {
+    pageIndex = 1,
+    pageSize = 10,
+    moKpiName = '',
+    moAbnormalName = '',
+    resStypeName = '',
+    resMtypeName = ''
+  } = params
+  return axios.request({
+    url: `/api/moThreshold/pageList`,
+    method: 'get',
+    params: { pageIndex, pageSize, moKpiName, moAbnormalName, resStypeName, resMtypeName }
+  })
+}
+
+/**
+ *删除阈值规则
+ * @param {number} id
+ */
+export const deleteThreshold = id => {
+  return axios.request({
+    url: `/api/moThreshold/${id}`,
+    method: 'delete'
+  })
+}
+
+/**
+ *新增阈值规则
+ * @param {object} params
+ */
+export const addThreshold = params => {
+  return axios.request({
+    url: `/api/moThreshold`,
+    method: 'post',
+    data: {
+      ...params,
+      showorder: 100
+    }
+  })
+}
+
+/**
+ *修改阈值规则
+ * @param {object} params
+ */
+export const updateThreshold = params => {
+  return axios.request({
+    url: `/api/moThreshold`,
+    method: 'put',
+    data: {
+      ...params,
+      showorder: 100
+    }
+  })
+}
+
+/**
+ * 获取监控指标（控件）
+ * @param {*} resStype 子类型id
+ */
+export const kpiInCtrl = (resStype = '') => {
+  return axios.request({
+    url: `/api/moKpi/all`,
+    method: 'get',
+    params: {
+      resStype
+    }
   })
 }

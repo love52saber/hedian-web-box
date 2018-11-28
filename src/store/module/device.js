@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:08:16
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-27 12:29:24
+ * @Last Modified time: 2018-11-28 09:13:16
  * @desc: 设备类数据流
  */
 import * as deviceApi from '@/api/device'
@@ -22,7 +22,10 @@ export default {
     resList: [], // 资源列表
     moKpiList: [], // 监测指标列表
     moKpiTotal: 0, // 指标总数
-    kpiObjectList: [] // 监控对象列表
+    kpiObjectList: [], // 监控对象列表
+    thresholdList: [], // 阈值规则列表
+    thresholdTotal: 0, // 阈值规则总数
+    kpiInCtrl: [] // 监控指标（控件）
   },
   mutations: {
     setDeviceTree (state, device) {
@@ -80,6 +83,15 @@ export default {
     },
     setKpiObjectList (state, data) {
       state.kpiObjectList = data
+    },
+    setThresholdList (state, data) {
+      state.thresholdList = data
+    },
+    setThresholdTotal (state, num) {
+      state.thresholdTotal = num
+    },
+    setKpiInCtrl (state, data) {
+      state.kpiInCtrl = data
     }
   },
   actions: {
@@ -329,6 +341,76 @@ export default {
           .addKpiObject(params)
           .then(res => {
             console.log('===监控对象新增===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 获取监控指标
+    getThresholdList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .getThresholdList(params)
+          .then(res => {
+            console.log('===阈值规则列表（页面）===', res)
+            commit('setThresholdList', res.data.list)
+            const { total = 0 } = res.data
+            commit('setThresholdTotal', total)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    kpiInCtrl ({ commit }, resStype) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .kpiInCtrl(resStype)
+          .then(res => {
+            console.log('===获取监控指标（控件）===', res)
+            commit('setKpiInCtrl', res.data)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    addThreshold ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .addThreshold(params)
+          .then(res => {
+            console.log('===阈值规则新增===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    updateThreshold ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .updateThreshold(params)
+          .then(res => {
+            console.log('===阈值规则修改===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    deleteThreshold ({ commit }, thId) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .deleteThreshold(thId)
+          .then(res => {
+            console.log('===阈值规则删除===', res)
             resolve(res)
           })
           .catch(err => {

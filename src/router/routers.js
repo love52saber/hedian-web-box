@@ -256,6 +256,15 @@ export default [
             component: () => import('@/view/monitor-management/monitor/monitor-target.vue')
           },
           {
+            path: 'threshold',
+            name: 'threshold',
+            meta: {
+              icon: 'md-git-commit',
+              title: '告警阈值管理'
+            },
+            component: () => import('@/view/monitor-management/monitor/threshold.vue')
+          },
+          {
             path: 'domain',
             name: 'domain',
             meta: {
