@@ -57,7 +57,7 @@ export const getLatestTopFault = () => {
  * 获取历史告警列表
  * @param {object} params
  */
-export const getHistoryAbormalList = params => {
+export const getHistoryAbnormalList = params => {
   const {
     pageIndex = 1,
     pageSize = 10,

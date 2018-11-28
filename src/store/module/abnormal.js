@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:02
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-28 15:29:24
+ * @Last Modified time: 2018-11-28 17:03:08
  * @desc: 告警类数据流
  */
 import * as abnormalApi from '@/api/abnormal'
@@ -13,7 +13,9 @@ export default {
     realTimeAlarmList: [], // 实时告警数据
     realTimeAbnormalTotal: 0,
     latestTopFault: [], // 最新TOP故障
-    abnormalLevelCount: [] // 实时告警统计
+    abnormalLevelCount: [], // 实时告警统计
+    historyAbnormalList: [], // 历史告警
+    historyAbnormalTotal: 0 // 历史告警总数
   },
   mutations: {
     setWarningNumber (state, number) {
@@ -30,6 +32,12 @@ export default {
     },
     setAbnormalLevelCount (state, data) {
       state.abnormalLevelCount = data
+    },
+    setHistoryAbnormalList (state, data) {
+      state.historyAbnormalList = data
+    },
+    setHistoryAbnormalTotal (state, number) {
+      state.historyAbnormalTotal = number
     }
   },
   actions: {
@@ -126,12 +134,30 @@ export default {
           })
       })
     },
+    // 删除告警
     deleteAbnormal ({ commit }, id) {
       return new Promise((resolve, reject) => {
         abnormalApi
           .deleteAbnormal(id)
           .then(res => {
             console.log('===告警删除===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 获取历史告警统计
+    getHistoryAbnormalList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        abnormalApi
+          .getHistoryAbnormalList(params)
+          .then(res => {
+            console.log('===历史告警===', res)
+            const { data } = res
+            commit('setHistoryAbnormalTotal', data.total)
+            commit('setHistoryAbnormalList', data.list)
             resolve(res)
           })
           .catch(err => {
