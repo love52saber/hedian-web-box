@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:02
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-28 17:03:08
+ * @Last Modified time: 2018-11-29 11:23:46
  * @desc: 告警类数据流
  */
 import * as abnormalApi from '@/api/abnormal'
@@ -15,7 +15,31 @@ export default {
     latestTopFault: [], // 最新TOP故障
     abnormalLevelCount: [], // 实时告警统计
     historyAbnormalList: [], // 历史告警
-    historyAbnormalTotal: 0 // 历史告警总数
+    historyAbnormalTotal: 0, // 历史告警总数
+    maintainStrategyList: [], // 维护期策略
+    maintainStrategyTotal: 0, // 维护期策略总数
+    maintainType: [
+      {
+        value: 1,
+        label: '新建'
+      },
+      {
+        value: 2,
+        label: '维护'
+      },
+      {
+        value: 3,
+        label: '扩建'
+      },
+      {
+        value: 4,
+        label: '割接'
+      },
+      {
+        value: 5,
+        label: '其他'
+      }
+    ]
   },
   mutations: {
     setWarningNumber (state, number) {
@@ -38,6 +62,12 @@ export default {
     },
     setHistoryAbnormalTotal (state, number) {
       state.historyAbnormalTotal = number
+    },
+    setMaintainStrategyList (state, data) {
+      state.maintainStrategyList = data
+    },
+    setMaintainStrategyTotal (state, number) {
+      state.maintainStrategyTotal = number
     }
   },
   actions: {
@@ -158,6 +188,65 @@ export default {
             const { data } = res
             commit('setHistoryAbnormalTotal', data.total)
             commit('setHistoryAbnormalList', data.list)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 获取维护期策略列表
+    getMaintainStrategyList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        abnormalApi
+          .getMaintainStrategyList(params)
+          .then(res => {
+            console.log('===维护期策略===', res)
+            const { data } = res
+            commit('setMaintainStrategyList', data.list)
+            commit('setMaintainStrategyTotal', data.total)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 删除维护期策略
+    deleteMaintainStrategy ({ commit }, id) {
+      return new Promise((resolve, reject) => {
+        abnormalApi
+          .deleteMaintainStrategy(id)
+          .then(res => {
+            console.log('===维护期策略删除===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 新增维护期策略
+    addMaintainStrategy ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        abnormalApi
+          .addMaintainStrategy(params)
+          .then(res => {
+            console.log('===维护期策略新增===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 修改维护期策略
+    updateMaintainStrategy ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        abnormalApi
+          .updateMaintainStrategy(params)
+          .then(res => {
+            console.log('===维护期策略修改===', res)
             resolve(res)
           })
           .catch(err => {

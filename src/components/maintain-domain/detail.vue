@@ -48,7 +48,6 @@ export default {
           title: '编码',
           key: 'resSerialnumber',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -62,7 +61,6 @@ export default {
           title: '名称',
           key: 'resName',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -76,7 +74,6 @@ export default {
           title: '别名',
           key: 'resAlias',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -90,7 +87,6 @@ export default {
           title: '主类型',
           key: 'resMainType',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -104,7 +100,6 @@ export default {
           title: '子类型',
           key: 'resSubtype',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -118,7 +113,6 @@ export default {
           title: 'IP地址',
           key: 'resIpv4',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -132,7 +126,6 @@ export default {
           title: '地址信息',
           key: 'resAddress',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           width: 170,
           render: (h, { row }) => {

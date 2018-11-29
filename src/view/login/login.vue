@@ -1,5 +1,5 @@
 <style lang="less">
-@import './login.less';
+@import "./login.less";
 </style>
 
 <template>
@@ -50,8 +50,10 @@ export default {
         this.$router.push({
           name: this.$config.homeName
         })
-        this.$Notice.success({ title: '欢迎登录' })
-        if (res.data.user.pwdFlag === 2) this.$Notice.warning({ title: '您的密码需要修改', desc: '初始密码需要修改' })
+        setTimeout(() => {
+          this.$Notice.success({ title: '欢迎登录' })
+          if (res.data.user.pwdFlag === 2) this.$Notice.warning({ title: '您的密码需要修改', desc: '初始密码需要修改' })
+        }, 1500)
       })
     }
   }

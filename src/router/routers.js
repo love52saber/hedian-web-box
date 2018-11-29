@@ -310,7 +310,7 @@ export default [
               icon: 'md-bookmark',
               title: '维护期策略'
             },
-            component: () => import('@/view/monitor-management/abnormal/history-abnormal.vue')
+            component: () => import('@/view/monitor-management/abnormal/maintain-strategy.vue')
           },
           {
             path: 'fms',
@@ -319,7 +319,7 @@ export default [
               icon: 'md-bookmark',
               title: '故障维护策略'
             },
-            component: () => import('@/view/monitor-management/abnormal/history-abnormal.vue')
+            component: () => import('@/view/monitor-management/abnormal/fault-maintain-strategy.vue')
           }
         ]
       }

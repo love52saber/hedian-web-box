@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-16 13:48:29
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-28 15:36:58
+ * @Last Modified time: 2018-11-29 09:20:11
  * @desc: 警告类接口
  */
 import axios from '@/libs/api.request'
@@ -134,6 +134,61 @@ export const confirmAbnormal = params => {
 export const cleanAbnormal = params => {
   return axios.request({
     url: `/api/resMoAbnormalInfo/cleanAbnormal`,
+    method: 'put',
+    data: params
+  })
+}
+
+/**
+ * 获取维护期策略列表
+ * @param {object} params
+ */
+export const getMaintainStrategyList = params => {
+  const { pageIndex = 1, msTitle = '', msType = '', msStatus = '', currentTime = 0, pageSize = 10 } = params
+  return axios.request({
+    url: `/api/maintainStrategy/pageList`,
+    method: 'get',
+    params: {
+      pageIndex,
+      msTitle,
+      msType,
+      msStatus,
+      currentTime,
+      pageSize
+    }
+  })
+}
+
+/**
+ *删除维护期策略
+ * @param {number} id
+ */
+export const deleteMaintainStrategy = id => {
+  return axios.request({
+    url: `/api/maintainStrategy/${id}`,
+    method: 'delete'
+  })
+}
+
+/**
+ *新增维护期策略
+ * @param {object} params
+ */
+export const addMaintainStrategy = params => {
+  return axios.request({
+    url: '/api/maintainStrategy',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ * 修改维护期策略
+ * @param {object} params
+ */
+export const updateMaintainStrategy = params => {
+  return axios.request({
+    url: '/api/maintainStrategy',
     method: 'put',
     data: params
   })
