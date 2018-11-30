@@ -34,7 +34,7 @@
         </RadioGroup>
       </FormItem>
       <FormItem prop="grpName" label='用户组名称：'>
-        <Input v-model='form.grpName' clearable placeholder='请输入用户组名称' :maxlength=20></Input>
+        <Input v-model='form.grpName' clearable placeholder='请输入用户组名称' :maxlength="NAME_LENGTH_LIMIT"></Input>
       </FormItem>
       <FormItem label='角色：'>
         <CheckboxGroup v-model='form.roleIds'>
@@ -44,7 +44,7 @@
         </CheckboxGroup>
       </FormItem>
       <FormItem label='描述：'>
-        <Input v-model='form.grpDesc' placeholder='请输入描述' :maxlength=100></Input>
+        <Input v-model='form.grpDesc' :placeholder='`请输入描述，不超过${DESC_LENGTH_LIMIT}个字`' :maxlength="DESC_LENGTH_LIMIT"></Input>
       </FormItem>
       <FormItem label='成员：'>
         <Row :gutter="8">
@@ -85,9 +85,10 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-
+import mixin from '@/mixin'
 export default {
   name: 'UserGroupForm',
+  mixins: [mixin],
   props: {
     formData: {
       type: Object,

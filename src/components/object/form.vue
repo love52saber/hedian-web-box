@@ -32,8 +32,10 @@
 <script>
 import _ from 'lodash'
 import { mapState } from 'vuex'
+import mixin from '@/mixin'
 export default {
   name: 'MonitorObjectForm',
+  mixins: [mixin],
   props: {
     formData: {
       type: Object,

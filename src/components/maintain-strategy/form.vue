@@ -4,7 +4,7 @@
       <Row>
         <i-col :span="12">
           <FormItem prop='msName' label='策略标题：'>
-            <Input v-model="form.msName" placeholder='输入策略标题' :maxlength="10" />
+            <Input v-model="form.msName" placeholder='输入策略标题' :maxlength="NAME_LENGTH_LIMIT" />
           </FormItem>
         </i-col>
         <i-col :span="12">
@@ -34,7 +34,7 @@
         </i-col>
         <i-col :span="12">
           <FormItem label='描述：'>
-            <Input placeholder='输入描述' v-model="form.msDesc" :maxlength="100" />
+            <Input :placeholder='`输入描述，不超过${DESC_LENGTH_LIMIT}个字`' type="textarea" v-model="form.msDesc" :maxlength="DESC_LENGTH_LIMIT" />
           </FormItem>
         </i-col>
         <i-col :span="24">
@@ -60,8 +60,10 @@
 <script>
 import { Resource } from '_c/controls'
 import { mapState } from 'vuex'
+import mixin from '@/mixin'
 export default {
   name: 'MaintainStrategyForm',
+  mixins: [mixin],
   components: {
     Resource
   },

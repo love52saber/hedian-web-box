@@ -28,10 +28,10 @@
   <Modal v-model='formData.show' :title='formData.action' :closable="false" :mask-closable="false" width='1000'>
     <Form class="g_user_group_form mr30" :model='form' :rules="rules" ref="form" :label-width='100'>
       <FormItem prop="mdName" label='维护域名称：'>
-        <Input v-model="form.mdName" placeholder='输入维护域名称' :maxlength="10" />
+        <Input v-model="form.mdName" placeholder='输入维护域名称' :maxlength="NAME_LENGTH_LIMIT" />
       </FormItem>
       <FormItem label='维护域描述：'>
-        <Input v-model="form.mdDesc" placeholder='输入维护域描述' :maxlength="100" />
+        <Input v-model="form.mdDesc" type="textarea" :placeholder='`输入维护域描述，不超过${DESC_LENGTH_LIMIT}个字`' :maxlength="DESC_LENGTH_LIMIT" />
       </FormItem>
       <FormItem label='配置：'>
         <Tabs v-model="defaultTab" type="card">
@@ -86,9 +86,11 @@
 <script>
 import { Resource } from '_c/controls'
 import { mapState, mapActions } from 'vuex'
+import mixin from '@/mixin'
 import _ from 'lodash'
 export default {
   name: 'MaintainDomainForm',
+  mixins: [mixin],
   components: {
     Resource
   },

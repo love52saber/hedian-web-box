@@ -83,7 +83,7 @@ export default {
       headers: {
         Authorization: getToken()
       },
-      action: process.env.NODE_ENV === 'development' ? `${window.config.baseUrl.dev}/api/resource` : `${window.config.baseUrl.pro}/api/resource`,
+      action: `${window.config.baseUrl}/api/resource`,
       rules: {
         mobile: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },

@@ -9,10 +9,10 @@
         </Upload>
       </div>
       <FormItem prop='name' label="姓名：">
-        <Input v-model="form.name" placeholder="输入姓名，不超过10个字" :maxlength="10"></Input>
+        <Input v-model="form.name" placeholder="输入姓名，不超过10个字" :maxlength="NAME_LENGTH_LIMIT"></Input>
       </FormItem>
       <FormItem prop='username' label="用户名：">
-        <Input v-model="form.username" placeholder="输入用户名" :maxlength="10"></Input>
+        <Input v-model="form.username" placeholder="输入用户名" :maxlength="20"></Input>
       </FormItem>
       <FormItem prop='deptName' label="部门：">
         <Input readonly @on-click="deptShow=!deptShow" @on-focus='deptShow=true' @on-blur='blur' v-model="form.deptName" placeholder="选择部门" :maxlength=20 :icon="!deptShow ? 'ios-arrow-down': 'ios-arrow-up'"></Input>
@@ -61,8 +61,10 @@
 import { mapState } from 'vuex'
 import { getToken } from '@/libs/util'
 import _ from 'lodash'
+import mixin from '@/mixin'
 export default {
   name: 'UserForm',
+  mixins: [mixin],
   props: {
     formData: {
       type: Object,
@@ -76,7 +78,7 @@ export default {
       headers: {
         Authorization: getToken()
       },
-      action: process.env.NODE_ENV === 'development' ? `${window.config.baseUrl.dev}/api/resource` : `${window.config.baseUrl.pro}/api/resource`,
+      action: `${window.config.baseUrl}/api/resource`,
       form: {
         name: '',
         username: '',

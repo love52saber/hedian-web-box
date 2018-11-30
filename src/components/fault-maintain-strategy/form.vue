@@ -16,7 +16,7 @@
             </i-col>
             <i-col :span="12">
               <FormItem prop="fmsName" label="名称：">
-                <Input v-model="form.fmsName" placeholder="请输入名称" :maxlength="10"></Input>
+                <Input v-model="form.fmsName" placeholder="请输入名称" :maxlength="NAME_LENGTH_LIMIT"></Input>
               </FormItem>
             </i-col>
             <i-col :span="12">
@@ -59,7 +59,7 @@
             </i-col>
             <i-col :span="24">
               <FormItem label="描述：">
-                <Input :maxlength="120" v-model="form.fmsDesc" type="textarea" :rows="2" placeholder="请输入描述，不超过120个字"></Input>
+                <Input :maxlength="DESC_LENGTH_LIMIT" v-model="form.fmsDesc" type="textarea" :rows="2" :placeholder="`请输入描述，不超过${DESC_LENGTH_LIMIT}个字`"></Input>
               </FormItem>
             </i-col>
           </Row>
@@ -104,9 +104,11 @@
 <script>
 import { Resource, Fault, Domain } from '_c/controls'
 import { mapState, mapActions } from 'vuex'
+import mixin from '@/mixin'
 import _ from 'lodash'
 export default {
   name: 'FaultMaintainStrategyForm',
+  mixins: [mixin],
   components: {
     Resource,
     Fault,

@@ -15,10 +15,10 @@
   <Modal v-model='formData.show' :title='formData.action' :closable="false" :mask-closable="false">
     <Form :model='form' :rules="rules" ref="form" style="padding-right: 30px" :label-width='100'>
       <FormItem prop="roleName" label="角色名称：">
-        <Input v-model="form.roleName" :readonly="formData.type === 0" placeholder="输入角色名称" :maxlength="10" />
+        <Input v-model="form.roleName" :readonly="formData.type === 0" placeholder="输入角色名称" :maxlength="NAME_LENGTH_LIMIT" />
       </FormItem>
       <FormItem label="备注：">
-        <Input v-model="form.remark" :readonly="formData.type === 0" placeholder="输入备注" :maxlength="20" />
+        <Input v-model="form.remark" :readonly="formData.type === 0" :placeholder="`输入备注，不超过${DESC_LENGTH_LIMIT}个字`" :maxlength="DESC_LENGTH_LIMIT" />
       </FormItem>
       <FormItem label="权限：">
         <div class="tree_container">
@@ -34,8 +34,10 @@
 </template>
 <script>
 import _ from 'lodash'
+import mixin from '@/mixin'
 export default {
   name: 'RoleForm',
+  mixins: [mixin],
   props: {
     formData: {
       type: Object,

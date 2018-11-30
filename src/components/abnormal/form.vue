@@ -7,7 +7,7 @@
       <FormItem class="mb10" label='发生时间:'>{{info.resAbnomaltime || info.alarmTime}}</FormItem>
       <FormItem class="mb10" label='告警级别:'>{{info.resAbnormallevelName || info.alarmLevel}}</FormItem>
       <FormItem class="mb10" label='处理意见:'>
-        <Input type="textarea" v-model="inputValue" :autosize="{minRows: 2,maxRows: 5}" :maxlength='100' placeholder="请输入处理意见,不超过100字"></Input>
+        <Input type="textarea" v-model="inputValue" :autosize="{minRows: 2,maxRows: 5}" :maxlength='DESC_LENGTH_LIMIT' :placeholder="`请输入处理意见，不超过${DESC_LENGTH_LIMIT}个字`"></Input>
       </FormItem>
     </Form>
     <div class="m_footer" slot="footer">
@@ -17,8 +17,10 @@
   </Modal>
 </template>
 <script>
+import mixin from '@/mixin'
 export default {
   name: 'AbnormalForm',
+  mixins: [mixin],
   props: {
     formData: {
       type: Object,

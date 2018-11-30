@@ -2,22 +2,19 @@
   <ul class="m_notice">
     <li class="u_notice_item">
       <Badge :count="todoNumber">
-        <Avatar style="background:#4ea1cc"
-          icon="md-alarm" />
+        <Avatar style="background:#4ea1cc" icon="md-alarm" />
       </Badge>
       <span>待办</span>
     </li>
-    <li class="u_notice_item">
+    <li class="u_notice_item" @click="toPage">
       <Badge :count="warningNumber">
-        <Avatar style="background:#f7b045;"
-          icon="md-alert" />
+        <Avatar style="background:#f7b045;" icon="md-alert" />
       </Badge>
       <span>警告</span>
     </li>
     <li class="u_notice_item">
       <Badge :count="msgNumber">
-        <Avatar style="background:#1b50ca;"
-          icon="md-mail" />
+        <Avatar style="background:#1b50ca;" icon="md-mail" />
       </Badge>
       <span>消息</span>
     </li>
@@ -39,6 +36,13 @@ export default {
     msgNumber: {
       type: Number,
       default: 0
+    }
+  },
+  methods: {
+    toPage () {
+      this.$router.push({
+        name: 'realTimeAbnormal'
+      })
     }
   }
 }

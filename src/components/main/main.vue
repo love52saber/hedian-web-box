@@ -14,7 +14,7 @@
       <Header class="header-con">
         <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
           <user :user-name="username" :user-avator="userAvator" />
-          <notice :todo-number="1" :warning-number="warningNumber" :msg-number="3" />
+          <notice :todo-number="0" :warning-number="warningNumber" :msg-number="0" />
           <fullscreen v-model="isFullscreen" style="margin-right: 10px;" />
         </header-bar>
       </Header>
@@ -96,7 +96,6 @@ export default {
       return ['ParentView', ...this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []]
     },
     menuList () {
-      console.log('this.$store.getters.menuList=', this.$store.getters.menuList)
       return this.$store.getters.menuList
     },
     local () {

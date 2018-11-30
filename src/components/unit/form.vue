@@ -14,16 +14,16 @@
   <Modal v-model='formData.show' :title='formData.action' :closable="false" :mask-closable="false" @on-ok='ok("form")' @on-cancel='cancel("form")'>
     <Form style="width:80%;margin: 0 auto;" ref='form' :rules='rules' :model='formItem' :label-width='100'>
       <FormItem label='上级组织机构'>
-        <Input v-model='formData.parentName' disabled placeholder='无' :maxlength=20 />
+        <Input v-model='formData.parentName' disabled placeholder='无' :maxlength='NAME_LENGTH_LIMIT' />
       </FormItem>
       <FormItem label='组织机构全称' required prop='name'>
-        <Input v-model='formItem.name' placeholder='输入组织机构全称' :maxlength=20 />
+        <Input v-model='formItem.name' placeholder='输入组织机构全称' :maxlength='NAME_LENGTH_LIMIT' />
       </FormItem>
       <FormItem required prop='shortName' label='组织机构简称'>
-        <Input v-model='formItem.shortName' placeholder='输入组织机构简称' :maxlength=20 />
+        <Input v-model='formItem.shortName' placeholder='输入组织机构简称' :maxlength='NAME_LENGTH_LIMIT' />
       </FormItem>
       <FormItem label='机构编码'>
-        <Input v-model='formItem.orgCode' placeholder='输入机构编码' :maxlength=20 />
+        <Input v-model='formItem.orgCode' placeholder='输入机构编码' :maxlength='NAME_LENGTH_LIMIT' />
       </FormItem>
       <FormItem required prop='orgType' label='组织类型'>
         <Select v-model='formItem.orgType'>
@@ -32,7 +32,7 @@
         </Select>
       </FormItem>
       <FormItem label='部门介绍'>
-        <Input v-model='formItem.orgDesc' type='textarea' :maxlength=200 :autosize='{minRows: 2,maxRows: 5}' placeholder='输入部门介绍' />
+        <Input v-model='formItem.orgDesc' type='textarea' :maxlength='DESC_LENGTH_LIMIT' :autosize='{minRows: 2,maxRows: 5}' :placeholder='`输入部门介绍，不超过${DESC_LENGTH_LIMIT}个字`' />
       </FormItem>
     </Form>
     <div class="m_footer" slot="footer" style="">
@@ -43,8 +43,10 @@
 </template>
 <script>
 import _ from 'lodash'
+import mixin from '@/mixin'
 export default {
   name: 'UnitForm',
+  mixins: [mixin],
   props: {
     formData: {
       type: Object,

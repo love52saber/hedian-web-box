@@ -2,19 +2,19 @@
   <Modal v-model='formData.show' :title='formData.action' :closable="false" :mask-closable="false">
     <Form class="mr20" :model='form' :rules="rules" ref="form" :label-width='100'>
       <FormItem prop="moKpiName" label='指标名称：'>
-        <Input v-model='form.moKpiName' placeholder='输入指标名称' :maxlength="10" />
+        <Input v-model='form.moKpiName' placeholder='输入指标名称' :maxlength="NAME_LENGTH_LIMIT" />
       </FormItem>
       <FormItem prop="moKpiKey" label='关键字：'>
-        <Input v-model='form.moKpiKey' placeholder='输入关键字' :maxlength='10' />
+        <Input v-model='form.moKpiKey' placeholder='输入关键字' :maxlength='NAME_LENGTH_LIMIT' />
       </FormItem>
       <FormItem label='中文单位：'>
-        <Input v-model='form.unitCh' placeholder='输入中文单位' :maxlength='10' />
+        <Input v-model='form.unitCh' placeholder='输入中文单位' :maxlength='NAME_LENGTH_LIMIT' />
       </FormItem>
       <FormItem label='英文单位：'>
-        <Input v-model='form.unitEn' placeholder='输入英文单位' :maxlength='10' />
+        <Input v-model='form.unitEn' placeholder='输入英文单位' :maxlength='NAME_LENGTH_LIMIT' />
       </FormItem>
       <FormItem label='备注：'>
-        <Input v-model='form.moKpiDesc' type='textarea' placeholder='请输入备注' :autosize='{minRows: 2,maxRows: 5}' :maxlength='100'></Input>
+        <Input v-model='form.moKpiDesc' type='textarea' :placeholder='`请输入备注，不超过${DESC_LENGTH_LIMIT}个字`' :autosize='{minRows: 2,maxRows: 5}' :maxlength='DESC_LENGTH_LIMIT'></Input>
       </FormItem>
     </Form>
     <div class="m_footer" slot="footer">
@@ -25,8 +25,10 @@
 </template>
 <script>
 import _ from 'lodash'
+import mixin from '@/mixin'
 export default {
   name: 'MonitorTargetForm',
+  mixins: [mixin],
   props: {
     formData: {
       type: Object,
