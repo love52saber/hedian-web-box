@@ -21,7 +21,7 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  td {
+  .ivu-table-body td {
     height: 42px !important;
   }
   .u_page {

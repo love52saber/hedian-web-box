@@ -87,7 +87,7 @@ export default {
     },
     userAvator () {
       const avatar = this.$store.state.user.avatorImgPath
-      return avatar ? `${this.$config.fileHost}${avatar}` : ''
+      return avatar ? `${window.config.fileHost}${avatar}` : ''
     },
     username () {
       return this.$store.state.user.username
@@ -119,7 +119,7 @@ export default {
     ]),
     initWebSocket () {
       if (!this.userId) return
-      const wsUrl = this.$config.wsUrl + this.userId
+      const wsUrl = window.config.wsUrl + this.userId
       this.webSocket = new WebSocket(wsUrl)
       this.webSocket.onmessage = this.onMessage
       this.webSocket.onopen = this.onOpen
@@ -182,7 +182,7 @@ export default {
     },
     handleCloseTag (res, type, route) {
       if (type === 'all') {
-        this.turnToPage(this.$config.homeName)
+        this.turnToPage(window.config.homeName)
       } else if (routeEqual(this.$route, route)) {
         if (type !== 'others') {
           const nextRoute = getNextRoute(this.tagNavList, route)
@@ -220,7 +220,7 @@ export default {
     // 如果当前打开页面不在标签栏中，跳到homeName页
     if (!this.tagNavList.find(item => item.name === this.$route.name)) {
       this.$router.push({
-        name: this.$config.homeName
+        name: window.config.homeName
       })
     }
 

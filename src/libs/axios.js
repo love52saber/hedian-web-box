@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { getToken } from '@/libs/util'
-import $config from '@/config'
 import _ from 'lodash'
 import $router from '@/router'
 import { Notice } from 'iview'
@@ -13,7 +12,7 @@ class HttpRequest {
   getInsideConfig () {
     const config = {
       baseURL: this.baseUrl,
-      timeout: $config.TIME_OUT,
+      timeout: window.config.TIME_OUT,
       withCredentials: true,
       headers: {
         common: {}

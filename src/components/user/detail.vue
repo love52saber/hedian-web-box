@@ -71,7 +71,7 @@ export default {
     },
     avatar () {
       const url = _.get(this.info, 'sysFile.url', '')
-      return url ? `${this.$config.fileHost}${url}` : ''
+      return url ? `${window.config.fileHost}${url}` : ''
     }
   }
 }

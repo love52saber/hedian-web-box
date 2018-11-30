@@ -1,12 +1,11 @@
 import axios from 'axios'
-import config from '../config'
 
 let server = axios.create({
   baseURL: 'http://restapi.amap.com/v3',
   params: {
-    key: config.AMAP_KEY
+    key: window.config.AMAP_KEY
   },
-  timeout: config.TIME_OUT,
+  timeout: window.config.TIME_OUT,
   headers: {
     common: {}
   }

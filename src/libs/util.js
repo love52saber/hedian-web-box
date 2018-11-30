@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie'
 // cookie保存的天数
-import config from '@/config'
 import { forEach, hasOneOf, objEqual } from '@/libs/tools'
 
 export const TOKEN_KEY = 'token'
@@ -12,21 +11,21 @@ export const APP_NAME = 'appName'
  * @param {*} token token值
  */
 export const setToken = token => {
-  Cookies.set(TOKEN_KEY, token, { expires: config.cookieExpires || 1 })
+  Cookies.set(TOKEN_KEY, token, { expires: window.config.cookieExpires || 1 })
 }
 /**
  * 设置用户信息
  * @param {*} user 用户信息
  */
 export const setUserInfo = user => {
-  Cookies.set(USER_INFO, user, { expires: config.cookieExpires || 1 })
+  Cookies.set(USER_INFO, user, { expires: window.config.cookieExpires || 1 })
 }
 /**
  * 设置应用名
  * @param {*} name 应用名称
  */
 export const setAppName = name => {
-  Cookies.set(APP_NAME, name, { expires: config.cookieExpires || 1 })
+  Cookies.set(APP_NAME, name, { expires: window.config.cookieExpires || 1 })
 }
 /**
  * 获取token
@@ -142,8 +141,8 @@ export const getRouteTitleHandled = route => {
 export const showTitle = (item, vm) => {
   let { title, __titleIsFunction__ } = item.meta
   if (!title) return
-  if (vm.$config.useI18n) {
-    if (title.includes('{{') && title.includes('}}') && vm.$config.useI18n) {
+  if (window.config.useI18n) {
+    if (title.includes('{{') && title.includes('}}') && window.config.useI18n) {
       title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())))
     } else if (__titleIsFunction__) title = item.meta.title
     else title = vm.$t(item.name)

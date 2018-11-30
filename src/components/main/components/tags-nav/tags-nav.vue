@@ -27,19 +27,7 @@
     <div class="scroll-outer" ref="scrollOuter" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll">
       <div ref="scrollBody" class="scroll-body" :style="{left: tagBodyLeft + 'px'}">
         <transition-group name="taglist-moving-animation">
-          <Tag
-            type="dot"
-            v-for="(item, index) in list"
-            ref="tagsPageOpened"
-            :key="`tag-nav-${index}`"
-            :name="item.name"
-            :data-route-item="item"
-            @on-close="handleClose(item)"
-            @click.native="handleClick(item)"
-            :closable="item.name !== $config.homeName"
-            :color="isCurrentTag(item) ? 'primary' : 'default'"
-            @contextmenu.prevent.native="contextMenu(item, $event)"
-          >{{ showTitleInside(item) }}</Tag>
+          <Tag type="dot" v-for="(item, index) in list" ref="tagsPageOpened" :key="`tag-nav-${index}`" :name="item.name" :data-route-item="item" @on-close="handleClose(item)" @click.native="handleClick(item)" :closable="item.name !== homeName" :color="isCurrentTag(item) ? 'primary' : 'default'" @contextmenu.prevent.native="contextMenu(item, $event)">{{ showTitleInside(item) }}</Tag>
         </transition-group>
       </div>
     </div>
@@ -62,6 +50,7 @@ export default {
   },
   data () {
     return {
+      homeName: window.config.homeName,
       tagBodyLeft: 0,
       rightOffset: 40,
       outerPadding: 4,
@@ -109,11 +98,11 @@ export default {
     handleTagsOption (type) {
       if (type.includes('all')) {
         // 关闭所有，除了home
-        let res = this.list.filter(item => item.name === this.$config.homeName)
+        let res = this.list.filter(item => item.name === window.config.homeName)
         this.$emit('on-close', res, 'all')
       } else if (type.includes('others')) {
         // 关闭除当前页和home页的其他页
-        let res = this.list.filter(item => routeEqual(this.currentRouteObj, item) || item.name === this.$config.homeName)
+        let res = this.list.filter(item => routeEqual(this.currentRouteObj, item) || item.name === window.config.homeName)
         this.$emit('on-close', res, 'others', this.currentRouteObj)
         setTimeout(() => {
           this.getTagElementByName(this.currentRouteObj.name)
@@ -172,7 +161,7 @@ export default {
       })
     },
     contextMenu (item, e) {
-      if (item.name === this.$config.homeName) {
+      if (item.name === window.config.homeName) {
         return
       }
       this.visible = true
@@ -205,5 +194,5 @@ export default {
 </script>
 
 <style lang="less">
-@import './tags-nav.less';
+@import "./tags-nav.less";
 </style>

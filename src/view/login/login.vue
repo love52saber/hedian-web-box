@@ -48,7 +48,7 @@ export default {
           localStorage.setItem('username', username)
         }
         this.$router.push({
-          name: this.$config.homeName
+          name: window.config.homeName
         })
         setTimeout(() => {
           this.$Notice.success({ title: '欢迎登录' })

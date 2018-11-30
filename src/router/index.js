@@ -4,8 +4,7 @@ import routes from './routers'
 import store from '@/store'
 import iView from 'iview'
 import { setToken, getToken } from '@/libs/util'
-import config from '@/config'
-const { homeName } = config
+const { homeName } = window.config
 
 Vue.use(Router)
 const router = new Router({

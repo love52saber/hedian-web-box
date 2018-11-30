@@ -226,7 +226,7 @@ export default {
             return h('div', [
               h('Icon', {
                 props: {
-                  type: 'md-eye',
+                  type: window.config.DETAIL_ICON,
                   color: '#04bbb7',
                   size: 20
                 },
@@ -239,7 +239,6 @@ export default {
                 },
                 on: {
                   click: () => {
-                    console.log(row)
                     this.detail.info = row
                     this.detail.show = true
                   }
@@ -247,7 +246,7 @@ export default {
               }),
               h('Icon', {
                 props: {
-                  type: 'md-create',
+                  type: window.config.UPDATE_ICON,
                   color: '#04bbb7',
                   size: 20
                 },
@@ -270,7 +269,7 @@ export default {
               }),
               h('Icon', {
                 props: {
-                  type: 'md-trash',
+                  type: window.config.DELETE_ICON,
                   color: '#04bbb7',
                   size: 20
                 },

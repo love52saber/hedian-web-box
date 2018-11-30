@@ -177,7 +177,7 @@ export default {
             return h('div', [
               h('Icon', {
                 props: {
-                  type: 'md-eye',
+                  type: window.config.DETAIL_ICON,
                   color: '#04bbb7',
                   size: 20
                 },
@@ -197,7 +197,7 @@ export default {
               }),
               h('Icon', {
                 props: {
-                  type: 'md-create',
+                  type: window.config.UPDATE_ICON,
                   color: '#04bbb7',
                   size: 20
                 },
@@ -243,7 +243,7 @@ export default {
               }),
               h('Icon', {
                 props: {
-                  type: 'md-trash',
+                  type: window.config.DELETE_ICON,
                   color: !row.delflag ? '#ccc' : '#04bbb7',
                   size: 20
                 },

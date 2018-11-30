@@ -64,7 +64,7 @@ export default {
       show: state => state.user.showUpdateUserInfoModal
     }),
     avatar () {
-      return !this.hasUploadAvatar ? this.userAvator : this.$config.fileHost + this.form.url
+      return !this.hasUploadAvatar ? this.userAvator : window.config.fileHost + this.form.url
     }
   },
   data () {
@@ -83,7 +83,7 @@ export default {
       headers: {
         Authorization: getToken()
       },
-      action: process.env.NODE_ENV === 'development' ? `${this.$config.baseUrl.dev}/api/resource` : `${this.$config.baseUrl.pro}/api/resource`,
+      action: process.env.NODE_ENV === 'development' ? `${window.config.baseUrl.dev}/api/resource` : `${window.config.baseUrl.pro}/api/resource`,
       rules: {
         mobile: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },

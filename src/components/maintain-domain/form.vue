@@ -235,7 +235,7 @@ export default {
             return h('div', [
               h('Icon', {
                 props: {
-                  type: 'md-trash',
+                  type: window.config.DELETE_ICON,
                   color: '#04bbb7',
                   size: 20
                 },

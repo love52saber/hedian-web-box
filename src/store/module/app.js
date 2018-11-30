@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:08:45
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-21 12:36:40
+ * @Last Modified time: 2018-11-30 15:09:46
  * @系统应用类数据流
  */
 import {
@@ -22,9 +22,8 @@ import {
 import beforeClose from '@/router/before-close'
 import router from '@/router'
 import routers from '@/router/routers'
-import config from '@/config'
 import * as appApi from '@/api/app'
-const { homeName } = config
+const { homeName } = window.config
 
 const closePage = (state, route) => {
   const nextRoute = getNextRoute(state.tagNavList, route)

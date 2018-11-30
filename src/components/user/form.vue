@@ -76,7 +76,7 @@ export default {
       headers: {
         Authorization: getToken()
       },
-      action: process.env.NODE_ENV === 'development' ? `${this.$config.baseUrl.dev}/api/resource` : `${this.$config.baseUrl.pro}/api/resource`,
+      action: process.env.NODE_ENV === 'development' ? `${window.config.baseUrl.dev}/api/resource` : `${window.config.baseUrl.pro}/api/resource`,
       form: {
         name: '',
         username: '',
@@ -132,7 +132,7 @@ export default {
       return menuTree
     },
     avatar () {
-      return (this.hasUploadAvatar || this.form.url) ? this.$config.fileHost + this.form.url : ''
+      return (this.hasUploadAvatar || this.form.url) ? window.config.fileHost + this.form.url : ''
     }
   },
   mounted () {

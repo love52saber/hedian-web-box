@@ -79,7 +79,7 @@ export default {
           align: 'center',
           actions: [
             {
-              type: 'md-eye',
+              type: window.config.DETAIL_ICON,
               text: '查看',
               size: '22',
               style: {
@@ -88,7 +88,7 @@ export default {
               }
             },
             {
-              type: 'md-create',
+              type: window.config.UPDATE_ICON,
               text: '修改',
               style: {
                 marginRight: '20px',
@@ -104,7 +104,7 @@ export default {
               }
             },
             {
-              type: 'md-trash',
+              type: window.config.DELETE_ICON,
               text: '删除',
               style: {
                 cursor: 'pointer'
