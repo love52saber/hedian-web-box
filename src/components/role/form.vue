@@ -15,7 +15,7 @@
   <Modal v-model='formData.show' :title='formData.action' :closable="false" :mask-closable="false">
     <Form :model='form' :rules="rules" ref="form" style="padding-right: 30px" :label-width='100'>
       <FormItem prop="roleName" label="角色名称：">
-        <Input v-model="form.roleName" :readonly="formData.type === 0" placeholder="输入角色名称" :maxlength="20" />
+        <Input v-model="form.roleName" :readonly="formData.type === 0" placeholder="输入角色名称" :maxlength="10" />
       </FormItem>
       <FormItem label="备注：">
         <Input v-model="form.remark" :readonly="formData.type === 0" placeholder="输入备注" :maxlength="20" />

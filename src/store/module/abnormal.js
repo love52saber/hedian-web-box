@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:02
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-29 11:23:46
+ * @Last Modified time: 2018-11-29 14:41:18
  * @desc: 告警类数据流
  */
 import * as abnormalApi from '@/api/abnormal'
@@ -39,7 +39,9 @@ export default {
         value: 5,
         label: '其他'
       }
-    ]
+    ],
+    fmsList: [], // 故障维护策略
+    fmsTotal: 0
   },
   mutations: {
     setWarningNumber (state, number) {
@@ -68,6 +70,12 @@ export default {
     },
     setMaintainStrategyTotal (state, number) {
       state.maintainStrategyTotal = number
+    },
+    setFmsList (state, data) {
+      state.fmsList = data
+    },
+    setFmsTotal (state, number) {
+      state.fmsTotal = number
     }
   },
   actions: {
@@ -247,6 +255,65 @@ export default {
           .updateMaintainStrategy(params)
           .then(res => {
             console.log('===维护期策略修改===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 故障维护策略
+    getFmsList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        abnormalApi
+          .getFmsList(params)
+          .then(res => {
+            console.log('===故障维护策略===', res)
+            const { data } = res
+            commit('setFmsList', data.list)
+            commit('setFmsTotal', data.total)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 故障维护策略新增
+    addFms ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        abnormalApi
+          .addFms(params)
+          .then(res => {
+            console.log('===故障维护策略新增===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 故障维护策略修改
+    updateFms ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        abnormalApi
+          .updateFms(params)
+          .then(res => {
+            console.log('===故障维护策略修改===', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 故障维护策略删除
+    deleteFms ({ commit }, id) {
+      return new Promise((resolve, reject) => {
+        abnormalApi
+          .deleteFms(id)
+          .then(res => {
+            console.log('===故障维护策略删除===', res)
             resolve(res)
           })
           .catch(err => {

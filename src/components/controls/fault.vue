@@ -207,7 +207,7 @@ export default {
       this.getFaultDefinition({})
     },
     toggleSelect (row) { // 更改选择资源的状态勾选状态
-      this.$refs.selection.toggleSelect(this.resList.findIndex(item => item.resId === row.resId))
+      this.$refs.selection.toggleSelect(this.faultDefinition.findIndex(item => item.moAbnormalId === row.moAbnormalId))
     }
   }
 }

@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 10:15:50
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-27 16:56:16
+ * @Last Modified time: 2018-11-30 09:34:58
  * @desc: 设备资源类接口
  */
 import axios from '@/libs/api.request'
@@ -46,7 +46,7 @@ export const getDeviceAlarm = resId => {
 }
 
 /**
- * 获取维护域分页数据
+ * 获取维护域分页数据（页面）
  * @param {*} params 参数对象
  */
 export const getMaintainDomainList = params => {
@@ -58,6 +58,23 @@ export const getMaintainDomainList = params => {
       pageIndex,
       info,
       pageSize
+    }
+  })
+}
+
+/**
+ *获取维护域列表（控件）
+ * @param {object} params
+ */
+export const getMaintainDomainInControls = params => {
+  const { userId = '', deptId = '', mdName = '' } = params
+  return axios.request({
+    url: '/api/md/pageCondition',
+    method: 'get',
+    params: {
+      userId,
+      deptId,
+      mdName
     }
   })
 }

@@ -4,7 +4,7 @@
       <Row>
         <i-col :span="12">
           <FormItem prop='msName' label='策略标题：'>
-            <Input v-model="form.msName" placeholder='输入策略标题' :maxlength="20" />
+            <Input v-model="form.msName" placeholder='输入策略标题' :maxlength="10" />
           </FormItem>
         </i-col>
         <i-col :span="12">

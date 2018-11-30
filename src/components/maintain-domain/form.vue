@@ -28,7 +28,7 @@
   <Modal v-model='formData.show' :title='formData.action' :closable="false" :mask-closable="false" width='1000'>
     <Form class="g_user_group_form mr30" :model='form' :rules="rules" ref="form" :label-width='100'>
       <FormItem prop="mdName" label='维护域名称：'>
-        <Input v-model="form.mdName" placeholder='输入维护域名称' :maxlength="20" />
+        <Input v-model="form.mdName" placeholder='输入维护域名称' :maxlength="10" />
       </FormItem>
       <FormItem label='维护域描述：'>
         <Input v-model="form.mdDesc" placeholder='输入维护域描述' :maxlength="100" />

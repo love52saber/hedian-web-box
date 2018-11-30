@@ -2,14 +2,14 @@
  * @Author: chenghao
  * @Date: 2018-11-16 13:48:29
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-29 09:20:11
+ * @Last Modified time: 2018-11-29 14:53:35
  * @desc: 警告类接口
  */
 import axios from '@/libs/api.request'
 
 /**
  * 获取实时告警列表
- * @param {*} params 参数对象
+ * @param {object} params 参数对象
  */
 export const getRealTimeAlarmList = params => {
   const defaultParams = {
@@ -191,5 +191,71 @@ export const updateMaintainStrategy = params => {
     url: '/api/maintainStrategy',
     method: 'put',
     data: params
+  })
+}
+
+/**
+ * 获取故障维护策略
+ * @param {object} params
+ */
+export const getFmsList = params => {
+  const {
+    grpName = '',
+    pageIndex = 1,
+    pageSize = 10,
+    fmsName = '',
+    deptName = '',
+    userName = '',
+    dispatchflag = '',
+    fmsStatus = ''
+  } = params
+  return axios.request({
+    url: '/api/fms/pageList',
+    method: 'get',
+    params: {
+      grpName,
+      pageIndex,
+      pageSize,
+      fmsName,
+      deptName,
+      userName,
+      dispatchflag,
+      fmsStatus
+    }
+  })
+}
+
+/**
+ *新增故障维护策略
+ * @param {object} params
+ */
+export const addFms = params => {
+  return axios.request({
+    url: '/api/fms',
+    method: 'post',
+    data: params
+  })
+}
+
+/**
+ *修改故障维护策略
+ * @param {object} params
+ */
+export const updateFms = params => {
+  return axios.request({
+    url: '/api/fms',
+    method: 'put',
+    data: params
+  })
+}
+
+/**
+ *删除故障维护策略
+ * @param {number} fmsId
+ */
+export const deleteFms = fmsId => {
+  return axios.request({
+    url: `/api/fms/${fmsId}`,
+    method: 'delete'
   })
 }

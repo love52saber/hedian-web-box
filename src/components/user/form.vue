@@ -9,10 +9,10 @@
         </Upload>
       </div>
       <FormItem prop='name' label="姓名：">
-        <Input v-model="form.name" placeholder="输入姓名" :maxlength="20"></Input>
+        <Input v-model="form.name" placeholder="输入姓名，不超过10个字" :maxlength="10"></Input>
       </FormItem>
       <FormItem prop='username' label="用户名：">
-        <Input v-model="form.username" placeholder="输入用户名" :maxlength="20"></Input>
+        <Input v-model="form.username" placeholder="输入用户名" :maxlength="10"></Input>
       </FormItem>
       <FormItem prop='deptName' label="部门：">
         <Input readonly @on-click="deptShow=!deptShow" @on-focus='deptShow=true' @on-blur='blur' v-model="form.deptName" placeholder="选择部门" :maxlength=20 :icon="!deptShow ? 'ios-arrow-down': 'ios-arrow-up'"></Input>
@@ -21,7 +21,7 @@
         </div>
       </FormItem>
       <FormItem prop='mobile' label="手机号：">
-        <Input v-model="form.mobile" placeholder="输入手机号" :maxlength="20" />
+        <Input v-model="form.mobile" placeholder="输入手机号" />
       </FormItem>
       <FormItem prop='sex' label="性别：">
         <RadioGroup v-model="form.sex">

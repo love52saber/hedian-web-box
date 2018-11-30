@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:08:16
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-28 09:13:16
+ * @Last Modified time: 2018-11-30 09:45:01
  * @desc: 设备类数据流
  */
 import * as deviceApi from '@/api/device'
@@ -17,6 +17,7 @@ export default {
     deviceList: [], // 设备列表，用于地图上打点的数据
     maintainDomainList: [], // 管理域列表
     mdTotal: 0, // 维护域总数
+    maintainDomainInControls: [], // 管理域控件
     mainTypeList: [], // 资源主类型列表
     subTypeList: [], // 资源子类型列表
     resList: [], // 资源列表
@@ -62,6 +63,9 @@ export default {
     },
     setMaintainDomainList (state, data) {
       state.maintainDomainList = data
+    },
+    setMaintainDomainInControls (state, data) {
+      state.maintainDomainInControls = data
     },
     setMdTotal (state, num) {
       state.mdTotal = num
@@ -136,6 +140,23 @@ export default {
             commit('setMaintainDomainList', res.data.list)
             const { total = 0 } = res.data
             commit('setMdTotal', total)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    getMaintainDomainInControls ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        deviceApi
+          .getMaintainDomainInControls(params)
+          .then(res => {
+            console.log('===维护域列表（控件）===', res)
+            res.data.forEach(item => {
+              item.selected = false
+            })
+            commit('setMaintainDomainInControls', res.data)
             resolve(res)
           })
           .catch(err => {
