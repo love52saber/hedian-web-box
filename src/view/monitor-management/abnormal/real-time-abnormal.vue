@@ -607,7 +607,8 @@ export default {
       })
     },
     confirmCallback (params, isFinal = false) {
-      this.confirmAbnormal(params).then(res => {
+      const { resAbnormalId, value } = params
+      this.confirmAbnormal({ resAbnormalId, confirmInfo: value }).then(res => {
         if (res.msg !== 'success') return
         if (!isFinal) return
         this.$Notice.success({ title: '故障确认成功' })
@@ -618,7 +619,8 @@ export default {
       })
     },
     cleanCallback (params, isFinal = false) {
-      this.cleanAbnormal(params).then(res => {
+      const { resAbnormalId, value } = params
+      this.cleanAbnormal({ resAbnormalId, cleanInfo: value }).then(res => {
         if (res.msg !== 'success') return
         if (!isFinal) return
         this.$Notice.success({ title: '故障清除成功' })

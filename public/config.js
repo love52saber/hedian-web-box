@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-30 14:01:08
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-30 14:58:40
+ * @Last Modified time: 2018-12-01 14:42:34
  * @Desc: 项目配置单独分离,方便打包后部署
  */
 window.config = {
@@ -54,6 +54,18 @@ window.config = {
    * @description 删除按钮配置
    */
   DELETE_ICON: 'md-trash',
+  /**
+   * @description 默认最大功率值
+   */
+  VUE_APP_DEFAULT_POWER_MAX: 200,
+  /**
+   * @description 默认最大电压值
+   */
+  VUE_APP_DEFAULT_VOLTAGE_MAX: 400,
+  /**
+   * @description 默认最大电流值
+   */
+  VUE_APP_DEFAULT_CURRENT_MAX: 10,
   /**
    * @description api请求基础路径
    */

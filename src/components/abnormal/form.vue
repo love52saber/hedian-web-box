@@ -1,7 +1,7 @@
 <style lang='less' scoped>
 </style>
 <template>
-  <Modal v-model='formData.show' :title='formData.action' :closable="false" :mask-closable="false">
+  <Modal :z-index="1001" v-model='formData.show' :title='formData.action' :closable="false" :mask-closable="false">
     <Form ref="form" style="padding-right: 30px" :label-width='100'>
       <FormItem class="mb10" label='告警内容:'>{{info.resAbnormaldesc || info.alarmDesc}}</FormItem>
       <FormItem class="mb10" label='发生时间:'>{{info.resAbnomaltime || info.alarmTime}}</FormItem>
@@ -47,9 +47,7 @@ export default {
     },
     clear () {
       setTimeout(() => {
-        this.form = {
-          inputValue: ''
-        }
+        this.inputValue = ''
       }, 0)
     }
   }

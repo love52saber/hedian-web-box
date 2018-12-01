@@ -11,16 +11,18 @@
       </i-col>
     </Row>
     <device-map @marker-click="handleMarkerClick" ref="map" area="阜宁县" :center="center" />
+    <device-detail :show="showDeviceDetail" @switch="switchShow" />
   </div>
 </template>
 
 <script>
 import { ChartPie, ChartBar } from '_c/charts'
 import deviceMap from '_c/home/map'
-import deviceTree from '_c/home/deviceTree'
-import AlarmStatistics from '_c/home/alarmStatistics'
-import LatestTopFault from '_c/home/latestTopFault'
-import FaultStatistics from '_c/home/faultStatistics'
+import deviceTree from '_c/home/device-tree'
+import AlarmStatistics from '_c/home/alarm-statistics'
+import LatestTopFault from '_c/home/latest-top-fault'
+import FaultStatistics from '_c/home/fault-statistics'
+import DeviceDetail from '_c/home/device-detail'
 import { mapActions, mapState, mapMutations } from 'vuex'
 import bus from '@/libs/bus'
 export default {
@@ -32,7 +34,8 @@ export default {
     deviceTree,
     AlarmStatistics,
     LatestTopFault,
-    FaultStatistics
+    FaultStatistics,
+    DeviceDetail
   },
   data () {
     return {
@@ -47,7 +50,9 @@ export default {
       statusList: state => state.statistics.statusList,
       topDevice: state => state.statistics.topFaultDeviceStatistics,
       topFault: state => state.statistics.topFaultStatistics,
-      deviceTree: state => state.device.deviceTree
+      deviceTree: state => state.device.deviceTree,
+      currentDevice: state => state.device.currentDevice,
+      currentRes: state => state.device.currentRes
     })
   },
   created () {
@@ -61,7 +66,8 @@ export default {
       'getDeviceStatusList',
       'getTopFaultDeviceStatistics',
       'getTopFaultStatistics',
-      'getDeviceDetail'
+      'getDeviceDetail',
+      'getDeviceAlarm'
     ]),
     ...mapMutations([
       'setCurrentDevice',
@@ -78,16 +84,23 @@ export default {
     handleMarkerClick (resId) { // 点击地图上的点查看详情
       this.showDeviceDetail = true
       this.getDeviceDetail(resId)
+      this.getDeviceAlarm(resId)
       this.setCurrentDevice(resId)
       this.setCurrentRes(resId)
+    },
+    switchShow () {
+      this.showDeviceDetail = !this.showDeviceDetail
     }
   },
   mounted () {
     bus.$on('shouldUpdatePage', () => {
       this.init()
-      // TODO:增加对详情的判断，如果显示就刷新详情并刷新设备故障列表
+      console.log(22222222222)
+      console.log(this.showDeviceDetail)
       if (!this.showDeviceDetail) return
-      this.getDeviceDetail(this.setCurrentDevice)
+      console.log(111111111111111111)
+      this.getDeviceDetail(this.currentDevice)
+      this.getDeviceAlarm(this.currentRes)
     })
   }
 }
