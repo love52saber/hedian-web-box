@@ -9,7 +9,6 @@ import 'iview/dist/styles/iview.css'
 import '../node_modules/leaflet/dist/leaflet.css'
 import '@/assets/icons/iconfont.css'
 import dayjs from 'dayjs'
-// 实际打包时应该不引入mock
 
 Vue.use(iView)
 Vue.filter('formatTime', function (val) {

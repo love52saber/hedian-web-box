@@ -21,6 +21,45 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  .mb20 {
+    margin-bottom: 20px;
+  }
+  .mb30 {
+    margin-bottom: 30px;
+  }
+  .mb40 {
+    margin-bottom: 40px;
+  }
+  .mt20 {
+    margin-top: 20px;
+  }
+  .mb10 {
+    margin-bottom: 10px !important;
+  }
+  .mt10 {
+    margin-top: 10px !important;
+  }
+  .mr10 {
+    margin-right: 10px;
+  }
+  .mr20 {
+    margin-right: 20px;
+  }
+  .mr30 {
+    margin-right: 30px;
+  }
+  .ml10 {
+    margin-left: 10px;
+  }
+  .w50 {
+    width: 50% !important;
+  }
+  .fl {
+    float: left;
+  }
+  .fr {
+    float: right;
+  }
   .ivu-table-body td {
     height: 42px !important;
   }
