@@ -48,6 +48,7 @@ router.beforeEach((to, from, next) => {
         // turnTo(to, user.access, next)
       })
       .catch(() => {
+        console.log('222222222222222222222')
         setToken('')
         next({
           name: 'login'

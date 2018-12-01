@@ -1,5 +1,11 @@
+/*
+ * @Author: chenghao
+ * @Date: 2018-12-01 16:11:05
+ * @Last Modified by:   chenghao
+ * @Last Modified time: 2018-12-01 16:11:05
+ */
 import axios from 'axios'
-import { getToken } from '@/libs/util'
+import { getToken, setToken } from '@/libs/util'
 import _ from 'lodash'
 import $router from '@/router'
 import { Notice } from 'iview'
@@ -64,10 +70,13 @@ class HttpRequest {
       error => {
         this.destroy(url)
         if (!error.response) return Notice.error({ title: '请求超时' })
-        console.log('===error===', JSON.stringify(error))
+        // console.log('===error===', JSON.stringify(error))
         switch (error.response.status) {
           case 401:
-            $router.replace({
+            Notice.destroy()
+            Notice.error({ title: '会话超时，请重新登录', desc: `会话超时，请重新登录` })
+            setToken('')
+            $router.push({
               name: 'login'
             })
             break

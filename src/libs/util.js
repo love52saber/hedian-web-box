@@ -1,3 +1,9 @@
+/*
+ * @Author: chenghao
+ * @Date: 2018-12-01 16:11:18
+ * @Last Modified by:   chenghao
+ * @Last Modified time: 2018-12-01 16:11:18
+ */
 import Cookies from 'js-cookie'
 // cookie保存的天数
 import { forEach, hasOneOf, objEqual } from '@/libs/tools'

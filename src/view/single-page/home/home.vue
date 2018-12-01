@@ -95,10 +95,7 @@ export default {
   mounted () {
     bus.$on('shouldUpdatePage', () => {
       this.init()
-      console.log(22222222222)
-      console.log(this.showDeviceDetail)
       if (!this.showDeviceDetail) return
-      console.log(111111111111111111)
       this.getDeviceDetail(this.currentDevice)
       this.getDeviceAlarm(this.currentRes)
     })
