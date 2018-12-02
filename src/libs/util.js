@@ -1,8 +1,8 @@
 /*
  * @Author: chenghao
  * @Date: 2018-12-01 16:11:18
- * @Last Modified by:   chenghao
- * @Last Modified time: 2018-12-01 16:11:18
+ * @Last Modified by: chenghao
+ * @Last Modified time: 2018-12-02 16:09:26
  */
 import Cookies from 'js-cookie'
 // cookie保存的天数
@@ -11,6 +11,7 @@ import { forEach, hasOneOf, objEqual } from '@/libs/tools'
 export const TOKEN_KEY = 'token'
 export const USER_INFO = 'userInfo'
 export const APP_NAME = 'appName'
+export const MENU_NAV = 'menuNav'
 
 /**
  * 设置token
@@ -32,6 +33,15 @@ export const setUserInfo = user => {
  */
 export const setAppName = name => {
   Cookies.set(APP_NAME, name, { expires: window.config.cookieExpires || 1 })
+}
+
+/**
+ * 设置应用的浏览器title
+ * @param {string} title
+ */
+export const setAppTitle = title => {
+  const baseTitle = getAppName()
+  window.document.title = title ? `${title}|${baseTitle}` : baseTitle
 }
 /**
  * 获取token
@@ -211,7 +221,6 @@ const hasAccess = (access, route) => {
   if (route.meta && route.meta.access) return hasOneOf(access, route.meta.access)
   else return true
 }
-
 /**
  * 权鉴
  * @param {*} name 即将跳转的路由name
@@ -229,7 +238,6 @@ export const canTurnTo = (name, access, routes) => {
       }
     })
   }
-
   return routePermissionJudge(routes)
 }
 

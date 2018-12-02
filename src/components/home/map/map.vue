@@ -110,8 +110,8 @@ export default {
     // 页面尺寸更改时重新适配地图避免地图瓦片未加载
     this.$nextTick(() => {
       on(window, 'resize', (e) => {
-        this.$refs.map.mapObject.invalidateSize(true)
         this.resize()
+        this.$refs.map.mapObject.invalidateSize(true)
       })
     })
     // 获取阜宁县边框

@@ -5,6 +5,10 @@
   width: 50%;
   vertical-align: top;
   list-style: none;
+  & > .ivu-tree-children {
+    position: relative;
+    top: -8px;
+  }
   .ivu-tree-title.active {
     padding-right: 8px;
     line-height: 30px;

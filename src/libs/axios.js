@@ -1,8 +1,9 @@
 /*
  * @Author: chenghao
- * @Date: 2018-12-01 16:11:05
- * @Last Modified by:   chenghao
- * @Last Modified time: 2018-12-01 16:11:05
+ * @Date: 2018-11-01 16:11:05
+ * @Last Modified by: chenghao
+ * @Last Modified time: 2018-12-02 09:49:18
+ * @Desc: 网络请求模块
  */
 import axios from 'axios'
 import { getToken, setToken } from '@/libs/util'

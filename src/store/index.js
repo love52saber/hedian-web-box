@@ -6,6 +6,7 @@ import app from './module/app'
 import abnormal from './module/abnormal'
 import device from './module/device'
 import statistics from './module/statistics'
+import order from './module/order'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     app,
     abnormal,
     device,
-    statistics
+    statistics,
+    order
   }
 })

@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-24 13:59:09
+ * @Last Modified time: 2018-12-02 16:09:35
  * @desc: 用户类数据流
  */
 import * as userApi from '@/api/user'
@@ -135,6 +135,7 @@ export default {
             const data = res.data
             commit('setToken', data.token)
             commit('setUserInfo', data.user)
+            // setMenuNav(data.menuList)
             resolve(res)
           })
           .catch(err => {

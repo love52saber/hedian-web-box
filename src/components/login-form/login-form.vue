@@ -12,7 +12,7 @@
 <template>
   <Form ref="loginForm" :model="form" :rules="rules" @keydown.enter.native="handleSubmit">
     <FormItem prop="username">
-      <Input v-model="form.username" placeholder="请输入用户名">
+      <Input v-model="form.username" element-id="username" placeholder="请输入用户名">
       <span slot="prepend">
         <Icon :size="16" type="ios-person"></Icon>
       </span>
@@ -88,14 +88,18 @@ export default {
   },
   methods: {
     handleSubmit () {
-      this.$refs.loginForm.validate((valid) => {
-        if (valid) {
-          this.$emit('on-success-valid', {
-            username: this.form.username,
-            password: this.form.password
-          })
-        }
-      })
+      if (document.activeElement && document.activeElement.id === 'username' && this.form.password === '') {
+        this.$refs.pwd.focus()
+      } else {
+        this.$refs.loginForm.validate((valid) => {
+          if (valid) {
+            this.$emit('on-success-valid', {
+              username: this.form.username,
+              password: this.form.password
+            })
+          }
+        })
+      }
     }
   }
 }
