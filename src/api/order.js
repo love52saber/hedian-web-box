@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-12-02 10:04:06
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-12-02 14:28:15
+ * @Last Modified time: 2018-12-03 16:02:04
  * @Desc: 工单类接口
  */
 import axios from '@/libs/api.request'
@@ -132,7 +132,7 @@ export const handleWorkFlow = params => {
  *获取每个流程处理人
  * @param {object} params
  */
-export const wfUserList = params => {
+export const getWfUserList = params => {
   const { stepType = '', deptId = '' } = params
   return axios.request({
     url: '/api/sysUser/wfUserList',

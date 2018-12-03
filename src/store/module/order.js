@@ -1,18 +1,21 @@
 /*
  * @Author: chenghao
- * @Date: 2018-10-15 15:37:08
+ * @Date: 2018-12-03 15:24:27
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-12-02 14:24:37
+ * @Last Modified time: 2018-12-03 15:54:06
+ * @desc: 工单类数据流
  */
 import * as orderApi from '@/api/order'
 
-const order = {
+export default {
   state: {
-    orderList: '', // 工单列表，包含total字段
-    myTodo: '', // 我的代办
-    myHandle: '', // 我的处理
-    myCreate: '', // 我的创建
-    SLA: '', // 工单考核sla
+    orderList: [], // 维修工单列表
+    orderTotal: 0, // 维修工单总数
+    myHandleList: [], // 我的处理
+    myHandleTotal: 0, // 我的处理总数
+    myCreateList: [], // 我的创建列表
+    myCreateTotal: 0, // 我的创建总数
+    SLA: '',
     flowMap: {
       '0': '创建',
       '1': '审核',
@@ -23,10 +26,6 @@ const order = {
       '6': '基层评价',
       '7': '科信评价'
     },
-    wfGroup: [],
-    wfPerson: [], // 创建时审批人列表
-    wfUserList: [], // 流程处理人
-    submitToReview: {}, // 创建提交审核
     wfStatusList: [
       {
         label: '全部',
@@ -41,23 +40,33 @@ const order = {
         value: 0
       }
     ],
+    wfGroup: [],
+    wfPerson: [], // 创建时审批人列表
+    wfUserList: [], // 流程处理人
+    submitToReview: {},
     evaluatorList: [] // 维修工单评价人管理列表
   },
   mutations: {
     setOrderList (state, data) {
       state.orderList = data
     },
-    setMyTodo (state, data) {
-      state.myTodo = data
+    setOrderTotal (state, num) {
+      state.orderTotal = num
     },
-    setMyHandle (state, data) {
-      state.myHandle = data
+    setMyHandleList (state, data) {
+      state.myHandleList = data
     },
-    setMyCreate (state, data) {
-      state.myCreate = data
+    setMyHandleTotal (state, num) {
+      state.myHandleTotal = num
     },
     setSLA (state, data) {
       state.SLA = data
+    },
+    setMyCreateList (state, data) {
+      state.myCreateList = data
+    },
+    setMyCreateTotal (state, data) {
+      state.myCreateTotal = data
     },
     setWfGroup (state, data) {
       state.wfGroup = data
@@ -76,73 +85,122 @@ const order = {
     }
   },
   actions: {
-    getOrderList ({ commit }, { params, vue }) {
-      // 获取工单列表
-      orderApi.getOrderList(params).then(res => {
-        // console.log('===工单列表===', JSON.stringify(res))
-        const { currentUser, handleId, userId } = params
-        if (res.msg !== 'success') return
-        res.data.list.map(item => {
-          if (item.currentStep !== 0) {
-            item._disabled = true
-          }
-        })
-        if (currentUser) {
-          commit('setMyTodo', res.data)
-        } else if (handleId) {
-          commit('setMyHandle', res.data)
-        } else if (userId) {
-          commit('setMyCreate', res.data)
-        } else {
-          commit('setOrderList', res.data)
-        }
+    // 获取工单列表
+    getOrderList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        orderApi
+          .getOrderList(params)
+          .then(res => {
+            console.log('===工单列表===', res)
+            resolve(res)
+            if (!res) return
+            const data = res.data
+            const { currentUser, handleId, userId } = params
+            if (res.msg !== 'success') return
+            res.data.list.map(item => {
+              if (item.currentStep !== 0) {
+                item._disabled = true
+              }
+            })
+            if (currentUser) {
+              commit('setMyTodo', res.data)
+            } else if (handleId) {
+              commit('setMyHandle', res.data)
+            } else if (userId) {
+              commit('setMyCreate', res.data)
+            } else {
+              commit('setOrderList', res.data)
+            }
+            commit('setOrderTotal', data.total)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
+    // SLA考核定义
     getSLA ({ commit }) {
-      orderApi.getSLA().then(res => {
-        // console.log('工单SLA考核', res)
-        if (res.msg === 'success') {
-          commit('setSLA', res.data)
-        }
+      return new Promise((resolve, reject) => {
+        orderApi
+          .getSLA()
+          .then(res => {
+            console.log('===工单SLA考核===', res)
+            resolve(res)
+            if (!res) return
+            commit('setSLA', res.data)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
+    // 获取工单组
     getWfGroup ({ commit }) {
-      orderApi.getWfGroup().then(res => {
-        // console.log('工单处理组', JSON.stringify(res))
-        if (res.msg === 'success') {
-          commit('setWfGroup', res.data.list)
-        }
+      return new Promise((resolve, reject) => {
+        orderApi
+          .getWfGroup()
+          .then(res => {
+            console.log('===工单处理组===', res)
+            resolve(res)
+            if (!res) return
+            commit('setWfGroup', res.data.list)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
+    // 获取工单组下的人
     getWfPeople ({ commit }, grpId) {
-      orderApi.getWfPeople(grpId).then(res => {
-        console.log('工单处理用户', JSON.stringify(res))
-        if (res.msg === 'success') {
-          commit('setWfPerson', res.data)
-        }
+      return new Promise((resolve, reject) => {
+        orderApi
+          .getWfPeople(grpId)
+          .then(res => {
+            console.log('===工单处理用户===', res)
+            resolve(res)
+            if (!res) return
+            commit('setWfPerson', res.data)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
+    // 获取流程处理人
     getWfUserList ({ commit }, params) {
-      // console.log('参数=', params)
-      orderApi.wfUserList(params).then(res => {
-        // console.log('流程处理人=', JSON.stringify(res))
-        if (res.msg === 'success') {
-          if (res.data) {
-            commit('setWfUserList', res.data)
-          } else {
-            commit('setWfUserList', [])
-          }
-        }
+      return new Promise((resolve, reject) => {
+        orderApi
+          .getWfUserList(params)
+          .then(res => {
+            console.log('===流程处理人===', res)
+            resolve(res)
+            if (!res) return
+            if (res.data) {
+              commit('setWfUserList', res.data)
+            } else {
+              commit('setWfUserList', [])
+            }
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
-    getEvaluatorList ({ commit }, { params }) {
-      // 获取维修工单评价人管理列表
-      orderApi.getEvaluatorList(params).then(data => {
-        if (data.msg === 'success') {
-          commit('setEvaluatorList', data.data)
-        }
+    // 获取维修工单评价人管理列表
+    getEvaluatorList ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        orderApi
+          .getEvaluatorList(params)
+          .then(res => {
+            console.log('===维修工单评价人管理===', res)
+            resolve(res)
+            if (!res) return
+            commit('setEvaluatorList', data.data)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     }
   }
 }
-export default order

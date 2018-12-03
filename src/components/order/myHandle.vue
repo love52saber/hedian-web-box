@@ -38,105 +38,69 @@
 <template>
   <div class="g_mycreate_container">
     <Row>
-      <Col :lg="24">
-      <div class="m_top">
-        <Form label-position="left"
-          :label-width="85">
-          <Row>
-            <Col span="6">
-            <FormItem class="u_form_item"
-              label="工单类型：">
-              <Select v-model="form.wfType"
-                placeholder='请选择工单类型'>
-                <Option :value="''">全部</Option>
-                <Option :value="1">维修工单</Option>
-              </Select>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem class="u_form_item"
-              label="工单标题：">
-              <Input v-model="form.wfTitle"
-                placeholder='请输入工单标题' />
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem class="u_form_item"
-              label="告警等级：">
-              <Input v-model="form.resAbnormallevelName"
-                placeholder="请输入告警等级"></Input>
-            </FormItem>
-            </Col>
-            <Col span="6">
-            <FormItem class="u_form_item"
-              label="创建期限：">
-              <DatePicker v-model="time.beginTime"
-                format="yyyy-MM-dd HH:mm:ss"
-                @on-change="timeChanged('beginTime', $event)"
-                type="datetime"
-                style="width:45%"
-                placeholder="请选择开始期限" />
-              <span style="display:inline-block;width:10%;text-align:center">一</span>
-              <DatePicker v-model="time.endTime"
-                format="yyyy-MM-dd HH:mm:ss"
-                type="datetime"
-                style="width:45%"
-                placeholder="请选择结束期限" />
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem class="u_form_item"
-              label="资源名称：">
-              <Input v-model="form.resName"
-                placeholder="请输入资源名称"></Input>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem class="u_form_item"
-              label="工单状态:">
-              <Select v-model="form.wfStatus">
-                <Option :value="item.value"
-                  v-for="item in wfStatusList"
-                  :key="item.value">{{item.label}}</Option>
-              </Select>
-            </FormItem>
-            </Col>
-            <Col span="6"
-              style="float:right;margin-right:50px;">
-            <Button type="primary"
-              @click="query"
-              style="width:72px;height:33px;background:#04bbb7;border:none;margin-right:20px">查询</Button>
-            <Button type="ghost"
-              @click="empty"
-              style="width:72px;height:33px;">重置</Button>
-            </Col>
-          </Row>
-        </Form>
-      </div>
-      </Col>
+      <i-col :lg="24">
+        <div class="m_top">
+          <Form label-position="left" :label-width="85">
+            <Row>
+              <i-col span="6">
+                <FormItem class="u_form_item" label="工单类型：">
+                  <Select v-model="form.wfType" placeholder='请选择工单类型'>
+                    <Option :value="''">全部</Option>
+                    <Option :value="1">维修工单</Option>
+                  </Select>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem class="u_form_item" label="工单标题：">
+                  <Input v-model="form.wfTitle" placeholder='请输入工单标题' />
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem class="u_form_item" label="告警等级：">
+                  <Input v-model="form.resAbnormallevelName" placeholder="请输入告警等级"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="6">
+                <FormItem class="u_form_item" label="创建期限：">
+                  <DatePicker v-model="time.beginTime" format="yyyy-MM-dd HH:mm:ss" @on-change="timeChanged('beginTime', $event)" type="datetime" style="width:45%" placeholder="请选择开始期限" />
+                  <span style="display:inline-block;width:10%;text-align:center">一</span>
+                  <DatePicker v-model="time.endTime" format="yyyy-MM-dd HH:mm:ss" type="datetime" style="width:45%" placeholder="请选择结束期限" />
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem class="u_form_item" label="资源名称：">
+                  <Input v-model="form.resName" placeholder="请输入资源名称"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem class="u_form_item" label="工单状态:">
+                  <Select v-model="form.wfStatus">
+                    <Option :value="item.value" v-for="item in wfStatusList" :key="item.value">{{item.label}}</Option>
+                  </Select>
+                </FormItem>
+              </i-col>
+              <i-col span="6" style="float:right;margin-right:50px;">
+                <Button type="primary" @click="query" style="width:72px;height:33px;background:#04bbb7;border:none;margin-right:20px">查询</Button>
+                <Button type="ghost" @click="empty" style="width:72px;height:33px;">重置</Button>
+              </i-col>
+            </Row>
+          </Form>
+        </div>
+      </i-col>
     </Row>
     <Row>
-      <Col :lg="24">
-      <div class="m_bottom">
-        <Table border
-          ref="selection"
-          disabled-hover
-          height='520'
-          no-data-text='没有相关信息'
-          :columns="columns"
-          :data="orderList" />
-        <div class='u_page'>
-          <Page @on-change="pageChanged"
-            :total="total"
-            :current="pageIndex"
-            :page-size="pageSize"></Page>
+      <i-col :lg="24">
+        <div class="m_bottom">
+          <Table border ref="selection" disabled-hover height='520' no-data-text='没有相关信息' :columns="columns" :data="orderList" />
+          <div class='u_page'>
+            <Page @on-change="pageChanged" :total="total" :current="pageIndex" :page-size="pageSize"></Page>
+          </div>
         </div>
-      </div>
-      </Col>
+      </i-col>
     </Row>
     <detail :detail='detail' />
   </div>

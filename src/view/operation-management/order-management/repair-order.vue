@@ -1,6 +1,5 @@
 <style lang="less">
 .g_TB_container {
-  // border: 1px red solid;
   padding: 15px;
   .m_bottom_content {
     height: 100%;
@@ -469,7 +468,7 @@ export default {
       if (this.pageIndex !== 1) {
         this.pageIndex = 1
       } else {
-        this.$store.dispatch('getOrderList', { vue: this, params: { ...this.form } })
+        this.$store.dispatch('getOrderList', { ...this.form })
       }
     },
     empty () { // 重置按钮点击事件
@@ -533,8 +532,7 @@ export default {
     },
     save (params) { // 保存事件
       orderApi.saveWorkFlow(params).then(res => {
-        // console.log('===保存工单===', JSON.stringify(res))
-        if (res.msg !== 'success') return this.$Notice.error({ title: '保存失败', desc: res.msg })
+        if (res.msg !== 'success') return
         this.params.show = false
         this.$refs.create.clear()
         this.$Notice.success({
@@ -547,8 +545,7 @@ export default {
     },
     add (params) { // 创建工单
       orderApi.startWorkFlow(params).then(res => {
-        // console.log('===提交工单===', JSON.stringify(res))
-        if (res.msg !== 'success') return this.$Notice.error({ title: '提交失败', desc: res.msg })
+        if (res.msg !== 'success') return
         this.params.show = false
         this.$refs.create.clear()
         this.$Notice.success({

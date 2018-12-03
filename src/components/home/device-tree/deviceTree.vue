@@ -202,6 +202,8 @@ export default {
         return true
       } else if (item.title && item.status && item.level) {
         return (item.title.indexOf(this.form.name) > -1 && item.status.indexOf(this.form.status) > -1 && item.level.indexOf(this.form.level) > -1)
+      } else {
+        return true
       }
     },
     makeTree (node) {

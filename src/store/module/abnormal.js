@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:02
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-11-30 16:32:23
+ * @Last Modified time: 2018-12-03 13:53:57
  * @desc: 告警类数据流
  */
 import * as abnormalApi from '@/api/abnormal'
@@ -104,6 +104,7 @@ export default {
             console.log('===实时告警列表（页面）===', res)
             const { data } = res
             commit('setRealTimeAbnormalTotal', data.total)
+            data.list.map(item => (item.selected = false))
             commit('setRealTimeAlarmList', data.list)
             resolve(res)
           })

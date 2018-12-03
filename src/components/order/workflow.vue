@@ -1395,7 +1395,7 @@ export default {
         ...params
       }).then(res => {
         console.log('提交工单流程表单', JSON.stringify(res))
-        if (res.msg !== 'success') return this.$Notice.error({ title: res.msg })
+        if (res.msg !== 'success') return
         this.$store.dispatch('getOrderList', { vue: this, params: { ...this.form } })
         this.cancel()
         this.$Notice.success({

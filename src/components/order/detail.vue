@@ -132,316 +132,294 @@
       <Tabs type="card" v-model="defaultTab">
         <TabPane label="工单信息" name="info">
           <!-- 资源信息 -->
-          <div style="margin-bottom:20px">
-            <span style="margin-left:10px">
-              <Icon :type="expand.resource? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" @click="expandCtrl('resource')" style="margin-right:10px" /> 资源信息
+          <div class="mb20">
+            <span class="ml10">
+              <Icon class="mr10" :type="expand.resource? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" @click="expandCtrl('resource')" /> 资源信息
             </span>
-            <Button style="float:right" @click="expandCtrl('resource')" type="text">{{expand.resource? '收起': '展开'}}</Button>
-            <Row v-show="expand.resource">
-              <Col span="6">
-              <FormItem class="m_form_item" prop='resId：' label="资源名称：">
-                {{info.resBase ? info.resBase.resName : ''}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="资源别名：">
-                {{info.resBase ? info.resBase.resAlias : ''}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="资源主类型：">
-                {{info.resMtypeName}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="资源子类型：">
-                {{info.resStypeName}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="IP地址：">
-                {{info.resBase ? info.resBase.resIpv4 : ''}}
-              </FormItem>
-              </Col>
-              <Col span="14">
-              <FormItem class="m_form_item" label="资源地址：">
-                {{info.resBase ? info.resBase.resAddress : ''}}
-              </FormItem>
-              </Col>
+            <Button class="fr" @click="expandCtrl('resource')" type="text">{{expand.resource? '收起': '展开'}}</Button>
+            <Row :gutter="32" v-show="expand.resource">
+              <i-col span="8">
+                <FormItem class="m_form_item" label="资源名称：">
+                  {{info.resBase ? info.resBase.resName : ''}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="资源别名：">
+                  {{info.resBase ? info.resBase.resAlias : ''}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="资源主类型：">
+                  {{info.resMtypeName}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="资源子类型：">
+                  {{info.resStypeName}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="mb10" label="IP地址：">
+                  {{info.resBase ? info.resBase.resIpv4 : ''}}
+                </FormItem>
+              </i-col>
+              <i-col span="24">
+                <FormItem class="m_form_item" label="资源地址：">
+                  {{info.resBase ? info.resBase.resAddress : ''}}
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 告警信息 -->
-          <div style="margin-bottom:20px">
-            <span style="margin-left:10px">
-              <Icon :type="expand.abnormal? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" @click="expandCtrl('abnormal')" style="margin-right:10px" /> 告警信息
+          <div class="mb20">
+            <span class="ml10">
+              <Icon class="mr10" :type="expand.abnormal? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" @click="expandCtrl('abnormal')" /> 告警信息
             </span>
-            <Button style="float:right" @click="expandCtrl('abnormal')" type="text">{{expand.abnormal? '收起': '展开'}}</Button>
-            <Row v-show="expand.abnormal">
-              <Col span="6">
-              <FormItem class="m_form_item" label="告警序号：">
-                {{info.resAbnormalId}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="告警名称：">
-                {{info.resAbnormalName}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="告警时间：">
-                {{info.resAbnomaltime}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="故障类型：">
-                {{info.abnormalTypeName}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="告警等级：" prop='resAbnormallevelId'>
-                {{info.resAbnormallevelName}}
-              </FormItem>
-              </Col>
+            <Button class="fr" @click="expandCtrl('abnormal')" type="text">{{expand.abnormal? '收起': '展开'}}</Button>
+            <Row :gutter="32" v-show="expand.abnormal">
+              <i-col span="8">
+                <FormItem class="m_form_item" label="告警序号：">
+                  {{info.resAbnormalId}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="告警名称：">
+                  {{info.resAbnormalName}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="告警时间：">
+                  {{info.resAbnomaltime}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="故障类型：">
+                  {{info.abnormalTypeName}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="告警等级：" prop='resAbnormallevelId'>
+                  {{info.resAbnormallevelName}}
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 工单信息 -->
-          <div style="margin-bottom:20px">
-            <span style="margin-left:10px">
-              <Icon @click="expandCtrl('workflow')" :type="expand.workflow? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" style="margin-right:10px" /> 工单信息
+          <div class="mb20">
+            <span class="ml10">
+              <Icon class="mr10" @click="expandCtrl('workflow')" :type="expand.workflow? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" /> 工单信息
             </span>
-            <Button style="float:right" @click="expandCtrl('workflow')" type="text">{{expand.workflow? '收起': '展开'}}</Button>
-            <Row v-show="expand.workflow">
-              <Col span="6">
-              <FormItem class="m_form_item" label="工单标题：">
-                {{info.wfTitle}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="期望解决时长：">
-                {{info.hopetime ? info.hopetime + '小时': ''}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="最晚解决时长：">
-                {{info.deadtime ? info.deadtime + '小时': ''}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="创建人：">
-                {{info.username}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="联系电话：">
-                {{info.telephone}}
-              </FormItem>
-              </Col>
-              <Col span="14">
-              <FormItem class="m_form_item" label="故障描述：">
-                {{info.resAbnormaldesc}}
-              </FormItem>
-              </Col>
-              <Col span="24">
-              <FormItem class="m_form_item" label="附件：">
-                <div>
-                  <ul class="m_upload">
-                    <li v-for="(item, index) in info.url" :key="index">
-                      <Col span="3">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</Col>
-                      <Col span="2">
-                      <Button type="primary" v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
-                      <a v-if="isDownLoad(item)" :href="downloadUri(item)" :download="'222222'">
-                        <Button type="primary">下载</Button>
-                      </a>
-                      </Col>
-                      <Col span="1">&nbsp;</Col>
-                    </li>
-                  </ul>
-                </div>
-              </FormItem>
-              </Col>
+            <Button class="fr" @click="expandCtrl('workflow')" type="text">{{expand.workflow? '收起': '展开'}}</Button>
+            <Row :gutter="40" v-show="expand.workflow">
+              <i-col span="8">
+                <FormItem class="m_form_item" label="工单标题：">
+                  {{info.wfTitle}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="期望解决时长：">
+                  {{info.hopetime ? info.hopetime + '小时': ''}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="最晚解决时长：">
+                  {{info.deadtime ? info.deadtime + '小时': ''}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="创建人：">
+                  {{info.username}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="联系电话：">
+                  {{info.telephone}}
+                </FormItem>
+              </i-col>
+              <i-col span="12">
+                <FormItem class="m_form_item" label="故障描述：">
+                  {{info.resAbnormaldesc}}
+                </FormItem>
+              </i-col>
+              <i-col span="24">
+                <FormItem class="m_form_item" label="附件：">
+                  <div>
+                    <ul class="m_upload">
+                      <li v-for="(item, index) in info.url" :key="index">
+                        <i-col span="3">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</i-col>
+                        <i-col span="2">
+                          <Button type="primary" v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
+                          <a v-if="isDownLoad(item)" :href="downloadUri(item)" :download="'222222'">
+                            <Button type="primary">下载</Button>
+                          </a>
+                        </i-col>
+                        <i-col span="1">&nbsp;</i-col>
+                      </li>
+                    </ul>
+                  </div>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 审核信息 -->
-          <div style="margin-bottom:20px" v-if="info.currentStep > 1">
-            <span style="margin-left:10px">
-              <Icon @click="expandCtrl('review')" :type="expand.review? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" style="margin-right:10px" /> 审核信息
+          <div class="mb10" v-if="info.currentStep > 1">
+            <span class="ml10">
+              <Icon class="mr10" @click="expandCtrl('review')" :type="expand.review? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" /> 审核信息
             </span>
-            <Button style="float:right" @click="expandCtrl('review')" type="text">{{expand.review? '收起': '展开'}}</Button>
-            <Row v-show="expand.review">
-              <Col span="6">
-              <FormItem class="m_form_item" label="故障类型：">
-                {{info.abnormalTypeName}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="告警等级：">
-                {{info.resAbnormallevelName}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="派单人：">
-                {{info.wfReviewInfoModel.disName}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="联系电话">
-                {{info.wfReviewInfoModel.disPhone}}
-              </FormItem>
-              </Col>
-              <Col span="20">
-              <FormItem class="m_form_item" label="审核意见">
-                {{info.wfReviewInfoModel.reviewDesc}}
-              </FormItem>
-              </Col>
+            <Button class="fr" @click="expandCtrl('review')" type="text">{{expand.review? '收起': '展开'}}</Button>
+            <Row :gutter="40" v-show="expand.review">
+              <i-col span="8">
+                <FormItem class="m_form_item" label="故障类型：">
+                  {{info.abnormalTypeName}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="告警等级：">
+                  {{info.resAbnormallevelName}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="派单人：">
+                  {{info.wfReviewInfoModel.disName}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="联系电话">
+                  {{info.wfReviewInfoModel.disPhone}}
+                </FormItem>
+              </i-col>
+              <i-col span="12">
+                <FormItem class="m_form_item" label="审核意见">
+                  {{info.wfReviewInfoModel.reviewDesc}}
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 派单信息 -->
-          <div style="margin-bottom:20px" v-if="info.currentStep > 2">
-            <span style="margin-left:10px">
-              <Icon @click="expandCtrl('dispatch')" :type="expand.dispatch? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" style="margin-right:10px" /> 派发信息
+          <div class="mb10" v-if="info.currentStep > 2">
+            <span class="ml10">
+              <Icon class="mr10" @click="expandCtrl('dispatch')" :type="expand.dispatch? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" /> 派发信息
             </span>
             <Button style="float:right" @click="expandCtrl('dispatch')" type="text">{{expand.dispatch? '收起': '展开'}}</Button>
-            <Row v-show="expand.dispatch">
-              <Col span="6">
-              <FormItem class="m_form_item" label="维修人：">
-                {{info.wfDisInfoModel.overName}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="联系电话：">
-                {{info.wfDisInfoModel.overPhone }}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="14">
-              <FormItem class="m_form_item" label="派发意见：">
-                {{info.wfDisInfoModel.disInfo}}
-              </FormItem>
-              </Col>
+            <Row :gutter="40" v-show="expand.dispatch">
+              <i-col span="8">
+                <FormItem class="m_form_item" label="维修人：">
+                  {{info.wfDisInfoModel.overName}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="联系电话：">
+                  {{info.wfDisInfoModel.overPhone }}
+                </FormItem>
+              </i-col>
+              <i-col span="12">
+                <FormItem class="m_form_item" label="派发意见：">
+                  {{info.wfDisInfoModel.disInfo}}
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 查看故障 -->
-          <div style="margin-bottom:20px" v-if="info.currentStep > 3">
-            <span style="margin-left:10px">
-              <Icon @click="expandCtrl('lookthrough')" :type="expand.lookthrough? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" style="margin-right:10px" /> 查看故障
+          <div class="mb20" v-if="info.currentStep > 3">
+            <span class="ml10">
+              <Icon class="mr10" @click="expandCtrl('lookthrough')" :type="expand.lookthrough? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" /> 查看故障
             </span>
-            <Button style="float:right" @click="expandCtrl('lookthrough')" type="text">{{expand.lookthrough? '收起': '展开'}}</Button>
-            <Row v-show="expand.lookthrough">
-              <Col span="6">
-              <FormItem class="m_form_item" label="维修人：">
-                {{info.wfOverInfoModel.handleName}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="联系电话：">
-                {{info.wfOverInfoModel.handlePhone }}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem class="m_form_item" label="维修类型：">
-                <Checkbox disabled v-model="info.wfOverInfoModel.overType">拆除/维护中</Checkbox>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="14">
-              <FormItem class="m_form_item" label="故障描述：">
-                {{info.wfOverInfoModel.overInfo}}
-              </FormItem>
-              </Col>
-              <Col span="24">
-              <FormItem class="m_form_item" label="附件：">
-                <div>
-                  <ul class="m_upload">
-                    <li v-for="(item, index) in info.wfOverInfoModel.overFile.split('|')" :key="index">
-                      <Col span="3">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</Col>
-                      <Col span="2">
-                      <Button type="primary" v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
-                      <a v-if="isDownLoad(item)" :href="downloadUri(item)" :download="'222222'">
-                        <Button type="primary">下载</Button>
-                      </a>
-                      </Col>
-                      <Col span="1">&nbsp;</Col>
-                    </li>
-                  </ul>
-                </div>
-              </FormItem>
-              </Col>
+            <Button class="fr" @click="expandCtrl('lookthrough')" type="text">{{expand.lookthrough? '收起': '展开'}}</Button>
+            <Row :gutter="40" v-show="expand.lookthrough">
+              <i-col span="8">
+                <FormItem class="m_form_item" label="维修人：">
+                  {{info.wfOverInfoModel.handleName}}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="联系电话：">
+                  {{info.wfOverInfoModel.handlePhone }}
+                </FormItem>
+              </i-col>
+              <i-col span="8">
+                <FormItem class="m_form_item" label="维修类型：">
+                  <Checkbox disabled v-model="info.wfOverInfoModel.overType">拆除/维护中</Checkbox>
+                </FormItem>
+              </i-col>
+              <i-col span="12">
+                <FormItem class="m_form_item" label="故障描述：">
+                  {{info.wfOverInfoModel.overInfo}}
+                </FormItem>
+              </i-col>
+              <i-col span="24">
+                <FormItem class="m_form_item" label="附件：">
+                  <div>
+                    <ul class="m_upload">
+                      <li v-for="(item, index) in info.wfOverInfoModel.overFile.split('|')" :key="index">
+                        <i-col span="3">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</i-col>
+                        <i-col span="2">
+                          <Button type="primary" v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
+                          <a v-if="isDownLoad(item)" :href="downloadUri(item)" :download="'222222'">
+                            <Button type="primary">下载</Button>
+                          </a>
+                        </i-col>
+                        <i-col span="1">&nbsp;</i-col>
+                      </li>
+                    </ul>
+                  </div>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 处理工单 -->
-          <div style="margin-bottom:20px" v-if="info.currentStep > 4">
-            <span style="margin-left:10px">
-              <Icon @click="expandCtrl('handle')" :type="expand.handle? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" style="margin-right:10px" /> 处理工单
+          <div class="mb20" v-if="info.currentStep > 4">
+            <span class="ml10">
+              <Icon class="mr10" @click="expandCtrl('handle')" :type="expand.handle? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" /> 处理工单
             </span>
-            <Button style="float:right" @click="expandCtrl('handle')" type="text">{{expand.handle? '收起': '展开'}}</Button>
-            <Row v-show="expand.handle">
-              <Col span="6">
-              <FormItem class="m_form_item" label="维修类型：">
-                <Checkbox disabled v-model="info.wfHandleInfoModel.handleType">拆除/维护中</Checkbox>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="14">
-              <FormItem class="m_form_item" label="故障原因：">
-                {{info.wfHandleInfoModel.handleInfo}}
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="14">
-              <FormItem class="m_form_item" label="解决方法：">
-                {{info.wfHandleInfoModel.handleMethod}}
-              </FormItem>
-              </Col>
-              <Col span="24">
-              <FormItem class="m_form_item" label="附件：">
-                <div>
-                  <ul class="m_upload">
-                    <li v-for="(item, index) in info.wfHandleInfoModel.handleFile.split('|')" :key="index">
-                      <Col span="3">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</Col>
-                      <Col span="2">
-                      <Button type="primary" v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
-                      <a v-if="isDownLoad(item)" :href="downloadUri(item)" :download="'222222'">
-                        <Button type="primary">下载</Button>
-                      </a>
-                      </Col>
-                      <Col span="1">&nbsp;</Col>
-                    </li>
-                  </ul>
-                </div>
-              </FormItem>
-              </Col>
+            <Button class="fr" @click="expandCtrl('handle')" type="text">{{expand.handle? '收起': '展开'}}</Button>
+            <Row :gutter="40" v-show="expand.handle">
+              <i-col span="8">
+                <FormItem class="m_form_item" label="维修类型：">
+                  <Checkbox disabled v-model="info.wfHandleInfoModel.handleType">拆除/维护中</Checkbox>
+                </FormItem>
+              </i-col>
+              <i-col span="12">
+                <FormItem class="m_form_item" label="故障原因：">
+                  {{info.wfHandleInfoModel.handleInfo}}
+                </FormItem>
+              </i-col>
+              <i-col span="12">
+                <FormItem class="m_form_item" label="解决方法：">
+                  {{info.wfHandleInfoModel.handleMethod}}
+                </FormItem>
+              </i-col>
+              <i-col span="24">
+                <FormItem class="m_form_item" label="附件：">
+                  <div>
+                    <ul class="m_upload">
+                      <li v-for="(item, index) in info.wfHandleInfoModel.handleFile.split('|')" :key="index">
+                        <i-col span="3">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</i-col>
+                        <i-col span="2">
+                          <Button type="primary" v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
+                          <a v-if="isDownLoad(item)" :href="downloadUri(item)" :download="'222222'">
+                            <Button type="primary">下载</Button>
+                          </a>
+                        </i-col>
+                        <i-col span="1">&nbsp;</i-col>
+                      </li>
+                    </ul>
+                  </div>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 确认工单 -->
           <div style="margin-bottom:20px" v-if="info.currentStep > 5">
             <span style="margin-left:10px">
-              <Icon @click="expandCtrl('verify')" :type="expand.verify? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" style="margin-right:10px" /> 确认工单
+              <Icon class="mr10" @click="expandCtrl('verify')" :type="expand.verify? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" /> 确认工单
             </span>
-            <Button style="float:right" @click="expandCtrl('verify')" type="text">{{expand.verify? '收起': '展开'}}</Button>
-            <Row v-show="expand.verify">
-              <Col span="14">
-              <FormItem class="m_form_item" label="确认意见：">
-                {{info.wfConfirmInfoModel.confirmInfo}}
-              </FormItem>
-              </Col>
+            <Button class="fr" @click="expandCtrl('verify')" type="text">{{expand.verify? '收起': '展开'}}</Button>
+            <Row :gutter="40" v-show="expand.verify">
+              <i-col span="24">
+                <FormItem class="m_form_item" label="确认意见：">
+                  {{info.wfConfirmInfoModel.confirmInfo}}
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 基础评价 -->
@@ -449,39 +427,37 @@
             <span style="margin-left:10px">
               <Icon @click="expandCtrl('baseEval')" :type="expand.baseEval? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" style="margin-right:10px" /> 基层评价
             </span>
-            <Button style="float:right" @click="expandCtrl('baseEval')" type="text">{{expand.baseEval? '收起': '展开'}}</Button>
-            <Row v-show="expand.baseEval">
-              <Col span="6">
-              <FormItem class="m_form_item" label="评价得分：">
-                <Rate disabled allow-half v-model="info.wfBaseAppraInfoModel.baseAppraScore"></Rate>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="14">
-              <FormItem class="m_form_item" label="评价意见：">
-                {{info.wfBaseAppraInfoModel.baseAppraInfo}}
-              </FormItem>
-              </Col>
+            <Button class="fr" @click="expandCtrl('baseEval')" type="text">{{expand.baseEval? '收起': '展开'}}</Button>
+            <Row :gutter="40" v-show="expand.baseEval">
+              <i-col span="8">
+                <FormItem class="m_form_item" label="评价得分：">
+                  <Rate disabled allow-half v-model="info.wfBaseAppraInfoModel.baseAppraScore"></Rate>
+                </FormItem>
+              </i-col>
+              <i-col span="16">
+                <FormItem class="m_form_item" label="评价意见：">
+                  {{info.wfBaseAppraInfoModel.baseAppraInfo}}
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 科信评价 -->
-          <div style="margin-bottom:20px" v-if="info.wfStatus">
-            <span style="margin-left:10px">
-              <Icon @click="expandCtrl('kexinEval')" :type="expand.kexinEval? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" style="margin-right:10px" /> 科信评价
+          <div class="mb20" v-if="info.wfStatus">
+            <span class="ml10">
+              <Icon class="mr10" @click="expandCtrl('kexinEval')" :type="expand.kexinEval? 'md-arrow-dropdown': 'md-arrow-dropup'" size="18" /> 科信评价
             </span>
-            <Button style="float:right" @click="expandCtrl('kexinEval')" type="text">{{expand.kexinEval? '收起': '展开'}}</Button>
-            <Row v-show="expand.kexinEval">
-              <Col span="6">
-              <FormItem class="m_form_item" label="评价得分：">
-                <Rate disabled allow-half v-model="info.wfKexinAppraInfoModel.kexinAppraScore"></Rate>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="14">
-              <FormItem class="m_form_item" label="评价意见：">
-                {{info.wfKexinAppraInfoModel.kexinAppraInfo}}
-              </FormItem>
-              </Col>
+            <Button class="fr" @click="expandCtrl('kexinEval')" type="text">{{expand.kexinEval? '收起': '展开'}}</Button>
+            <Row :gutter="40" v-show="expand.kexinEval">
+              <i-col span="8">
+                <FormItem class="m_form_item" label="评价得分：">
+                  <Rate disabled allow-half v-model="info.wfKexinAppraInfoModel.kexinAppraScore"></Rate>
+                </FormItem>
+              </i-col>
+              <i-col span="16">
+                <FormItem class="m_form_item" label="评价意见：">
+                  {{info.wfKexinAppraInfoModel.kexinAppraInfo}}
+                </FormItem>
+              </i-col>
             </Row>
           </div>
         </TabPane>
@@ -723,7 +699,6 @@ export default {
           key: 'index',
           width: 80,
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           sortable: true,
           render: (h, { row }) => {
@@ -884,7 +859,7 @@ export default {
       return !this.imgType.includes(format)
     },
     downloadUri (url) { // 下载地址
-      return window.config.VUE_APP_IMAGE_HOST + url
+      return window.config.fileHost + url
     },
     handleView (url) { // 图片类型文件查看函数
       const index = url.lastIndexOf('.')
@@ -895,7 +870,7 @@ export default {
         render: (h) => {
           return h('img', {
             attrs: {
-              src: window.config.VUE_APP_IMAGE_HOST + url
+              src: window.config.fileHost + url
             },
             style: {
               display: 'block',

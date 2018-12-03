@@ -140,151 +140,151 @@
             <Icon type="md-arrow-dropdown" size="18" style="margin-right:10px" /> 资源信息
           </span>
           <Row>
-            <Col span="6">
-            <FormItem required prop='resId' label="资源名称">
-              <Input readonly v-model="form.resName" placeholder="请选择告警或选择资源"></Input>
-            </FormItem>
-            </Col>
-            <Col span="1" style="padding-left:10px">
-            <Button type="primary" @click="resource.show = true">选择</Button>
-            </Col>
-            <Col span="1">&nbsp;</Col>
-            <Col span="6">
-            <FormItem label="资源别名">
-              <Input readonly v-model="form.resAlias" placeholder="请选择告警或选择资源"></Input>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem required prop='resMtypeId' label="资源主类型">
-              <Input readonly v-model="form.resMtypeName" placeholder="请选择告警或选择资源"></Input>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem required prop='resStypeId' label="资源子类型">
-              <Input readonly v-model="form.resStypeName" placeholder="请选择告警或选择资源"></Input>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem label="IP地址">
-              <Input readonly v-model="form.resIpv4" placeholder="请选择告警或选择资源"></Input>
-            </FormItem>
-            </Col>
-            <Col span="14">
-            <FormItem label="资源地址">
-              <Input readonly v-model="form.resAddress" placeholder="请选择告警或选择资源"></Input>
-            </FormItem>
-            </Col>
+            <i-col span="6">
+              <FormItem prop='resId' label="资源名称">
+                <Input readonly v-model="form.resName" placeholder="请选择告警或选择资源"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="1" style="padding-left:10px">
+              <Button type="primary" @click="resource.show = true">选择</Button>
+            </i-col>
+            <i-col span="1">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem label="资源别名">
+                <Input readonly v-model="form.resAlias" placeholder="请选择告警或选择资源"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="2">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem prop='resMtypeId' label="资源主类型">
+                <Input readonly v-model="form.resMtypeName" placeholder="请选择告警或选择资源"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="2">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem prop='resStypeId' label="资源子类型">
+                <Input readonly v-model="form.resStypeName" placeholder="请选择告警或选择资源"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="2">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem label="IP地址">
+                <Input readonly v-model="form.resIpv4" placeholder="请选择告警或选择资源"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="14">
+              <FormItem label="资源地址">
+                <Input readonly v-model="form.resAddress" placeholder="请选择告警或选择资源"></Input>
+              </FormItem>
+            </i-col>
           </Row>
           <!-- 告警信息 -->
           <span style="margin-left:10px">
             <Icon type="md-arrow-dropdown" size="18" style="margin-right:10px" /> 告警信息
           </span>
           <Row>
-            <Col span="6">
-            <FormItem label="告警序号">
-              <Input readonly v-model="ids.resAbnormalId" placeholder="请先选择资源"></Input>
-            </FormItem>
-            </Col>
-            <Col span="1" style="padding-left:10px">
-            <Button type="primary" :disabled="abnormal.btnDisabled" @click="abnormal.show = true">选择</Button>
-            </Col>
-            <Col span="1">&nbsp;</Col>
-            <Col span="6">
-            <FormItem label="告警名称">
-              <Input readonly v-model='form.resAbnormalName' placeholder="请选择告警"></Input>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem label="告警时间">
-              <Input readonly v-model="form.resAbnomaltime" placeholder="请选择告警"></Input>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem required label="故障类型" prop='abnormalTypeId'>
-              <Select :disabled="abnormal.selectDisabled" v-model="ids.abnormalTypeId">
-                <Option v-for="item in type" :value="item.abnormalTypeId" :key="item.abnormalTypeId">{{ item.abnormalTypeName }}</Option>
-              </Select>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem required label="告警等级" prop='resAbnormallevelId'>
-              <Select :disabled="abnormal.selectDisabled" v-model="ids.resAbnormallevelId">
-                <Option v-for="item in level" :value="item.resAbnormallevelId" :key="item.resAbnormallevelId">{{ item.resAbnormallevelName }}</Option>
-              </Select>
-            </FormItem>
-            </Col>
+            <i-col span="6">
+              <FormItem label="告警序号">
+                <Input readonly v-model="ids.resAbnormalId" placeholder="请先选择资源"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="1" style="padding-left:10px">
+              <Button type="primary" :disabled="abnormal.btnDisabled" @click="abnormal.show = true">选择</Button>
+            </i-col>
+            <i-col span="1">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem label="告警名称">
+                <Input readonly v-model='form.resAbnormalName' placeholder="请选择告警"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="2">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem label="告警时间">
+                <Input readonly v-model="form.resAbnomaltime" placeholder="请选择告警"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="2">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem label="故障类型" prop='abnormalTypeId'>
+                <Select :disabled="abnormal.selectDisabled" v-model="ids.abnormalTypeId">
+                  <Option v-for="item in type" :value="item.abnormalTypeId" :key="item.abnormalTypeId">{{ item.abnormalTypeName }}</Option>
+                </Select>
+              </FormItem>
+            </i-col>
+            <i-col span="2">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem label="告警等级" prop='resAbnormallevelId'>
+                <Select :disabled="abnormal.selectDisabled" v-model="ids.resAbnormallevelId">
+                  <Option v-for="item in level" :value="item.resAbnormallevelId" :key="item.resAbnormallevelId">{{ item.resAbnormallevelName }}</Option>
+                </Select>
+              </FormItem>
+            </i-col>
           </Row>
           <!-- 工单信息 -->
           <span style="margin-left:10px">
             <Icon type="md-arrow-dropdown" size="18" style="margin-right:10px" /> 工单信息
           </span>
           <Row>
-            <Col span="6">
-            <FormItem required prop='wfTitle' label="工单标题">
-              <Input v-model="form.wfTitle" placeholder="请选择告警或选择资源"></Input>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem label="期望解决时长">
-              <Input readonly :value='hopeTime' placeholder="请选择告警或选择资源"></Input>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem label="最晚解决时长">
-              <Input readonly :value='deadTime' placeholder="请选择告警或选择资源"></Input>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem label="创建人">
-              <Input readonly v-model="form.creatorName" placeholder="请选择告警或选择资源"></Input>
-            </FormItem>
-            </Col>
-            <Col span="2">&nbsp;</Col>
-            <Col span="6">
-            <FormItem label="联系电话">
-              <Input v-model="form.telephone" placeholder="请输入联系电话"></Input>
-            </FormItem>
-            </Col>
-            <Col span="14">
-            <FormItem label="故障描述">
-              <Input type="textarea" v-model="form.resAbnormaldesc" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="请输入故障描述,最多输入120个汉字"></Input>
-            </FormItem>
-            </Col>
-            <Col span="14">
-            <FormItem label="附件">
-              <Upload ref="upload" :show-upload-list='false' :max-size='2048' :headers="uploadHeaders" :on-error='uploadError' :before-upload="beforeUpload" :on-preview="handleView" :on-success='uploadSuccess' :action="uploadUri">
-                <Button type="text" icon="ios-cloud-upload-outline">上传</Button>
-              </Upload>
-              <div v-if="uploadList && uploadList.length">
-                <ul class="m_upload">
-                  <li v-if="item.status === 'finished'" v-for="(item, index) in uploadList" :key="index">
-                    <Col span="6">{{item.name}}</Col>
-                    <Col span="2">
-                    <Button type="primary" v-if='!isDownLoad(item.name)' @click.native="handleView(item)">查看</Button>
-                    <a v-if="isDownLoad(item.name)" :href="downloadUri(item)" target="_blank" :download="'222222'">
-                      <Button type="primary">下载</Button>
-                    </a>
-                    </Col>
-                    <Col span="2">
-                    <Button type='text' @click.native="handleDeleteFile(item)">删除</Button>
-                    </Col>
-                    <Col span="2">
-                    &nbsp;
-                    </Col>
-                  </li>
-                </ul>
-              </div>
-            </FormItem>
-            </Col>
+            <i-col span="6">
+              <FormItem prop='wfTitle' label="工单标题">
+                <Input v-model="form.wfTitle" placeholder="请选择告警或选择资源"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="2">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem label="期望解决时长">
+                <Input readonly :value='hopeTime' placeholder="请选择告警或选择资源"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="2">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem label="最晚解决时长">
+                <Input readonly :value='deadTime' placeholder="请选择告警或选择资源"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="2">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem label="创建人">
+                <Input readonly v-model="form.creatorName" placeholder="请选择告警或选择资源"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="2">&nbsp;</i-col>
+            <i-col span="6">
+              <FormItem label="联系电话">
+                <Input v-model="form.telephone" placeholder="请输入联系电话"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="14">
+              <FormItem label="故障描述">
+                <Input type="textarea" v-model="form.resAbnormaldesc" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="请输入故障描述,最多输入120个汉字"></Input>
+              </FormItem>
+            </i-col>
+            <i-col span="14">
+              <FormItem label="附件">
+                <Upload ref="upload" :show-upload-list='false' :max-size='2048' :headers="uploadHeaders" :on-error='uploadError' :before-upload="beforeUpload" :on-preview="handleView" :on-success='uploadSuccess' :action="uploadUri">
+                  <Button type="text" icon="ios-cloud-upload-outline">上传</Button>
+                </Upload>
+                <div v-if="uploadList && uploadList.length">
+                  <ul class="m_upload">
+                    <li v-if="item.status === 'finished'" v-for="(item, index) in uploadList" :key="index">
+                      <i-col span="6">{{item.name}}</i-col>
+                      <i-col span="2">
+                        <Button type="primary" v-if='!isDownLoad(item.name)' @click.native="handleView(item)">查看</Button>
+                        <a v-if="isDownLoad(item.name)" :href="downloadUri(item)" target="_blank" :download="'222222'">
+                          <Button type="primary">下载</Button>
+                        </a>
+                      </i-col>
+                      <i-col span="2">
+                        <Button type='text' @click.native="handleDeleteFile(item)">删除</Button>
+                      </i-col>
+                      <i-col span="2">
+                        &nbsp;
+                      </i-col>
+                    </li>
+                  </ul>
+                </div>
+              </FormItem>
+            </i-col>
           </Row>
         </TabPane>
         <TabPane label="关联工单" name="relation">
@@ -332,6 +332,7 @@ import { Resource, PickPerson, Abnormal } from '_c/controls'
 import bus from '@/libs/bus'
 import _ from 'lodash'
 import { mapState } from 'vuex'
+import { getUserInfo } from '@/libs/util'
 export default {
   components: {
     Resource,
@@ -413,7 +414,6 @@ export default {
           title: '工单编码',
           key: 'moAbnormalName',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -427,7 +427,6 @@ export default {
           title: '工单标题',
           key: 'abnormalType',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -441,7 +440,6 @@ export default {
           title: '故障类型',
           key: 'resAbnormallevel',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -455,7 +453,6 @@ export default {
           title: '资源名称',
           key: 'resAbnormallevel',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -469,7 +466,6 @@ export default {
           title: '资源类型',
           key: 'resAbnormallevel',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -483,7 +479,6 @@ export default {
           title: '当前节点',
           key: 'resAbnormallevel',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -497,7 +492,6 @@ export default {
           title: '处理人',
           key: 'resAbnormallevel',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -511,7 +505,6 @@ export default {
           title: '创建人',
           key: 'resAbnormallevel',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -525,7 +518,6 @@ export default {
           title: '创建时间',
           key: 'resAbnormallevel',
           ellipsis: true,
-          className: 'fixHeight',
           align: 'center',
           render: (h, { row }) => {
             return h('span', {
@@ -543,7 +535,7 @@ export default {
             return h('div', [
               h('Icon', {
                 props: {
-                  type: 'ios-trash',
+                  type: window.config.DELETE_ICON,
                   color: '#04bbb7',
                   size: 20
                 },
@@ -669,9 +661,9 @@ export default {
     this.$watch('params', () => {
       if (!this.params.show) return
       // 创建人id赋值
-      this.ids.userId = window.localStorage.getItem('userInfo') ? JSON.parse(window.localStorage.getItem('userInfo')).userId : ''
-      this.form.telephone = window.localStorage.getItem('userInfo') ? JSON.parse(window.localStorage.getItem('userInfo')).telephone : ''
-      this.form.creatorName = window.localStorage.getItem('userInfo') ? JSON.parse(window.localStorage.getItem('userInfo')).name : ''
+      this.ids.userId = this.$store.state.user.userId
+      this.form.telephone = JSON.parse(getUserInfo()).mobile
+      this.form.creatorName = this.$store.state.user.username
     }, { deep: true })
 
     // 监控resource对象，若值发生改变，更新页面
@@ -688,7 +680,6 @@ export default {
           this.ids[currentItem] = ''
         }
       })
-      console.log({ ...this.form, ...this.ids })
       this.ids.resId = this.resource.data[0].resId // 这里只对资源id（resId）赋值修改，会触发对ids对象的监控函数
       bus.$emit('resIdChanged', this.ids.resId)
     }, { deep: true })
@@ -708,7 +699,6 @@ export default {
         }
       })
       this.form.wfTitle = this.ids.resAbnormalId !== '' ? this.form.resName + this.form.resAbnormalName : ''
-      console.log({ ...this.form, ...this.ids })
     }, { deep: true })
 
     // 监控ids对象，若resId有值，则匹配资源
@@ -808,7 +798,7 @@ export default {
     },
     beforeUpload (file) { // upload组件钩子，上传文件前，做对应限制操作，如文件数量的限制
       const check = this.uploadList.length < this.uploadLimit
-      if (!check) this.$Message.error(`最多上传${this.uploadLimit}个文件`)
+      if (!check) this.$Notice.error({ title: `最多上传${this.uploadLimit}个文件` })
       return check
     },
     uploadError (error, file, fileList) { // upload组件钩子，上传文件出错函数
@@ -894,6 +884,7 @@ export default {
           creatorName: ''
         }
         this.url = [] // 上传的附件路径集合
+        this.uploadList = []
         this.ids = { // id集合
           resAbnormalId: '', // 告警序号id
           abnormalTypeId: '', // 故障类型id

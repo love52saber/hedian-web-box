@@ -4,6 +4,7 @@ import routes from './routers'
 import store from '@/store'
 import iView from 'iview'
 import { setToken, getToken, setAppTitle, canTurnTo } from '@/libs/util'
+import _ from 'lodash'
 const { homeName } = window.config
 
 Vue.use(Router)
@@ -23,7 +24,7 @@ const LOGIN_PAGE_NAME = 'login'
  */
 const ROUTE_MAP = {
   home: 'home',
-  myOrder: '/myWorkflow/pageList',
+  myOrder: '/myWorkflow/pageListssss',
   repair: '/workflow/pageList',
   object: '/resBase/pageList',
   target: '/moKpi/pageList',
@@ -33,7 +34,7 @@ const ROUTE_MAP = {
   historyAbnormal: '/resMoAbnormalInfoH/pageList',
   ms: '/maintainStrategy/pageList',
   fms: '/fms/pageList',
-  organitionalUnit: '/sysDept/treeAll',
+  unit: '/sysDept/treeAll',
   user: '/sysUser/pageList',
   userGroup: '/sysGroup/pageList',
   role: '/sysRole/pageList',
@@ -43,7 +44,7 @@ const ROUTE_MAP = {
 }
 
 const turnTo = (to, next) => {
-  if (canTurnTo(ROUTE_MAP[to.name])) next()
+  if (canTurnTo(_.get(ROUTE_MAP, to.name, ''))) next()
   // 有权限，可访问
   else next({ replace: true, name: 'error_401' }) // 无权限，重定向到401页面
 }
@@ -67,10 +68,7 @@ router.beforeEach((to, from, next) => {
       name: homeName // 跳转到homeName页
     })
   } else {
-    // TODO:这里有问题,登录进来
-    next()
     if (store.state.user.hasGetInfo) {
-      // next()
       turnTo(to, next)
     } else {
       store
@@ -78,7 +76,6 @@ router.beforeEach((to, from, next) => {
         .then(user => {
           // 拉取用户信息，通过用户权限和跳转的页面的name来判断是否有权限访问;access必须是一个数组，如：['super_admin'] ['super_admin', 'admin']
           turnTo(to, next)
-          // next()
         })
         .catch(() => {
           setToken('')
