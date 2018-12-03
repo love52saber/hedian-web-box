@@ -37,12 +37,12 @@
 
 <template>
   <info-card class="g_latest_top_fault" title="最新TOP故障">
-    <span slot="extra" @click.stop='toMore' style="cursor:pointer">更多</span>
+    <span v-if="data.length >= 5" slot="extra" @click.stop='toMore' style="cursor:pointer">更多</span>
     <ul class="m_top_fault_list">
       <li class="nodata" v-if="data.length === 0">没有故障数据</li>
       <li v-for="(item,index) in data" :key="index + '-' +item.resAbnormalId" :title="item.resAbnormaldesc" class="u_top_fault_item">
         <div class="cell" :title="item.resAbnormaldesc">
-          <Tag :color="item.resColor" v-text="item.resAbnormallevel.resAbnormallevelName"></Tag>
+          <Tag :color="item.resAbnormallevelColor" v-text="item.resAbnormallevelName"></Tag>
         </div>
         <div class="cell"> {{item.resAbnomaltime | formatTime}}</div>
         <div class="cell" :title="item.resAbnormalName" v-text="item.resAbnormalName"></div>
