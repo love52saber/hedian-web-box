@@ -2,11 +2,11 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-12-02 16:09:35
+ * @Last Modified time: 2018-12-02 17:30:03
  * @desc: 用户类数据流
  */
 import * as userApi from '@/api/user'
-import { setToken, getToken, getUserInfo, setUserInfo } from '@/libs/util'
+import { setToken, getToken, getUserInfo, setUserInfo, setMenu, getMenu } from '@/libs/util'
 import _ from 'lodash'
 
 export default {
@@ -16,6 +16,7 @@ export default {
     avatorImgPath: '',
     token: getToken(),
     userInfo: '',
+    menu: '',
     access: '',
     forgotPassword: '',
     showUpdateUserInfoModal: false,
@@ -52,6 +53,11 @@ export default {
     setToken (state, token) {
       state.token = token
       setToken(token)
+    },
+    setMenu (state, menu) {
+      state.menu = menu
+      console.log('===menu===', menu)
+      setMenu(menu)
     },
     setUserInfo (state, user) {
       state.userInfo = user
@@ -135,7 +141,7 @@ export default {
             const data = res.data
             commit('setToken', data.token)
             commit('setUserInfo', data.user)
-            // setMenuNav(data.menuList)
+            if (data.menuList) commit('setMenu', data.menuList)
             resolve(res)
           })
           .catch(err => {
@@ -163,6 +169,10 @@ export default {
             commit('setUserId', user.userId)
             commit('setAccess', [])
             commit('setHasGetInfo', true)
+          }
+          if (getMenu()) {
+            const menu = JSON.parse(getMenu())
+            commit('setMenu', menu)
           }
           resolve()
         } catch (error) {

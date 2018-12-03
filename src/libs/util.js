@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-12-01 16:11:18
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-12-02 16:09:26
+ * @Last Modified time: 2018-12-03 09:06:05
  */
 import Cookies from 'js-cookie'
 // cookie保存的天数
@@ -12,6 +12,7 @@ export const TOKEN_KEY = 'token'
 export const USER_INFO = 'userInfo'
 export const APP_NAME = 'appName'
 export const MENU_NAV = 'menuNav'
+export const WHITE_LIST = ['error_401', 'error_404', 'error_500', 'login', 'home']
 
 /**
  * 设置token
@@ -26,6 +27,9 @@ export const setToken = token => {
  */
 export const setUserInfo = user => {
   Cookies.set(USER_INFO, user, { expires: window.config.cookieExpires || 1 })
+}
+export const setMenu = menu => {
+  window.localStorage.setItem(MENU_NAV, JSON.stringify(menu))
 }
 /**
  * 设置应用名
@@ -58,6 +62,11 @@ export const getUserInfo = () => {
   const userInfo = Cookies.get(USER_INFO)
   if (userInfo) return userInfo
   else return false
+}
+export const getMenu = () => {
+  const menu = window.localStorage.getItem(MENU_NAV)
+  if (menu) return menu
+  else return ''
 }
 /**
  * 获取应用名称
@@ -217,8 +226,10 @@ export const getNewTagList = (list, newRoute) => {
  * @param {*} access 用户权限数组，如 ['super_admin', 'admin']
  * @param {*} route 路由列表
  */
-const hasAccess = (access, route) => {
-  if (route.meta && route.meta.access) return hasOneOf(access, route.meta.access)
+const hasAccess = (name, route) => {
+  // if (route.meta && route.meta.access) return hasOneOf(access, route.meta.access)
+  if (hasOneOf(WHITE_LIST, [name])) return true
+  if (getMenu()) return getMenu().indexOf(name) > -1
   else return true
 }
 /**
@@ -229,16 +240,16 @@ const hasAccess = (access, route) => {
  * @description 用户是否可跳转到该页
  */
 export const canTurnTo = (name, access, routes) => {
-  const routePermissionJudge = list => {
-    return list.some(item => {
-      if (item.children && item.children.length) {
-        return routePermissionJudge(item.children)
-      } else if (item.name === name) {
-        return hasAccess(access, item)
-      }
-    })
-  }
-  return routePermissionJudge(routes)
+  // const routePermissionJudge = list => {
+  //   return list.some(item => {
+  //     if (item.children && item.children.length) {
+  //       return routePermissionJudge(item.children)
+  //     } else if (item.name === name) {
+  //       return hasAccess(access, item)
+  //     }
+  //   })
+  // }
+  return hasAccess(name)
 }
 
 /**
