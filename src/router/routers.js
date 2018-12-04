@@ -66,7 +66,7 @@ export default [
         name: 'myOrder',
         meta: {
           icon: 'md-reorder',
-          title: '我的工单(鉴权示例401)',
+          title: '我的工单',
           overNumber: 0
         },
         component: () => import('@/view/work-space/my-order.vue')

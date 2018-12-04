@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-12-01 16:11:18
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-12-03 09:06:05
+ * @Last Modified time: 2018-12-04 14:22:16
  */
 import Cookies from 'js-cookie'
 // cookie保存的天数
@@ -74,7 +74,7 @@ export const getMenu = () => {
 export const getAppName = () => {
   const appName = Cookies.get(APP_NAME)
   if (appName) return appName
-  else return ''
+  else return '智能运维管理系统'
 }
 /**
  * 是否有子路由
