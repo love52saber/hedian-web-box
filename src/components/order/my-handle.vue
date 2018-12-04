@@ -49,13 +49,18 @@
     <div class="u_page">
       <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="total" transfer />
     </div>
+    <order-detail :detail="detail" />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import OrderDetail from './detail'
 export default {
   name: 'MyHandle',
+  components: {
+    OrderDetail
+  },
   data () {
     return {
       pageIndex: 1,

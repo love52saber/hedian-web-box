@@ -4,13 +4,24 @@
     <div class="u_page">
       <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="total" transfer />
     </div>
+    <order-detail :detail="detail" />
+    <workflow ref="workflow" :params='workflow' />
+    <pick-person @pickCallback="submitToReview" type="workflow" :show='pickPersonShow' />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { PickPerson } from '_c/controls'
+import OrderDetail from './detail'
+import workflow from './workflow.vue'
 export default {
   name: 'MyTodo',
+  components: {
+    OrderDetail,
+    PickPerson,
+    workflow
+  },
   data () {
     return {
       pageIndex: 1,
@@ -274,6 +285,11 @@ export default {
     ...mapActions(['getOrderList']),
     pageChanged (e) {
       this.pageIndex = e
+    },
+    submitToReview ({ canSubmit }) { // 处在创建节点的工单提交转审核
+      this.pickPersonShow = false
+      if (!canSubmit) return
+      this.$refs.workflow.ok()
     }
   }
 }
