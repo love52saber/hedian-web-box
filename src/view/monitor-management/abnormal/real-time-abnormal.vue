@@ -82,7 +82,7 @@
       </div>
       <Table border ref="selection" height="461" @on-selection-change="selectionChange" :columns="columns" :data="realTimeAlarmList" />
       <div class="u_page">
-        <Page @on-change="pageChanged" :page-size='pageSize' :total="total" transfer />
+        <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="total" transfer />
       </div>
     </Card>
     <abnormal-detail :data="detail" />

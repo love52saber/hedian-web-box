@@ -17,7 +17,7 @@
           </div>
           <Table border ref="selection" :columns="columns" :data="userList" @on-selection-change="selectionChange"></Table>
           <div class="u_page">
-            <Page @on-change="pageChanged" :page-size='pageSize' :total="total" transfer />
+            <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="total" transfer />
           </div>
         </Card>
       </i-col>

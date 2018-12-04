@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-12-03 15:24:27
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-12-03 15:54:06
+ * @Last Modified time: 2018-12-04 10:09:58
  * @desc: 工单类数据流
  */
 import * as orderApi from '@/api/order'
@@ -11,10 +11,12 @@ export default {
   state: {
     orderList: [], // 维修工单列表
     orderTotal: 0, // 维修工单总数
+    myTodoList: [],
+    myTodoTotal: 0,
     myHandleList: [], // 我的处理
-    myHandleTotal: 0, // 我的处理总数
+    myHandleTotal: 0,
     myCreateList: [], // 我的创建列表
-    myCreateTotal: 0, // 我的创建总数
+    myCreateTotal: 0,
     SLA: '',
     flowMap: {
       '0': '创建',
@@ -48,25 +50,23 @@ export default {
   },
   mutations: {
     setOrderList (state, data) {
-      state.orderList = data
+      state.orderList = data.list
+      state.orderTotal = data.total
     },
-    setOrderTotal (state, num) {
-      state.orderTotal = num
+    setMyTodoList (state, data) {
+      state.myTodoList = data.list
+      state.myTodoTotal = data.total
     },
     setMyHandleList (state, data) {
-      state.myHandleList = data
-    },
-    setMyHandleTotal (state, num) {
-      state.myHandleTotal = num
+      state.myHandleList = data.list
+      state.myHandleTotal = data.total
     },
     setSLA (state, data) {
       state.SLA = data
     },
     setMyCreateList (state, data) {
-      state.myCreateList = data
-    },
-    setMyCreateTotal (state, data) {
-      state.myCreateTotal = data
+      state.myCreateList = data.list
+      state.myCreateTotal = data.total
     },
     setWfGroup (state, data) {
       state.wfGroup = data
@@ -94,7 +94,6 @@ export default {
             console.log('===工单列表===', res)
             resolve(res)
             if (!res) return
-            const data = res.data
             const { currentUser, handleId, userId } = params
             if (res.msg !== 'success') return
             res.data.list.map(item => {
@@ -103,15 +102,14 @@ export default {
               }
             })
             if (currentUser) {
-              commit('setMyTodo', res.data)
+              commit('setMyTodoList', res.data)
             } else if (handleId) {
-              commit('setMyHandle', res.data)
+              commit('setMyHandleList', res.data)
             } else if (userId) {
-              commit('setMyCreate', res.data)
+              commit('setMyCreateList', res.data)
             } else {
               commit('setOrderList', res.data)
             }
-            commit('setOrderTotal', data.total)
           })
           .catch(err => {
             reject(err)

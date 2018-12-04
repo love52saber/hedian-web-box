@@ -74,7 +74,7 @@
       </div>
       <Table border ref="selection" height="461" @on-selection-change="selectionChange" :columns="columns" :data="orderList" />
       <div class="u_page">
-        <Page @on-change="pageChanged" :page-size='pageSize' :total="total" transfer />
+        <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="total" transfer />
       </div>
     </Card>
     <create-order ref="create" :params='params' @submit="submit" />
@@ -416,27 +416,25 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('getOrderList', { vue: this, params: {} })
+    this.$store.dispatch('getOrderList', {})
   },
   watch: {
     pageIndex () {
-      this.$store.dispatch('getOrderList', { vue: this, params: { pageIndex: this.pageIndex, ...this.form } })
+      this.$store.dispatch('getOrderList', { pageIndex: this.pageIndex, ...this.form })
     }
   },
   computed: {
     ...mapState({
-      orderList: state => state.order.orderList.list,
+      orderList: state => state.order.orderList,
       flowMap: state => state.order.flowMap,
       wfStatusList: state => state.order.wfStatusList,
       userId: state => state.user.userId,
+      orderTotal: state => state.order.orderTotal,
       showConfirmModal: state => state.app.showConfirmModal
     }),
     total () {
-      const data = this.$store.state.order.orderList
-      if (data.total && data.total >= this.pageSize && data.list && !data.list.length) {
-        this.pageIndex -= 1
-      }
-      return data.total ? data.total : 1
+      if (this.orderTotal >= this.pageSize && this.orderList.length === 0) this.pageIndex -= 1
+      return this.orderTotal
     }
   },
   methods: {

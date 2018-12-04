@@ -24,7 +24,7 @@ const LOGIN_PAGE_NAME = 'login'
  */
 const ROUTE_MAP = {
   home: 'home',
-  myOrder: '/myWorkflow/pageListssss',
+  myOrder: '/myWorkflow/pageList',
   repair: '/workflow/pageList',
   object: '/resBase/pageList',
   target: '/moKpi/pageList',

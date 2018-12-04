@@ -66,7 +66,7 @@
       </div>
       <Table border ref="selection" height="503" :columns="columns" @on-selection-change="selectionChange" :data="fmsList" />
       <div class="u_page">
-        <Page @on-change="pageChanged" :page-size='pageSize' :total="total" transfer />
+        <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="total" transfer />
       </div>
     </Card>
     <fault-maintain-strategy-form ref="form" :form-data="formData" />

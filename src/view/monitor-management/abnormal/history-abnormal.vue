@@ -74,7 +74,7 @@
     <Card class="m_bottom_content" shadow bordered style="padding-top:20px">
       <Table border ref="selection" height="461" :columns="columns" :data="historyAbnormalList" />
       <div class="u_page">
-        <Page @on-change="pageChanged" :page-size='pageSize' :total="historyAbnormalTotal" transfer />
+        <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="historyAbnormalTotal" transfer />
       </div>
     </Card>
     <abnormal-detail :data="detail" />

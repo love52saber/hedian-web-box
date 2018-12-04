@@ -49,7 +49,7 @@
       </div>
       <Table border ref="selection" height="503" :columns="columns" @on-selection-change="selectionChange" :data="msList" />
       <div class="u_page">
-        <Page @on-change="pageChanged" :page-size='pageSize' :total="total" transfer />
+        <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="total" transfer />
       </div>
     </Card>
     <maintain-strategy-form ref="form" :form-data="formData" />

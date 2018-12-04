@@ -144,40 +144,40 @@
             </span>
             <Button style="float:right" @click="expandCtrl('resource')" type="text">{{expand.resource? '收起': '展开'}}</Button>
             <Row v-show="expand.resource">
-              <Col span="6">
-              <FormItem label="资源名称">
-                <Input readonly v-model="baseForm.resName" placeholder="请选择告警或选择资源"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="资源别名">
-                <Input readonly v-model="baseForm.resAlias" placeholder="请选择告警或选择资源"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="资源主类型">
-                <Input readonly v-model="baseForm.resMtypeName" placeholder="请选择告警或选择资源"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="资源子类型">
-                <Input readonly v-model="baseForm.resStypeName" placeholder="请选择告警或选择资源"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="IP地址">
-                <Input readonly v-model="baseForm.resIpv4" placeholder="请选择告警或选择资源"></Input>
-              </FormItem>
-              </Col>
-              <Col span="14">
-              <FormItem label="资源地址">
-                <Input readonly v-model="baseForm.resAddress" placeholder="请选择告警或选择资源"></Input>
-              </FormItem>
-              </Col>
+              <i-col span="6">
+                <FormItem label="资源名称">
+                  <Input readonly v-model="baseForm.resName" placeholder="请选择告警或选择资源"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="资源别名">
+                  <Input readonly v-model="baseForm.resAlias" placeholder="请选择告警或选择资源"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="资源主类型">
+                  <Input readonly v-model="baseForm.resMtypeName" placeholder="请选择告警或选择资源"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="资源子类型">
+                  <Input readonly v-model="baseForm.resStypeName" placeholder="请选择告警或选择资源"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="IP地址">
+                  <Input readonly v-model="baseForm.resIpv4" placeholder="请选择告警或选择资源"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="14">
+                <FormItem label="资源地址">
+                  <Input readonly v-model="baseForm.resAddress" placeholder="请选择告警或选择资源"></Input>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 告警信息 -->
@@ -187,36 +187,36 @@
             </span>
             <Button style="float:right" @click="expandCtrl('abnormal')" type="text">{{expand.abnormal? '收起': '展开'}}</Button>
             <Row v-show="expand.abnormal">
-              <Col span="6">
-              <FormItem label="告警序号">
-                <Input readonly v-model="baseForm.resAbnormalId" placeholder="告警序号"></Input>
-              </FormItem>
-              </Col>
+              <i-col span="6">
+                <FormItem label="告警序号">
+                  <Input readonly v-model="baseForm.resAbnormalId" placeholder="告警序号"></Input>
+                </FormItem>
+              </i-col>
 
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="告警名称">
-                <Input readonly v-model='baseForm.resAbnormalName' placeholder="告警名称"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="告警时间">
-                <Input readonly v-model="baseForm.resAbnomaltime" placeholder="告警时间"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="故障类型">
-                <Input readonly v-model="baseForm.abnormalTypeName" placeholder="故障类型"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="告警等级">
-                <Input readonly v-model="baseForm.resAbnormallevelName" placeholder="告警等级"></Input>
-              </FormItem>
-              </Col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="告警名称">
+                  <Input readonly v-model='baseForm.resAbnormalName' placeholder="告警名称"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="告警时间">
+                  <Input readonly v-model="baseForm.resAbnomaltime" placeholder="告警时间"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="故障类型">
+                  <Input readonly v-model="baseForm.abnormalTypeName" placeholder="故障类型"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="告警等级">
+                  <Input readonly v-model="baseForm.resAbnormallevelName" placeholder="告警等级"></Input>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 工单信息 -->
@@ -226,58 +226,58 @@
             </span>
             <Button style="float:right" @click="expandCtrl('workflow')" type="text">{{expand.workflow? '收起': '展开'}}</Button>
             <Row v-show="expand.workflow">
-              <Col span="6">
-              <FormItem label="工单标题">
-                <Input readonly v-model="baseForm.wfTitle" placeholder="工单标题"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="期望解决时长">
-                <Input readonly :value='baseForm.hopetime' placeholder="期望解决时长"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="最晚解决时长">
-                <Input readonly :value='baseForm.deadtime' placeholder="最晚解决时长"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="创建人">
-                <Input readonly v-model="baseForm.username" placeholder="创建人"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="联系电话">
-                <Input readonly v-model="baseForm.telephone" placeholder="联系电话"></Input>
-              </FormItem>
-              </Col>
-              <Col span="14">
-              <FormItem label="故障描述">
-                <Input readonly type="textarea" v-model="baseForm.resAbnormaldesc" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="故障描述"></Input>
-              </FormItem>
-              </Col>
-              <Col span="24">
-              <FormItem label="附件">
-                <div v-if="baseUrl && baseUrl.length">
-                  <ul class="m_upload">
-                    <li v-for="(item, index) in baseUrl" :key="index">
-                      <Col span="3">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</Col>
-                      <Col span="2">
-                      <Button type='text' v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
-                      <a v-if="isDownLoad(item)" :href="downloadUri(item)" target="_blank" :download="'test'">
-                        <Button type='text'>下载</Button>
-                      </a>
-                      </Col>
-                      <Col span="1">&nbsp; </Col>
-                    </li>
-                  </ul>
-                </div>
-              </FormItem>
-              </Col>
+              <i-col span="6">
+                <FormItem label="工单标题">
+                  <Input readonly v-model="baseForm.wfTitle" placeholder="工单标题"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="期望解决时长">
+                  <Input readonly :value='baseForm.hopetime' placeholder="期望解决时长"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="最晚解决时长">
+                  <Input readonly :value='baseForm.deadtime' placeholder="最晚解决时长"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="创建人">
+                  <Input readonly v-model="baseForm.username" placeholder="创建人"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="联系电话">
+                  <Input readonly v-model="baseForm.telephone" placeholder="联系电话"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="14">
+                <FormItem label="故障描述">
+                  <Input readonly type="textarea" v-model="baseForm.resAbnormaldesc" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="故障描述"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="24">
+                <FormItem label="附件">
+                  <div v-if="baseUrl && baseUrl.length">
+                    <ul class="m_upload">
+                      <li v-for="(item, index) in baseUrl" :key="index">
+                        <i-col span="3">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</i-col>
+                        <i-col span="2">
+                          <Button type='text' v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
+                          <a v-if="isDownLoad(item)" :href="downloadUri(item)" target="_blank" :download="'test'">
+                            <Button type='text'>下载</Button>
+                          </a>
+                        </i-col>
+                        <i-col span="1">&nbsp; </i-col>
+                      </li>
+                    </ul>
+                  </div>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 审核信息 -->
@@ -287,53 +287,53 @@
             </span>
             <Button style="float:right" @click="expandCtrl('review')" type="text">{{expand.review? '收起': '展开'}}</Button>
             <Row v-show="expand.review">
-              <Col span="6">
-              <FormItem required label="故障类型">
-                <Select :disabled="baseForm.resAbnormalId !== '' || currentStep !== 1" v-model="baseForm.abnormalTypeId">
-                  <Option v-for="item in type" :value="item.abnormalTypeId" :key="item.abnormalTypeId">{{ item.abnormalTypeName }}</Option>
-                </Select>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem required label="告警等级">
-                <Select :disabled="baseForm.resAbnormalId !== '' || currentStep !== 1" v-model="baseForm.resAbnormallevelId">
-                  <Option v-for="item in level" :value="item.resAbnormallevelId" :key="item.resAbnormallevelId">{{ item.resAbnormallevelName }}</Option>
-                </Select>
-              </FormItem>
-              </Col>
-              <Col span="1">&nbsp;</Col>
-              <Col span="6" v-if="currentStep === 1">
-              <FormItem label="维护单位">
-                <Input readonly v-model="deptName" placeholder="维护单位"></Input>
-                <div v-show="deptShow" style="border:1px #ccc solid;height:200px;position:absolute;z-index:999;width:100%;background:#fff;overflow:auto;top:-200px">
-                  <Tree class='m_tree' :data='tree'></Tree>
-                </div>
-              </FormItem>
-              </Col>
-              <Col span="1" v-if="currentStep === 1" style="padding-left:10px">
-              <Button type="primary" @click.stop="deptShow = true">选择</Button>
-              </Col>
-              <Col span="1">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="派单人">
-                <Select v-if="currentStep === 1" v-model="review.disUserId">
-                  <Option v-for="item in wfUserList" :value="item.userId" :key="item.userId">{{ item.name }}</Option>
-                </Select>
-                <Input v-else readonly v-model="review.disName" placeholder="派单人"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="联系电话">
-                <Input readonly :value="userPhone('review', 'disUserId', 'disPhone')" placeholder="联系电话"></Input>
-              </FormItem>
-              </Col>
-              <Col span="20">
-              <FormItem label="审核意见">
-                <Input type="textarea" :readonly="currentStep !==1" v-model="review.reviewDesc" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="审核意见，不超过120字"></Input>
-              </FormItem>
-              </Col>
+              <i-col span="6">
+                <FormItem required label="故障类型">
+                  <Select :disabled="baseForm.resAbnormalId !== '' || currentStep !== 1" v-model="baseForm.abnormalTypeId">
+                    <Option v-for="item in type" :value="item.abnormalTypeId" :key="item.abnormalTypeId">{{ item.abnormalTypeName }}</Option>
+                  </Select>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem required label="告警等级">
+                  <Select :disabled="baseForm.resAbnormalId !== '' || currentStep !== 1" v-model="baseForm.resAbnormallevelId">
+                    <Option v-for="item in level" :value="item.resAbnormallevelId" :key="item.resAbnormallevelId">{{ item.resAbnormallevelName }}</Option>
+                  </Select>
+                </FormItem>
+              </i-col>
+              <i-col span="1">&nbsp;</i-col>
+              <i-col span="6" v-if="currentStep === 1">
+                <FormItem label="维护单位">
+                  <Input readonly v-model="deptName" placeholder="维护单位"></Input>
+                  <div v-show="deptShow" style="border:1px #ccc solid;height:200px;position:absolute;z-index:999;width:100%;background:#fff;overflow:auto;top:-200px">
+                    <Tree class='m_tree' :data='tree'></Tree>
+                  </div>
+                </FormItem>
+              </i-col>
+              <i-col span="1" v-if="currentStep === 1" style="padding-left:10px">
+                <Button type="primary" @click.stop="deptShow = true">选择</Button>
+              </i-col>
+              <i-col span="1">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="派单人">
+                  <Select v-if="currentStep === 1" v-model="review.disUserId">
+                    <Option v-for="item in wfUserList" :value="item.userId" :key="item.userId">{{ item.name }}</Option>
+                  </Select>
+                  <Input v-else readonly v-model="review.disName" placeholder="派单人"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="联系电话">
+                  <Input readonly :value="userPhone('review', 'disUserId', 'disPhone')" placeholder="联系电话"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="20">
+                <FormItem label="审核意见">
+                  <Input type="textarea" :readonly="currentStep !==1" v-model="review.reviewDesc" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="审核意见，不超过120字"></Input>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 派发信息 -->
@@ -343,37 +343,37 @@
             </span>
             <Button style="float:right" @click="expandCtrl('dispatch')" type="text">{{expand.dispatch? '收起': '展开'}}</Button>
             <Row v-show="expand.dispatch">
-              <Col span="6" v-if="currentStep === 2">
-              <FormItem required label="维修单位">
-                <Input readonly v-model="deptName" placeholder="维护单位"></Input>
-                <div v-show="deptShow" style="border:1px #ccc solid;height:200px;position:absolute;z-index:999;width:100%;background:#fff;overflow:auto;top:-200px">
-                  <Tree class='m_tree' :data='tree'></Tree>
-                </div>
-              </FormItem>
-              </Col>
-              <Col span="1" v-if="currentStep === 2" style="padding-left:10px">
-              <Button type="primary" @click.stop="deptShow = true">选择</Button>
-              </Col>
-              <Col v-if="currentStep === 2" span="1">&nbsp;</Col>
-              <Col span="6">
-              <FormItem required label="查看人">
-                <Select v-if="currentStep === 2" v-model="dispatch.overUserId">
-                  <Option v-for="item in wfUserList" :value="item.userId" :key="item.userId">{{ item.name }}</Option>
-                </Select>
-                <Input v-else readonly v-model="dispatch.overName" placeholder="查看人"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="联系电话">
-                <Input readonly :value="userPhone('dispatch', 'overUserId', 'overPhone')" placeholder="联系电话"></Input>
-              </FormItem>
-              </Col>
-              <Col span="20">
-              <FormItem label="派发意见">
-                <Input type="textarea" :readonly="currentStep !==2" v-model="dispatch.disInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="派发意见，不超过120字"></Input>
-              </FormItem>
-              </Col>
+              <i-col span="6" v-if="currentStep === 2">
+                <FormItem required label="维修单位">
+                  <Input readonly v-model="deptName" placeholder="维护单位"></Input>
+                  <div v-show="deptShow" style="border:1px #ccc solid;height:200px;position:absolute;z-index:999;width:100%;background:#fff;overflow:auto;top:-200px">
+                    <Tree class='m_tree' :data='tree'></Tree>
+                  </div>
+                </FormItem>
+              </i-col>
+              <i-col span="1" v-if="currentStep === 2" style="padding-left:10px">
+                <Button type="primary" @click.stop="deptShow = true">选择</Button>
+              </i-col>
+              <i-col v-if="currentStep === 2" span="1">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem required label="查看人">
+                  <Select v-if="currentStep === 2" v-model="dispatch.overUserId">
+                    <Option v-for="item in wfUserList" :value="item.userId" :key="item.userId">{{ item.name }}</Option>
+                  </Select>
+                  <Input v-else readonly v-model="dispatch.overName" placeholder="查看人"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="联系电话">
+                  <Input readonly :value="userPhone('dispatch', 'overUserId', 'overPhone')" placeholder="联系电话"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="20">
+                <FormItem label="派发意见">
+                  <Input type="textarea" :readonly="currentStep !==2" v-model="dispatch.disInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="派发意见，不超过120字"></Input>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 查看故障 -->
@@ -383,68 +383,68 @@
             </span>
             <Button style="float:right" @click="expandCtrl('lookthrough')" type="text">{{expand.lookthrough? '收起': '展开'}}</Button>
             <Row v-show="expand.lookthrough">
-              <Col span="6" v-if="currentStep === 3">
-              <FormItem required label="维修单位">
-                <Input readonly v-model="deptName" placeholder="维修单位"></Input>
-                <div v-show="deptShow" style="border:1px #ccc solid;height:200px;position:absolute;z-index:999;width:100%;background:#fff;overflow:auto;top:-200px">
-                  <Tree class='m_tree' :data='tree'></Tree>
-                </div>
-              </FormItem>
-              </Col>
-              <Col span="1" v-if="currentStep === 3" style="padding-left:10px">
-              <Button type="primary" @click.stop="deptShow = true">选择</Button>
-              </Col>
-              <Col v-if="currentStep === 3" span="1">&nbsp;</Col>
-              <Col span="6">
-              <FormItem required label="查看人">
-                <Select v-if="currentStep === 3" v-model="lookthrough.handleUserId">
-                  <Option v-for="item in wfUserList" :value="item.userId" :key="item.userId">{{ item.name }}</Option>
-                </Select>
-                <Input v-else readonly v-model="lookthrough.handleName" placeholder="维修人"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="联系电话">
-                <Input readonly :value="userPhone('lookthrough', 'handleUserId', 'handlePhone')" placeholder="联系电话"></Input>
-              </FormItem>
-              </Col>
-              <Col :span="currentStep === 3 ? '20': '6'">
-              <FormItem label="">
-                <Checkbox :disabled="currentStep !==3" v-model="lookthrough.overType">拆除/维护中</Checkbox>
-              </FormItem>
-              </Col>
-              <Col span="20">
-              <FormItem label="查看意见">
-                <Input type="textarea" :readonly="currentStep !==3" v-model="lookthrough.overInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="查看意见，不超过120字"></Input>
-              </FormItem>
-              </Col>
-              <Col span="14">
-              <FormItem label="附件">
-                <Upload v-if="currentStep === 3" ref="upload" :show-upload-list='false' :max-size='2048' :headers="uploadHeaders" :on-error='uploadError' :before-upload="beforeUpload" :on-preview="handleView" :on-success='uploadSuccess' :action="uploadUri">
-                  <Button type="ghost" icon="ios-cloud-upload-outline">上传</Button>
-                </Upload>
-                <div v-if="lookthrough.overFile && lookthrough.overFile.length">
-                  <ul class="m_upload">
-                    <li v-for="(item, index) in lookthrough.overFile" :key="index+ 'lookthrough'">
-                      <Col span="6">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</Col>
-                      <Col span="2">
-                      <Button type="primary" v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
-                      <a v-if="isDownLoad(item)" :href="downloadUri(item)" target="_blank" :download="'222222'">
-                        <Button type="primary">下载</Button>
-                      </a>
-                      </Col>
-                      <Col v-if="currentStep === 3" span="2">
-                      <Button type="text" @click.native="handleDeleteFile(item)">删除</Button>
-                      </Col>
-                      <Col :span="currentStep === 3 ? 2: 3">
-                      &nbsp;
-                      </Col>
-                    </li>
-                  </ul>
-                </div>
-              </FormItem>
-              </Col>
+              <i-col span="6" v-if="currentStep === 3">
+                <FormItem required label="维修单位">
+                  <Input readonly v-model="deptName" placeholder="维修单位"></Input>
+                  <div v-show="deptShow" style="border:1px #ccc solid;height:200px;position:absolute;z-index:999;width:100%;background:#fff;overflow:auto;top:-200px">
+                    <Tree class='m_tree' :data='tree'></Tree>
+                  </div>
+                </FormItem>
+              </i-col>
+              <i-col span="1" v-if="currentStep === 3" style="padding-left:10px">
+                <Button type="primary" @click.stop="deptShow = true">选择</Button>
+              </i-col>
+              <i-col v-if="currentStep === 3" span="1">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem required label="查看人">
+                  <Select v-if="currentStep === 3" v-model="lookthrough.handleUserId">
+                    <Option v-for="item in wfUserList" :value="item.userId" :key="item.userId">{{ item.name }}</Option>
+                  </Select>
+                  <Input v-else readonly v-model="lookthrough.handleName" placeholder="维修人"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="联系电话">
+                  <Input readonly :value="userPhone('lookthrough', 'handleUserId', 'handlePhone')" placeholder="联系电话"></Input>
+                </FormItem>
+              </i-col>
+              <i-col :span="currentStep === 3 ? '20': '6'">
+                <FormItem label="">
+                  <Checkbox :disabled="currentStep !==3" v-model="lookthrough.overType">拆除/维护中</Checkbox>
+                </FormItem>
+              </i-col>
+              <i-col span="20">
+                <FormItem label="查看意见">
+                  <Input type="textarea" :readonly="currentStep !==3" v-model="lookthrough.overInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="查看意见，不超过120字"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="14">
+                <FormItem label="附件">
+                  <Upload v-if="currentStep === 3" ref="upload" :show-upload-list='false' :max-size='2048' :headers="uploadHeaders" :on-error='uploadError' :before-upload="beforeUpload" :on-preview="handleView" :on-success='uploadSuccess' :action="uploadUri">
+                    <Button type="default" icon="ios-cloud-upload-outline">上传</Button>
+                  </Upload>
+                  <div v-if="lookthrough.overFile && lookthrough.overFile.length">
+                    <ul class="m_upload">
+                      <li v-for="(item, index) in lookthrough.overFile" :key="index+ 'lookthrough'">
+                        <i-col span="6">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</i-col>
+                        <i-col span="2">
+                          <Button type="primary" v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
+                          <a v-if="isDownLoad(item)" :href="downloadUri(item)" target="_blank" :download="'222222'">
+                            <Button type="primary">下载</Button>
+                          </a>
+                        </i-col>
+                        <i-col v-if="currentStep === 3" span="2">
+                          <Button type="text" @click.native="handleDeleteFile(item)">删除</Button>
+                        </i-col>
+                        <i-col :span="currentStep === 3 ? 2: 3">
+                          &nbsp;
+                        </i-col>
+                      </li>
+                    </ul>
+                  </div>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 处理工单 -->
@@ -454,47 +454,47 @@
             </span>
             <Button style="float:right" @click="expandCtrl('handle')" type="text">{{expand.handle? '收起': '展开'}}</Button>
             <Row v-show="expand.handle">
-              <Col span="14">
-              <FormItem label="故障原因">
-                <Input type="textarea" :readonly="currentStep !==4" v-model="handle.handleInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="故障原因，不超过120字"></Input>
-              </FormItem>
-              </Col>
-              <Col span="6">
-              <FormItem label="维修类型">
-                <Checkbox :disabled="currentStep !==4" v-model="handle.handleType">拆除/维护中</Checkbox>
-              </FormItem>
-              </Col>
-              <Col span="14">
-              <FormItem label="解决方法">
-                <Input type="textarea" :readonly="currentStep !==4" v-model="handle.handleMethod" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="故障原因，不超过120字"></Input>
-              </FormItem>
-              </Col>
-              <Col span="14">
-              <FormItem label="附件">
-                <Upload v-if="currentStep === 4" ref="upload" :show-upload-list='false' :max-size='2048' :headers="uploadHeaders" :on-error='uploadError' :before-upload="beforeUpload" :on-preview="handleView" :on-success='uploadSuccess' :action="uploadUri">
-                  <Button type="ghost" icon="ios-cloud-upload-outline">上传</Button>
-                </Upload>
-                <div v-if="handle.handleFile && handle.handleFile.length">
-                  <ul class="m_upload">
-                    <li v-for="(item, index) in handle.handleFile" :key="index+ 'handle'">
-                      <Col span="6">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</Col>
-                      <Col span="2">
-                      <Button type="primary" v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
-                      <a v-if="isDownLoad(item)" :href="downloadUri(item)" target="_blank" :download="'222222'">
-                        <Button type="primary">下载</Button>
-                      </a>
-                      </Col>
-                      <Col v-if="currentStep === 4" span="2">
-                      <Button type='text' @click.native="handleDeleteFile(item)">删除</Button>
-                      </Col>
-                      <Col :span="currentStep === 4 ? 2 :3">
-                      &nbsp;
-                      </Col>
-                    </li>
-                  </ul>
-                </div>
-              </FormItem>
-              </Col>
+              <i-col span="14">
+                <FormItem label="故障原因">
+                  <Input type="textarea" :readonly="currentStep !==4" v-model="handle.handleInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="故障原因，不超过120字"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="6">
+                <FormItem label="维修类型">
+                  <Checkbox :disabled="currentStep !==4" v-model="handle.handleType">拆除/维护中</Checkbox>
+                </FormItem>
+              </i-col>
+              <i-col span="14">
+                <FormItem label="解决方法">
+                  <Input type="textarea" :readonly="currentStep !==4" v-model="handle.handleMethod" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="故障原因，不超过120字"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="14">
+                <FormItem label="附件">
+                  <Upload v-if="currentStep === 4" ref="upload" :show-upload-list='false' :max-size='2048' :headers="uploadHeaders" :on-error='uploadError' :before-upload="beforeUpload" :on-preview="handleView" :on-success='uploadSuccess' :action="uploadUri">
+                    <Button type="default" icon="ios-cloud-upload-outline">上传</Button>
+                  </Upload>
+                  <div v-if="handle.handleFile && handle.handleFile.length">
+                    <ul class="m_upload">
+                      <li v-for="(item, index) in handle.handleFile" :key="index+ 'handle'">
+                        <i-col span="6">{{item.substring(item.lastIndexOf('/')+1, item.length)}}</i-col>
+                        <i-col span="2">
+                          <Button type="primary" v-if='!isDownLoad(item)' @click.native="handleView(item)">查看</Button>
+                          <a v-if="isDownLoad(item)" :href="downloadUri(item)" target="_blank" :download="'222222'">
+                            <Button type="primary">下载</Button>
+                          </a>
+                        </i-col>
+                        <i-col v-if="currentStep === 4" span="2">
+                          <Button type='text' @click.native="handleDeleteFile(item)">删除</Button>
+                        </i-col>
+                        <i-col :span="currentStep === 4 ? 2 :3">
+                          &nbsp;
+                        </i-col>
+                      </li>
+                    </ul>
+                  </div>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 确认工单 -->
@@ -504,37 +504,37 @@
             </span>
             <Button style="float:right" @click="expandCtrl('verify')" type="text">{{expand.verify? '收起': '展开'}}</Button>
             <Row v-show="expand.verify">
-              <Col span="6" v-if="currentStep === 5">
-              <FormItem required label="基层评价单位">
-                <Input readonly v-model="deptName" placeholder="基层评价单位"></Input>
-                <div v-show="deptShow" style="border:1px #ccc solid;height:200px;position:absolute;z-index:999;width:100%;background:#fff;overflow:auto;top:-200px">
-                  <Tree class='m_tree' :data='tree'></Tree>
-                </div>
-              </FormItem>
-              </Col>
-              <Col span="1" v-if="currentStep === 5" style="padding-left:10px">
-              <Button @click.stop="deptShow = true">选择</Button>
-              </Col>
-              <Col v-if="currentStep === 5" span="1">&nbsp;</Col>
-              <Col span="6">
-              <FormItem required label="基层评价人">
-                <Select v-if="currentStep === 5" v-model="verify.baseAppraUserId">
-                  <Option v-for="item in wfUserList" :value="item.userId" :key="item.userId">{{ item.name }}</Option>
-                </Select>
-                <Input v-else readonly v-model="verify.baseAppraName" placeholder="基层评价人"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="联系电话">
-                <Input readonly :value="userPhone('verify', 'baseAppraUserId', 'baseAppraPhone')" placeholder="联系电话"></Input>
-              </FormItem>
-              </Col>
-              <Col span="14">
-              <FormItem label="确认意见">
-                <Input type="textarea" :readonly="currentStep !==5" v-model="verify.confirmInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="确认意见，不超过120字"></Input>
-              </FormItem>
-              </Col>
+              <i-col span="6" v-if="currentStep === 5">
+                <FormItem required label="基层评价单位">
+                  <Input readonly v-model="deptName" placeholder="基层评价单位"></Input>
+                  <div v-show="deptShow" style="border:1px #ccc solid;height:200px;position:absolute;z-index:999;width:100%;background:#fff;overflow:auto;top:-200px">
+                    <Tree class='m_tree' :data='tree'></Tree>
+                  </div>
+                </FormItem>
+              </i-col>
+              <i-col span="1" v-if="currentStep === 5" style="padding-left:10px">
+                <Button @click.stop="deptShow = true">选择</Button>
+              </i-col>
+              <i-col v-if="currentStep === 5" span="1">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem required label="基层评价人">
+                  <Select v-if="currentStep === 5" v-model="verify.baseAppraUserId">
+                    <Option v-for="item in wfUserList" :value="item.userId" :key="item.userId">{{ item.name }}</Option>
+                  </Select>
+                  <Input v-else readonly v-model="verify.baseAppraName" placeholder="基层评价人"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="联系电话">
+                  <Input readonly :value="userPhone('verify', 'baseAppraUserId', 'baseAppraPhone')" placeholder="联系电话"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="14">
+                <FormItem label="确认意见">
+                  <Input type="textarea" :readonly="currentStep !==5" v-model="verify.confirmInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="确认意见，不超过120字"></Input>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 基础评价 -->
@@ -544,31 +544,31 @@
             </span>
             <Button style="float:right" @click="expandCtrl('baseEval')" type="text">{{expand.baseEval? '收起': '展开'}}</Button>
             <Row v-show="expand.baseEval">
-              <Col span="6">
-              <FormItem required label="科信评价人">
-                <Select placeholder="请选择科信评价人" v-if="currentStep === 6" v-model="baseEval.kexinAppraUserId">
-                  <Option v-for="item in wfUserList" :value="item.userId" :key="item.userId">{{ item.name }}</Option>
-                </Select>
-                <Input v-else readonly v-model="baseEval.baseAppraName" placeholder="科信评价人"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="联系电话">
-                <Input readonly placeholder="联系电话"></Input>
-              </FormItem>
-              </Col>
-              <Col span="2">&nbsp;</Col>
-              <Col span="6">
-              <FormItem label="评价打分">
-                <Rate :disabled="currentStep !== 6" v-model="baseEval.baseAppraScore"></Rate>
-              </FormItem>
-              </Col>
-              <Col span="14">
-              <FormItem label="评价意见">
-                <Input type="textarea" :readonly="currentStep !==6" v-model="baseEval.baseAppraInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="评价意见，不超过120字"></Input>
-              </FormItem>
-              </Col>
+              <i-col span="6">
+                <FormItem required label="科信评价人">
+                  <Select placeholder="请选择科信评价人" v-if="currentStep === 6" v-model="baseEval.kexinAppraUserId">
+                    <Option v-for="item in wfUserList" :value="item.userId" :key="item.userId">{{ item.name }}</Option>
+                  </Select>
+                  <Input v-else readonly v-model="baseEval.baseAppraName" placeholder="科信评价人"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="联系电话">
+                  <Input readonly placeholder="联系电话"></Input>
+                </FormItem>
+              </i-col>
+              <i-col span="2">&nbsp;</i-col>
+              <i-col span="6">
+                <FormItem label="评价打分">
+                  <Rate :disabled="currentStep !== 6" v-model="baseEval.baseAppraScore"></Rate>
+                </FormItem>
+              </i-col>
+              <i-col span="14">
+                <FormItem label="评价意见">
+                  <Input type="textarea" :readonly="currentStep !==6" v-model="baseEval.baseAppraInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="评价意见，不超过120字"></Input>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
           <!-- 科信评价 -->
@@ -578,16 +578,16 @@
             </span>
             <Button style="float:right" @click="expandCtrl('kexinEval')" type="text">{{expand.kexinEval? '收起': '展开'}}</Button>
             <Row v-show="expand.kexinEval">
-              <Col span="6">
-              <FormItem label="评价打分">
-                <Rate :disabled="currentStep !== 7" v-model="kexinEval.kexinAppraScore"></Rate>
-              </FormItem>
-              </Col>
-              <Col span="14">
-              <FormItem label="评价意见">
-                <Input type="textarea" :readonly="currentStep !==7" v-model="kexinEval.kexinAppraInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="评价意见，不超过120字"></Input>
-              </FormItem>
-              </Col>
+              <i-col span="6">
+                <FormItem label="评价打分">
+                  <Rate :disabled="currentStep !== 7" v-model="kexinEval.kexinAppraScore"></Rate>
+                </FormItem>
+              </i-col>
+              <i-col span="14">
+                <FormItem label="评价意见">
+                  <Input type="textarea" :readonly="currentStep !==7" v-model="kexinEval.kexinAppraInfo" :maxlength='120' :autosize="{minRows: 2,maxRows: 4}" placeholder="评价意见，不超过120字"></Input>
+                </FormItem>
+              </i-col>
             </Row>
           </div>
         </TabPane>

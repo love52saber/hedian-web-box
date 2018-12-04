@@ -1,115 +1,65 @@
-<style lang="less">
-.g_mycreate_container {
-  .m_top {
-    // width: 98%;
-    position: relative;
-    border-radius: 5px;
-    margin: 5px 15px 0 15px;
-    background: #ffffff;
-    .u_form_item {
-      margin-bottom: 10px;
-    }
-  }
-  .m_bottom {
-    position: relative;
-    border-radius: 5px;
-    // margin: 15px 15px 0 15px;
-    padding-top: 5px;
-    background: #ffffff;
-    .m_btn_group {
-      margin-bottom: 16px;
-    }
-    .rate .ivu-rate-star-full:before,
-    .rate .ivu-rate-star-half .ivu-rate-star-content:before {
-      color: #27c5c1;
-    }
-    .fixHeight {
-      height: 36px;
-    }
-  }
-}
-</style>
 <template>
-  <div class="g_mycreate_container">
-    <Row>
-      <i-col :lg="24">
-        <div class="m_top">
-          <Form label-position="left" :label-width="85">
-            <Row>
-              <i-col span="6">
-                <FormItem class="u_form_item" label="工单类型：">
-                  <Select v-model="form.wfType" placeholder='请选择工单类型'>
-                    <Option :value="''">全部</Option>
-                    <Option :value="1">维修工单</Option>
-                  </Select>
-                </FormItem>
-              </i-col>
-              <i-col span="2">&nbsp;</i-col>
-              <i-col span="6">
-                <FormItem class="u_form_item" label="工单标题：">
-                  <Input v-model="form.wfTitle" placeholder='请输入工单标题' />
-                </FormItem>
-              </i-col>
-              <i-col span="2">&nbsp;</i-col>
-              <i-col span="6">
-                <FormItem class="u_form_item" label="告警等级：">
-                  <Input v-model="form.resAbnormallevelName" placeholder="请输入告警等级"></Input>
-                </FormItem>
-              </i-col>
-              <i-col span="6">
-                <FormItem class="u_form_item" label="创建期限：">
-                  <DatePicker v-model="time.beginTime" format="yyyy-MM-dd HH:mm:ss" @on-change="timeChanged('beginTime', $event)" type="datetime" style="width:45%" placeholder="请选择开始期限" />
-                  <span style="display:inline-block;width:10%;text-align:center">一</span>
-                  <DatePicker v-model="time.endTime" format="yyyy-MM-dd HH:mm:ss" type="datetime" style="width:45%" placeholder="请选择结束期限" />
-                </FormItem>
-              </i-col>
-              <i-col span="2">&nbsp;</i-col>
-              <i-col span="6">
-                <FormItem class="u_form_item" label="资源名称：">
-                  <Input v-model="form.resName" placeholder="请输入资源名称"></Input>
-                </FormItem>
-              </i-col>
-              <i-col span="2">&nbsp;</i-col>
-              <i-col span="6">
-                <FormItem class="u_form_item" label="工单状态:">
-                  <Select v-model="form.wfStatus">
-                    <Option :value="item.value" v-for="item in wfStatusList" :key="item.value">{{item.label}}</Option>
-                  </Select>
-                </FormItem>
-              </i-col>
-              <i-col span="6" style="float:right;margin-right:50px">
-                <Button type="primary" @click="query" style="width:72px;height:33px;background:#04bbb7;border:none;margin-right:20px">查询</Button>
-                <Button type="ghost" @click="empty" style="width:72px;height:33px;">重置</Button>
-              </i-col>
-            </Row>
-          </Form>
-        </div>
-      </i-col>
-    </Row>
-    <Row>
-      <i-col :lg="24">
-        <div class="m_bottom">
-          <Table border height='520' no-data-text='没有相关信息' :columns="columns" :data="orderList" />
-          <div class='u_page'>
-            <Page @on-change="pageChanged" :total="total" :current="pageIndex" :page-size="pageSize"></Page>
-          </div>
-        </div>
-      </i-col>
-    </Row>
-    <detail :detail='detail' />
+  <div>
+    <Form class="mb20" label-position="left" :label-width="85">
+      <Row :gutter="32">
+        <i-col :span="8">
+          <FormItem class="mb10" label="工单类型：">
+            <Select v-model="form.wfType" placeholder='请选择工单类型'>
+              <Option :value="''">全部</Option>
+              <Option :value="1">维修工单</Option>
+            </Select>
+          </FormItem>
+        </i-col>
+        <i-col :span="8">
+          <FormItem class="mb10" label="工单标题：">
+            <Input v-model="form.wfTitle" placeholder='请输入工单标题' />
+          </FormItem>
+        </i-col>
+        <i-col :span="8">
+          <FormItem class="mb10" label="告警等级：">
+            <Input v-model="form.resAbnormallevelName" placeholder="请输入告警等级"></Input>
+          </FormItem>
+        </i-col>
+        <i-col :span="8">
+          <FormItem class="mb10" label="创建期限：">
+            <DatePicker v-model="time.beginTime" format="yyyy-MM-dd HH:mm:ss" @on-change="timeChanged('beginTime', $event)" type="datetime" style="width:45%" placeholder="请选择开始期限" />
+            <span style="display:inline-block;width:10%;text-align:center">一</span>
+            <DatePicker v-model="time.endTime" format="yyyy-MM-dd HH:mm:ss" type="datetime" style="width:45%" placeholder="请选择结束期限" />
+          </FormItem>
+        </i-col>
+        <i-col :span="8">
+          <FormItem class="mb10" label="资源名称：">
+            <Input v-model="form.resName" placeholder="请输入资源名称"></Input>
+          </FormItem>
+        </i-col>
+        <i-col :span="8">
+          <FormItem class="mb10" label="工单状态:">
+            <Select v-model="form.wfStatus">
+              <Option :value="item.value" v-for="item in wfStatusList" :key="item.value">{{item.label}}</Option>
+            </Select>
+          </FormItem>
+        </i-col>
+        <i-col :push="18" :span="6">
+          <Button @click.stop="query" class="mr10" type="info">查询</Button>
+          <Button @click.stop="empty">重置</Button>
+        </i-col>
+      </Row>
+    </Form>
+    <Table border ref="selection" disabled-hover height='545' no-data-text='没有相关信息' :columns="columns" :data="myCreateList" />
+    <div class="u_page">
+      <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="total" transfer />
+    </div>
   </div>
 </template>
+
 <script>
-import detail from './detail'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
-  components: {
-    detail
-  },
+  name: 'MyCreate',
   data () {
     return {
       pageIndex: 1,
-      pageSize: 10,
+      pageSize: 12,
       form: {
         wfTitle: '', // 工单标题
         resAbnormallevelName: '', // 告警等级
@@ -330,60 +280,29 @@ export default {
       ]
     }
   },
-  created () {
-    this.$store.dispatch('getOrderList', { vue: this, params: { userId: this.userId } })
-  },
-  mounted () {
-    // 监控页码变更
-    this.$watch('pageIndex', () => {
-      this.$store.dispatch('getOrderList', { vue: this, params: { userId: this.userId, pageIndex: this.pageIndex, ...this.form } })
-    })
-  },
   computed: {
     ...mapState({
-      orderList: state => state.order.myCreate.list,
+      userId: state => state.user.userId,
+      myCreateList: state => state.order.myCreateList,
       flowMap: state => state.order.flowMap,
-      userId: state => state.user.info.userId || JSON.parse(localStorage.getItem('userInfo')).userId || '',
+      total: state => state.order.myCreateTotal,
       wfStatusList: state => state.order.wfStatusList
-    }),
-    total () {
-      const data = this.$store.state.order.myCreate
-      if (data.total && data.total >= this.pageSize && data.list && !data.list.length) {
-        this.pageIndex -= 1
-      }
-      return data.total ? data.total : 1
-    },
-    relation () {
-      return [{
-        value: 1,
-        label: '大于'
-      }, {
-        value: 2,
-        label: '小于'
-      }, {
-        value: 3,
-        label: '等于'
-      }, {
-        value: 4,
-        label: '大于等于'
-      }, {
-        value: 5,
-        label: '小于等于'
-      }]
-    },
-    score () { // 分数
-      return [1, 2, 3, 4, 5]
+    })
+  },
+  created () {
+    this.getOrderList({ userId: this.userId, pageSize: this.pageSize, pageIndex: this.pageIndex, ...this.form })
+  },
+  watch: {
+    pageIndex () {
+      this.getOrderList({ userId: this.userId, pageSize: this.pageSize, pageIndex: this.pageIndex, ...this.form })
     }
   },
   methods: {
-    query () { // 查询按钮点击事件
-      if (this.pageIndex !== 1) {
-        this.pageIndex = 1
-      } else {
-        this.$store.dispatch('getOrderList', { vue: this, params: { ...this.form, userId: this.userId } })
-      }
+    ...mapActions(['getOrderList']),
+    query () {
+      this.getOrderList({ userId: this.userId, pageSize: this.pageSize, pageIndex: this.pageIndex, ...this.form })
     },
-    empty () { // 重置按钮点击事件
+    empty () {
       this.form = {
         wfTitle: '', // 工单标题
         resAbnormallevelName: '', // 告警等级
@@ -391,19 +310,23 @@ export default {
         beginTime: '', // 开始时间
         endTime: '', // 结束时间
         currentUserName: '', // 处理人
-        wfType: '',
+        wfType: '', // 工单类型
         wfStatus: ''
-        // TODO:得分1个字段待加
+        // TODO:得分三个字段待加
       }
       this.time = {
         beginTime: '',
         endTime: ''
       }
-      this.$store.dispatch('getOrderList', { vue: this, params: { userId: this.userId } })
+      this.getOrderList({ userId: this.userId, pageIndex: this.pageIndex, pageSize: this.pageSize })
     },
-    pageChanged (e) { // 页码变化更新
+    pageChanged (e) {
       this.pageIndex = e
     }
   }
+
 }
 </script>
+
+<style>
+</style>

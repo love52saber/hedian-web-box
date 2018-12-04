@@ -155,6 +155,7 @@ export default {
     },
     reconnect () { // 30s断线重连
       setTimeout(() => {
+        if (window.location.href.indexOf('login') !== -1) return // 如果是在登录页，就不重新连接了，说来也奇怪，明明在destory前销毁了ws实例，但还是要重新连接，想不通
         this.initWebSocket()
       }, 30000)
     },

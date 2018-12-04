@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-30 14:01:08
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-12-03 13:21:17
+ * @Last Modified time: 2018-12-04 09:54:10
  * @Desc: 项目配置单独分离,方便打包后部署
  */
 window.config = {
