@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table border height='671' no-data-text='没有相关信息' :columns="columns" :data="todoList" />
+    <Table border no-data-text='没有相关信息' :columns="columns" :data="todoList" />
     <div class="u_page">
       <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="total" transfer />
     </div>

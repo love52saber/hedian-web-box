@@ -63,7 +63,8 @@ export default {
       minLogo,
       maxLogo,
       isFullscreen: false,
-      webSocket: null
+      webSocket: null,
+      timer: null
     }
   },
   created () {
@@ -71,6 +72,7 @@ export default {
     this.getRealTimeAlarmList()
   },
   beforeDestroy () {
+    if (this.timer) clearTimeout(this.timer)
     this.closeWebSocket()
   },
   computed: {
@@ -154,10 +156,11 @@ export default {
       this.webSocket.close()
     },
     reconnect () { // 30s断线重连
-      setTimeout(() => {
+      if (this.timer) clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
         if (window.location.href.indexOf('login') !== -1) return // 如果是在登录页，就不重新连接了，说来也奇怪，明明在destory前销毁了ws实例，但还是要重新连接，想不通
         this.initWebSocket()
-      }, 30000)
+      }, 10000)
     },
     turnToPage (route) {
       let { name, params, query } = {}
@@ -223,12 +226,6 @@ export default {
         name: window.config.homeName
       })
     }
-
-    // const elem = document.querySelector('.content-wrapper')
-    // const bodyHeight = document.body.offsetHeight
-    // const headerAndNavHeight = 104
-    // elem.style.height = `${bodyHeight - headerAndNavHeight}px`
-    // console.log(elem, bodyHeight)
   }
 }
 </script>

@@ -45,7 +45,7 @@
         </i-col>
       </Row>
     </Form>
-    <Table border ref="selection" disabled-hover height='545' no-data-text='没有相关信息' :columns="columns" :data="myHandleList" />
+    <Table border no-data-text='没有相关信息' :columns="columns" :data="myHandleList" />
     <div class="u_page">
       <Page @on-change="pageChanged" :current="pageIndex" :page-size='pageSize' :total="total" transfer />
     </div>
