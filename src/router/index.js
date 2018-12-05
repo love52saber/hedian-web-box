@@ -3,9 +3,16 @@ import Router from 'vue-router'
 import routes from './routers'
 import store from '@/store'
 import iView from 'iview'
-import { setToken, getToken, setAppTitle, canTurnTo } from '@/libs/util'
+import {
+  setToken,
+  getToken,
+  setAppTitle,
+  canTurnTo
+} from '@/libs/util'
 import _ from 'lodash'
-const { homeName } = window.config
+const {
+  homeName
+} = window.config
 
 Vue.use(Router)
 const router = new Router({
@@ -46,7 +53,12 @@ const ROUTE_MAP = {
 const turnTo = (to, next) => {
   if (canTurnTo(_.get(ROUTE_MAP, to.name, ''))) next()
   // 有权限，可访问
-  else next({ replace: true, name: 'error_401' }) // 无权限，重定向到401页面
+  else {
+    next({
+      replace: true,
+      name: 'error_401'
+    })
+  } // 无权限，重定向到401页面
 }
 
 router.beforeEach((to, from, next) => {

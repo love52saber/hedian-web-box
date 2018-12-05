@@ -12,7 +12,10 @@ import axios from '@/libs/api.request'
  * @param {*} username 用户名
  * @param {*} password 密码
  */
-export const login = ({ username, password }) => {
+export const login = ({
+  username,
+  password
+}) => {
   const data = {
     username,
     password
@@ -108,7 +111,9 @@ export const deleteUnit = deptId => {
  * @param {*} params 参数对象
  */
 export const getRoleList = params => {
-  const { pageIndex = 1, pageSize = 15, info = '' } = params
+  const {
+    pageIndex = 1, pageSize = 15, info = ''
+  } = params
   return axios.request({
     url: `/api/sysRole/pageList`,
     method: 'get',
@@ -180,11 +185,18 @@ export const deleteRole = roleId => {
  * @param {*} params
  */
 export const getUserList = params => {
-  const { deptId = '', pageIndex = 1, info = '', pageSize = 15 } = params
+  const {
+    deptId = '', pageIndex = 1, info = '', pageSize = 15
+  } = params
   return axios.request({
     url: '/api/sysUser/pageList',
     method: 'get',
-    params: { deptId, pageIndex, info, pageSize }
+    params: {
+      deptId,
+      pageIndex,
+      info,
+      pageSize
+    }
   })
 }
 
@@ -240,7 +252,9 @@ export const deleteUser = userId => {
  * @param {*} params 参数对象
  */
 export const getUserGroupList = params => {
-  const { pageIndex = 1, grpName = '', pageSize = 15, grpType = '' } = params
+  const {
+    pageIndex = 1, grpName = '', pageSize = 15, grpType = ''
+  } = params
   return axios.request({
     url: '/api/sysGroup/pageList',
     method: 'get',
