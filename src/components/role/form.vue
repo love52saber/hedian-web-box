@@ -22,7 +22,7 @@
       </FormItem>
       <FormItem label="权限：">
         <div class="tree_container">
-          <Tree @on-check-change="checked" :data="departmentTree" show-checkbox></Tree>
+          <Tree ref="tree" @on-check-change="checked" :data="departmentTree" show-checkbox></Tree>
         </div>
       </FormItem>
     </Form>
@@ -82,7 +82,8 @@ export default {
     }
   },
   methods: {
-    checked (e) {
+    checked () {
+      const e = this.$refs.tree.getCheckedAndIndeterminateNodes()
       this.menuIds = []
       e.forEach(item => {
         this.menuIds.push(item.id)
@@ -126,11 +127,11 @@ export default {
         title: node.name,
         expand: true,
         render: this.renderDepartmentNode,
-        checked: this.formData.info.menuIds && this.formData.info.menuIds.findIndex(item => item === node.menuId) !== -1,
+        checked: !!this.formData.info.menuIds && this.formData.info.menuIds.findIndex(item => item === node.menuId) !== -1 && node.childMenu.length === 0,
         disabled: this.formData.type === 0,
         children: []
       }
-      if (node.childMenu) {
+      if (node.childMenu && node.childMenu.length) {
         node.childMenu.forEach(e => {
           n.children.push(this.makeTree(e))
         })

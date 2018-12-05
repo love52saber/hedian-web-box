@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-30 14:01:08
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-12-04 14:53:14
+ * @Last Modified time: 2018-12-04 19:29:34
  * @Desc: 项目配置单独分离,方便打包后部署
  */
 window.config = {
@@ -75,7 +75,7 @@ window.config = {
   /**
    * @description api请求基础路径
    */
-  baseUrl: 'http://192.168.1.85:8081', // 开发环境请求基础路径
+  baseUrl: 'http://192.168.1.23:8099', // 开发环境请求基础路径
   // baseUrl: 'http://192.168.1.23:8099', // 生产环境请求基础路径，开发进行中需要被注释
 
   /**

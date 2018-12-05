@@ -22,6 +22,7 @@ const router = new Router({
 const LOGIN_PAGE_NAME = 'login'
 
 /**
+ * 跳转权鉴
  * 权鉴参数，key为路由内的页面name，value为后端配的url值
  * 权鉴是如何做的？
  * 登录后从登录接口拿到菜单menuList的返回值，存到本地，最初是想存cookie的，发现行不通，因为数据量超过限制，就存在本地了localStorage

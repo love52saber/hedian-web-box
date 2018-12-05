@@ -2,7 +2,7 @@
  * @Author: chenghao
  * @Date: 2018-11-17 14:09:19
  * @Last Modified by: chenghao
- * @Last Modified time: 2018-12-02 17:30:03
+ * @Last Modified time: 2018-12-04 17:48:58
  * @desc: 用户类数据流
  */
 import * as userApi from '@/api/user'
@@ -56,7 +56,6 @@ export default {
     },
     setMenu (state, menu) {
       state.menu = menu
-      console.log('===menu===', menu)
       setMenu(menu)
     },
     setUserInfo (state, user) {
