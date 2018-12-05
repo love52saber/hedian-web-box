@@ -38,7 +38,7 @@
       </FormItem>
       <FormItem label='角色：'>
         <CheckboxGroup v-model='form.roleIds'>
-          <Tooltip :content="item.roleName" placement="top-start" v-for="(item, index) in roleList" :key="index">
+          <Tooltip :content="item.roleName" placement="top-start" v-for="item in roleList" :key="item.roleId">
             <Checkbox :label="item.roleId">{{item.roleName}}</Checkbox>
           </Tooltip>
         </CheckboxGroup>
@@ -57,7 +57,7 @@
             <div class="m_user_list">
               <Input v-model='searchStr' placeholder='请输入姓名/用户名搜索' />
               <ul class="user">
-                <li :key='index' v-for='(item, index) in searchUser'>{{item.name}}/{{item.username}}
+                <li :key='item.userId' v-for='item in searchUser'>{{item.name}}/{{item.username}}
                   <Checkbox class="fr" v-model='item.checked' @on-change='change' :true-value="'true-'+ item.userId" :false-value="'false-'+ item.userId" :data-index="item.userId"></Checkbox>
                 </li>
               </ul>
@@ -67,7 +67,7 @@
             <div class="m_target_list">
               <span>已勾选了{{target.length}}位</span>
               <ul class="user">
-                <li :key="item.key" v-for="item in target">
+                <li :key="item.userId" v-for="item in target">
                   {{item.name}}/{{item.username}}
                   <Icon class="fr" @click="deleteUserFromTarget(item.userId)" size="18" style="cursor:pointer;margin-top:8px" color="#cecece" type="md-close-circle"></Icon>
                 </li>
@@ -150,7 +150,7 @@ export default {
           this.userList[indexInUserList].checked = `true-${this.userList[indexInUserList].userId}`
         }
         const indexInTarget = this.target.findIndex(v => v.userId === item)
-        if (indexInTarget === -1) {
+        if (indexInTarget === -1 && indexInUserList !== -1) {
           this.target.push(this.userList[indexInUserList])
         }
       })
